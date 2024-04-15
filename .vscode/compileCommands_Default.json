@@ -1,0 +1,26 @@
+[
+	{
+		"file": "C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\Source\\PROD_Wakgood\\PROD_Wakgood.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\.vscode\\compileCommands_Default\\PROD_Wakgood.1.rsp"
+		],
+		"directory": "C:\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\Source\\PROD_Wakgood\\PROD_Wakgood.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\.vscode\\compileCommands_Default\\PROD_Wakgood.1.rsp"
+		],
+		"directory": "C:\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\Source\\PROD_Wakgood\\PROD_Wakgood.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\junpy\\Desktop\\Projects\\repos\\PROD_Wakgood\\.vscode\\compileCommands_Default\\PROD_Wakgood.1.rsp"
+		],
+		"directory": "C:\\Epic Games\\UE_5.3\\Engine\\Source"
+	}
+]
