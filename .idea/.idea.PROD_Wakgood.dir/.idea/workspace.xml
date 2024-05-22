@@ -8,14 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f88dfc8e-81f2-489f-bd2e-6dbb83213d6c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PROD_Wakgood.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/PROD_Wakgood.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/MyClass.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/MyClass.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/PROD_Wakgood.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PROD_Wakgood/PROD_Wakgood.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Material.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Sample_Z-up_fbx.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Sample_Z-up_obj.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Z-up/Material.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Z-up/Sample_Z-up.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +154,10 @@
       <workItem from="1715964157447" duration="30395000" />
       <workItem from="1716041272852" duration="31391000" />
       <workItem from="1716109026912" duration="14442000" />
+      <workItem from="1716129859169" duration="1536000" />
+      <workItem from="1716170028916" duration="676000" />
+      <workItem from="1716203858536" duration="3061000" />
+      <workItem from="1716208724103" duration="2145000" />
     </task>
     <servers />
   </component>
