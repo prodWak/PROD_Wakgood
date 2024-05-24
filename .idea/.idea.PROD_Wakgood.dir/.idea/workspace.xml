@@ -7,16 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f88dfc8e-81f2-489f-bd2e-6dbb83213d6c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Material.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Sample_Z-up_fbx.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Sample_Z-up_obj.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Z-up/Material.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Characters/Z-up/Sample_Z-up.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="f88dfc8e-81f2-489f-bd2e-6dbb83213d6c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
