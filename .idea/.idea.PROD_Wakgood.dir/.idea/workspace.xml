@@ -7,37 +7,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f88dfc8e-81f2-489f-bd2e-6dbb83213d6c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4692cb40-51f5-4185-a7b5-6e190ba88166" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood.Target.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood/MyClass.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood/MyClass.h" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood/PROD_Wakgood.Build.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood/PROD_Wakgood.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/PROD_Wakgood/PROD_Wakgood.h" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2gbRBjHypt8k3anD17D44cQWhmI" />
+  <component name="ProjectId" id="2gadg82J9RNm0a8nO9vS5F4eF6A" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,7 +29,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Uproject.PROD_Wakgood.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop-world-map&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -139,21 +122,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f88dfc8e-81f2-489f-bd2e-6dbb83213d6c" name="Changes" comment="" />
-      <created>1715964156354</created>
+      <changelist id="4692cb40-51f5-4185-a7b5-6e190ba88166" name="Changes" comment="" />
+      <created>1715939731258</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1715964156354</updated>
-      <workItem from="1715964157447" duration="30395000" />
-      <workItem from="1716041272852" duration="31391000" />
-      <workItem from="1716109026912" duration="14442000" />
-      <workItem from="1716129859169" duration="1536000" />
-      <workItem from="1716170028916" duration="676000" />
-      <workItem from="1716203858536" duration="3061000" />
-      <workItem from="1716208724103" duration="2145000" />
-      <workItem from="1716554216124" duration="574000" />
-      <workItem from="1717076229565" duration="1707000" />
-      <workItem from="1717163792966" duration="1121000" />
+      <updated>1715939731258</updated>
+      <workItem from="1715939733776" duration="344000" />
+      <workItem from="1715940525127" duration="320000" />
     </task>
     <servers />
   </component>
