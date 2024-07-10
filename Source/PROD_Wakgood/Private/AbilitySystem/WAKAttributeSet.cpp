@@ -9,6 +9,8 @@ UWAKAttributeSet::UWAKAttributeSet()
 {
 	InitHealth(3.f);
 	InitMaxHealth(3.f);
+	InitDamage(1.f);
+	InitResist(1.f);
 }
 void UWAKAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {

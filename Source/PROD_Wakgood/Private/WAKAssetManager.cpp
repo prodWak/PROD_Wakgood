@@ -14,5 +14,5 @@ UWAKAssetManager& UWAKAssetManager::Get()
 void UWAKAssetManager::StartInitialLoading()
 {
 	Super::StartInitialLoading();
-	//FWAKGameplayTags::InitializeNativeGameplayTags();
+	FWAKGameplayTags::InitializeNativeGameplayTags();
 }

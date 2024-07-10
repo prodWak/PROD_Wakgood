@@ -73,7 +73,7 @@ AWAKTestCharacter::AWAKTestCharacter()
 	{
 		WeaponMeshDataTable = ObjectFinder.Object;
 	}
-	
+	CharacterType = FWAKGameplayTags::Get().Type_Normal;
 }
 
 void AWAKTestCharacter::BeginPlay()
@@ -94,10 +94,25 @@ void AWAKTestCharacter::BeginPlay()
 	
 }
 
+void AWAKTestCharacter::ApplyEffectToTarget(AActor* OtherActor, TSubclassOf<UGameplayEffect> EffectClass)
+{
+	if(const AWAKTestCharacter* Enemy = Cast<AWAKTestCharacter>(OtherActor))
+	{
+		check(DamageEffect);
+		UAbilitySystemComponent* EnemyASC = Enemy->GetAbilitySystemComponent();
+		FGameplayEffectContextHandle EffectContextHandle = EnemyASC->MakeEffectContext();
+		EffectContextHandle.AddSourceObject(this);
+		FGameplayEffectSpecHandle EffectSpecHandle = EnemyASC->MakeOutgoingSpec(DamageEffect, 1, EffectContextHandle);
+		Enemy->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data);
+	}
+	
+}
+
 UAbilitySystemComponent* AWAKTestCharacter::GetAbilitySystemComponent() const
 {
 	return ASC; 
 }
+
 
 void AWAKTestCharacter::SetWeaponOverlap(bool CanOverlap)
 {
@@ -151,7 +166,7 @@ void AWAKTestCharacter::OnWeaponBeginOverlap(UPrimitiveComponent* OverlappedComp
 {
 	if(OtherActor != this)
 	{
-			
+		ApplyEffectToTarget(OtherActor,DamageEffect);
 	}
 }
 

@@ -37,8 +37,8 @@ public:
 	ATTRIBUTE_ACCESSORS(UWAKAttributeSet, Damage)
 
 	UPROPERTY(BlueprintReadOnly, Category="Primary Category")
-	FGameplayAttributeData Resistant;
-	ATTRIBUTE_ACCESSORS(UWAKAttributeSet, Resistant)
+	FGameplayAttributeData Resist;
+	ATTRIBUTE_ACCESSORS(UWAKAttributeSet, Resist)
 	
 	
 };

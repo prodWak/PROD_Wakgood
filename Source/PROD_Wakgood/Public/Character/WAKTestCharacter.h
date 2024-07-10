@@ -70,6 +70,8 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	void ApplyEffectToTarget(AActor* OtherActor, TSubclassOf<UGameplayEffect> EffectClass);
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -77,9 +79,13 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UGameplayEffect> PrimaryEffect;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UGameplayEffect> DamageEffect;
 	//void AbilityActivateByTag();
 	void ChangeWeaponByTag();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+	UWAKAttributeSet* GetAttributeSet() const {return AttributeSet;}
 	void SetWeaponOverlap(bool CanOverlap);
 private:
 	UPROPERTY(EditAnywhere)
@@ -106,9 +112,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
     TObjectPtr<UWAKInputConfig> InputConfig;
 
+	FGameplayTag CharacterType;
 	
-	
-	UFUNCTION()
+		UFUNCTION()
 	void OnWeaponBeginOverlap(
 		UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,

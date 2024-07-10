@@ -17,7 +17,8 @@ public:
 	{
 		return WAKGameplayTags;
 	}
-	//static void InitializeNativeGameplayTags();
+	static void InitializeNativeGameplayTags();
+	//태그 목록
 	FGameplayTag Character_Form_Normal;
 	FGameplayTag Character_Form_Melee;
 	FGameplayTag Character_Form_Range;
@@ -27,6 +28,12 @@ public:
 	FGameplayTag InputTag_W;
 	FGameplayTag InputTag_E;
 	FGameplayTag InputTag_R;
+
+	FGameplayTag Type_Normal;
+	FGameplayTag Type_Water;
+	FGameplayTag Type_Iron;
+	FGameplayTag Type_Light;
+	FGameplayTag Type_Wind;
 	
 };
 
