@@ -59,5 +59,4 @@ void AInteractionBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor*
 void AInteractionBase::InteractionWithMe(AActor* target)
 {
 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Call InteractionWithMe")));
-	target->SetActorLocation(FVector(0.f, 0.f, 100.f));
 }

@@ -10,6 +10,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "MainGameInstance.h"
+#include "WorldPortal.h"
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -77,17 +80,12 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 
 	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnBeginOverlap);
 	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnEndOverlap);
-
-	// this->SetActorLocation(spawnLocation);
+	UGameInstance* GameInstance = GetGameInstance();
+	Cast<UMainGameInstance>(GameInstance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Input
-
-void ATP_ThirdPersonCharacter::setSpawnLocation(FVector newLocation)
-{
-	spawnLocation = newLocation;
-}
 
 void ATP_ThirdPersonCharacter::switchInteractInput()
 {
@@ -160,7 +158,7 @@ void ATP_ThirdPersonCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp,
 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnEndOverlap Called")));
 	if (InteractionTarget)
 	{
-		InteractionTarget = nullptr;		
+		InteractionTarget = nullptr;
 	}
 }
 

@@ -72,13 +72,16 @@ protected:
 	bool isInteractInput = false;
 
 	// spawn
-private:
+protected:
 	UPROPERTY(EditAnywhere)
-	FVector spawnLocation = FVector(0.f, 0.f, 200.f);
+	FVector LastLoc = {100.0f, 100.0f, 100.0f};
 
 public:
-	void setSpawnLocation(FVector newLocation);
-	FVector getSpawnLocation() { return spawnLocation; }
+	void setLastLoc(FVector loc) {LastLoc = loc;}
+	FVector getLastLoc() {return LastLoc;}
+	
+// public:
+// 	virtual void updateInteractionTarget(AActor* target) override;
 	
 public:
 	void switchInteractInput();
