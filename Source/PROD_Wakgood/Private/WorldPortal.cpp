@@ -13,7 +13,7 @@ AWorldPortal::AWorldPortal()
 
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 	WidgetComponent->SetupAttachment(RootComponent);
-	WidgetComponent->SetWidgetSpace(EWidgetSpace::World);
+	WidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	WidgetComponent->SetDrawSize(FVector2D(300, 100));
 }
 
