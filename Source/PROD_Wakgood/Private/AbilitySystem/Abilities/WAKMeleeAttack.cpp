@@ -33,7 +33,6 @@ void UWAKMeleeAttack::InputPressed(const FGameplayAbilitySpecHandle Handle, cons
 
 		AWAKTestCharacter* GameCharacter = Cast<AWAKTestCharacter>(ActorInfo->AvatarActor);
 		GameCharacter->SetWeaponOverlap(true);
-		
 	}
 	
 	

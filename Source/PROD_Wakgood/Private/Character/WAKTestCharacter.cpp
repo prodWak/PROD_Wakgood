@@ -18,6 +18,7 @@
 #include "Engine/DataTable.h"
 #include "Engine/StreamableManager.h"
 #include "Engine/AssetManager.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AWAKTestCharacter
@@ -62,18 +63,20 @@ AWAKTestCharacter::AWAKTestCharacter()
 	ASC = CreateDefaultSubobject<UWAKASC>("ASC");
 	AttributeSet = CreateDefaultSubobject<UWAKAttributeSet>("AttributeSet");
 
+	/*
 	Weapon = CreateDefaultSubobject<UStaticMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh());
 	Weapon->SetGenerateOverlapEvents(false);
 	Weapon->OnComponentBeginOverlap.AddDynamic(this,&AWAKTestCharacter::OnWeaponBeginOverlap);
+	*/
 	//Weapon->SetStaticMesh("");
 	
-	static ConstructorHelpers::FObjectFinder<UDataTable> ObjectFinder(TEXT("/Script/Engine.DataTable/Game/DataTable/DT_WeaponData.DT_WeaponData"));
+	/*static ConstructorHelpers::FObjectFinder<UDataTable> ObjectFinder(TEXT("/Script/Engine.DataTable/Game/DataTable/DT_WeaponData.DT_WeaponData"));
 	if(ObjectFinder.Succeeded())
 	{
 		WeaponMeshDataTable = ObjectFinder.Object;
-	}
-	CharacterType = FWAKGameplayTags::Get().Type_Normal;
+	}*/
+	CharacterType = FWAKGameplayTags::Get().Character_Type_Normal;
 }
 
 void AWAKTestCharacter::BeginPlay()
@@ -96,14 +99,23 @@ void AWAKTestCharacter::BeginPlay()
 
 void AWAKTestCharacter::ApplyEffectToTarget(AActor* OtherActor, TSubclassOf<UGameplayEffect> EffectClass)
 {
-	if(const AWAKTestCharacter* Enemy = Cast<AWAKTestCharacter>(OtherActor))
+	if(OtherActor)
 	{
 		check(DamageEffect);
-		UAbilitySystemComponent* EnemyASC = Enemy->GetAbilitySystemComponent();
+		UAbilitySystemComponent* EnemyASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor);
+		UGameplayEffect* Effect = NewObject<UGameplayEffect>(GetTransientPackage(),EffectClass);
+		if (EnemyASC == nullptr) return;
+		FGameplayEffectContextHandle EffectHandle = ASC->MakeEffectContext();
+		EffectHandle.AddSourceObject(this);
+		const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(EffectClass,1,EffectHandle);
+		FActiveGameplayEffectHandle ActiveHandle = ASC->ApplyGameplayEffectToTarget(Effect,EnemyASC,UGameplayEffect::INVALID_LEVEL,EffectHandle);
+		
+		/*
 		FGameplayEffectContextHandle EffectContextHandle = EnemyASC->MakeEffectContext();
 		EffectContextHandle.AddSourceObject(this);
 		FGameplayEffectSpecHandle EffectSpecHandle = EnemyASC->MakeOutgoingSpec(DamageEffect, 1, EffectContextHandle);
 		Enemy->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data);
+		*/
 	}
 	
 }

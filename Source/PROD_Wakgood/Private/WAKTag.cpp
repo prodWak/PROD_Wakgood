@@ -18,10 +18,10 @@ void FWAKGameplayTags::InitializeNativeGameplayTags()
 	WAKGameplayTags.InputTag_E = GameplayTagsManager.AddNativeGameplayTag(FName("InputTag.E"),FString("Input Q"));
 	WAKGameplayTags.InputTag_R = GameplayTagsManager.AddNativeGameplayTag(FName("InputTag.R"),FString("Input Q"));
 
-	WAKGameplayTags.Type_Normal = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Normal"),FString("Character Type Normal"));
-	WAKGameplayTags.Type_Iron = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Iron"),FString("Character Type Iron"));
-	WAKGameplayTags.Type_Light = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Iron"),FString("Character Type Iron"));
-	WAKGameplayTags.Type_Water = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Water"),FString("Character Type Water"));
-	WAKGameplayTags.Type_Wind = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Wind"),FString("Character Type Wind"));
+	WAKGameplayTags.Character_Type_Normal = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Normal"),FString("Character Type Normal"));
+	WAKGameplayTags.Character_Type_Iron = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Iron"),FString("Character Type Iron"));
+	WAKGameplayTags.Character_Type_Light = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Light"),FString("Character Type Light"));
+	WAKGameplayTags.Character_Type_Water = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Water"),FString("Character Type Water"));
+	WAKGameplayTags.Character_Type_Wind = GameplayTagsManager.AddNativeGameplayTag(FName("Character.Type.Wind"),FString("Character Type Wind"));
 	
 }

@@ -31,6 +31,8 @@ public:
 	void GiveAttackAbility(TArray<TSubclassOf<UGameplayAbility>> AttackAbility);
 	UFUNCTION()
 	void AbilityInputTagPressed(FGameplayTag InputTag);
+	UPROPERTY()
+	FGameplayTag CurrentFormTag;
 
 	UFUNCTION()
 	void ChangeAbility();
@@ -41,7 +43,6 @@ public:
 	
 	TArray<FGameplayAbilitySpec> AbilitySpecs;
 	FOnFormChange OnFormChange; 
-	FGameplayTag CurrentFormTag;
 
 	UPROPERTY(EditDefaultsOnly,Category="Attack Ability")
 	TSubclassOf<UGameplayAbility> NormalAttackAbility1;

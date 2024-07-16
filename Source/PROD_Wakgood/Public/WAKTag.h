@@ -29,11 +29,11 @@ public:
 	FGameplayTag InputTag_E;
 	FGameplayTag InputTag_R;
 
-	FGameplayTag Type_Normal;
-	FGameplayTag Type_Water;
-	FGameplayTag Type_Iron;
-	FGameplayTag Type_Light;
-	FGameplayTag Type_Wind;
+	FGameplayTag Character_Type_Normal;
+	FGameplayTag Character_Type_Water;
+	FGameplayTag Character_Type_Iron;
+	FGameplayTag Character_Type_Light;
+	FGameplayTag Character_Type_Wind;
 	
 };
 

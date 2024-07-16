@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/MMC/MMC_Health.h"
 
+#include "WAKTag.h"
 #include "AbilitySystem/WAKAttributeSet.h"
 
 UMMC_Health::UMMC_Health()
@@ -21,22 +22,22 @@ UMMC_Health::UMMC_Health()
 	RelevantAttributesToCapture.Add(SourceDamageDef);
 	RelevantAttributesToCapture.Add(TargetHealthDef);
 	RelevantAttributesToCapture.Add(TargetResistDef);
-	
-	Type_Normal = FGameplayTag::RequestGameplayTag(FName("Character.Type.Normal")); 
-	Type_Water = FGameplayTag::RequestGameplayTag(FName("Character.Type.Water"));
-	Type_Iron = FGameplayTag::RequestGameplayTag(FName("Character.Type.Iron"));
-	Type_Light = FGameplayTag::RequestGameplayTag(FName("Character.Type.Light"));
-	Type_Wind = FGameplayTag::RequestGameplayTag(FName("Character.Type.Wind"));
+
+	Type_Normal = FWAKGameplayTags::Get().Character_Form_Normal; 
+	Type_Water = FWAKGameplayTags::Get().Character_Type_Water; 
+	Type_Iron = FWAKGameplayTags::Get().Character_Type_Iron; 
+	Type_Light = FWAKGameplayTags::Get().Character_Type_Water; 
+	Type_Wind = FWAKGameplayTags::Get().Character_Type_Wind; 
 	
 }
 
 float UMMC_Health::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
 {
-	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
-	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
+	const FGameplayTagContainer SourceTags = GetSourceAggregatedTags(Spec);
+	const FGameplayTagContainer TargetTags = GetTargetAggregatedTags(Spec);
 	FAggregatorEvaluateParameters EvaluateParameters;
-	EvaluateParameters.SourceTags = SourceTags;
-	EvaluateParameters.TargetTags = TargetTags;
+	EvaluateParameters.SourceTags = &SourceTags;
+	EvaluateParameters.TargetTags = &TargetTags;
 	float Damage = 0.f;
 	GetCapturedAttributeMagnitude(SourceDamageDef,Spec,EvaluateParameters,Damage);
 
@@ -45,15 +46,17 @@ float UMMC_Health::CalculateBaseMagnitude_Implementation(const FGameplayEffectSp
 	GetCapturedAttributeMagnitude(TargetHealthDef,Spec,EvaluateParameters,Health);
 	float Resist = 0.f;
 	GetCapturedAttributeMagnitude(TargetResistDef,Spec,EvaluateParameters,Resist);
-	float EffectivenessMultiply = GetTypeEffectivenessMultiplier(SourceTags,TargetTags);
+	float EffectivenessMultiply = GetTypeEffectivenessMultiplier(EvaluateParameters.SourceTags,EvaluateParameters.TargetTags);
 	//현재체력 - (기본 데미지 + (기본 데미지 * 상성 배율) - ((저항력) * 상성 배율)
 	//float EvaluateDamage = Health - (Damage + (Damage * EffectivenessMultiply) - (Resist * EffectivenessMultiply));
 	float EvaluateDamage = Health - (TestDamage + (TestDamage * EffectivenessMultiply) - (Resist * EffectivenessMultiply));
+	
 	FString Test1 = FString::Printf(TEXT("EffectivnessMultiply Is : %f"),EffectivenessMultiply);
 	FString Test2 = FString::Printf(TEXT("Evaluate Damage Is : %f"),FMath::Clamp(EvaluateDamage,0.1f,1.0f));
 	GEngine->AddOnScreenDebugMessage(1,5.f,FColor::Red,Test1);
 	GEngine->AddOnScreenDebugMessage(2,5.f,FColor::Red,Test2);
-	return FMath::Clamp(EvaluateDamage,0.1f,1.0f) * -1.f; //이 값만큼 체력을 다운 시킴. 
+	
+	return FMath::Clamp(10,0.1f,1.0f) * -1.f; //이 값만큼 체력을 다운 시킴.
 }
 
 float UMMC_Health::GetTypeEffectivenessMultiplier(const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags) const
