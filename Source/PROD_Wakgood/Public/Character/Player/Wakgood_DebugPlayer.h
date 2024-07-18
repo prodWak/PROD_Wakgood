@@ -31,6 +31,8 @@ class PROD_WAKGOOD_API AWakgood_DebugPlayer : public ACharacter
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	TObjectPtr<UCameraComponent> FollowCamera;
 
+#pragma endregion
+
 #pragma region MOVEMENT
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputMappingContext> DefaultMappingContext;
@@ -40,6 +42,8 @@ class PROD_WAKGOOD_API AWakgood_DebugPlayer : public ACharacter
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> IA_Jump;
+
+#pragma endregion
 
 	///////////////
 	//	FUNCTION //
