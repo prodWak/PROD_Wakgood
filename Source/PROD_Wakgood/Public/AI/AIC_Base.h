@@ -14,13 +14,7 @@ class PROD_WAKGOOD_API AAIC_Base : public AAIController
 {
 	GENERATED_BODY()
 
-	TObjectPtr<APawn> TargetPawn;
-
 public:
 	AAIC_Base();
-
-	virtual void OnPossess(APawn* InPawn) override;
-
-	void SetTargetPawn(APawn* Target);
 	
 };
