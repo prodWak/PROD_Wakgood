@@ -14,8 +14,11 @@ public class PROD_Wakgood : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"EnhancedInput"
-		});
+			"EnhancedInput",
+            "NavigationSystem",
+			"AIModule",
+			"GamePlayTasks"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

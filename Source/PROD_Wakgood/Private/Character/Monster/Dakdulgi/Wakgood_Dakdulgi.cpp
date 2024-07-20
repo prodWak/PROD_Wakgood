@@ -35,7 +35,7 @@ AWakgood_Dakdulgi::AWakgood_Dakdulgi()
 	PlayerDetector->OnComponentBeginOverlap.AddDynamic(this, &AWakgood_Dakdulgi::BeginOverlap);
 	PlayerDetector->OnComponentEndOverlap.AddDynamic(this, &AWakgood_Dakdulgi::EndOverlap);
 
-	AIControllerClass = AAIC_Dakdulgi::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 void AWakgood_Dakdulgi::BeginPlay()
@@ -60,9 +60,7 @@ void AWakgood_Dakdulgi::MoveToward(FVector WorldDirection, float Value)
 void AWakgood_Dakdulgi::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult)
 {
 	if (AWakgood_DebugPlayer* Player = Cast<AWakgood_DebugPlayer>(OtherActor))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("BeginOverlap"));
-		
+	{		
 		AAIC_Dakdulgi* AIC_Dak = Cast<AAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(this));
 
 		if (AIC_Dak != nullptr)
@@ -76,8 +74,6 @@ void AWakgood_Dakdulgi::EndOverlap(UPrimitiveComponent* OverlapComp, AActor* Oth
 {
 	if (AWakgood_DebugPlayer* Player = Cast<AWakgood_DebugPlayer>(OtherActor))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("EndOverlap"));
-
 		AAIC_Dakdulgi* AIC_Dak = Cast<AAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(this));
 
 		if (AIC_Dak != nullptr)
