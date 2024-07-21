@@ -30,9 +30,5 @@ class PROD_WAKGOOD_API AWakgood_Dakdulgi : public AMonster_Base
 public:
 	AWakgood_Dakdulgi();
 
-	void MoveToward(FVector WorldDirection, float Value = 1.0f);
-
-protected:
-	virtual void BeginPlay() override;
-	
+	void MoveToward(FVector WorldDirection, float Value = 1.0f);	
 };

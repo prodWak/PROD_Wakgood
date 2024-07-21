@@ -16,36 +16,20 @@ class PROD_WAKGOOD_API AAIC_Dakdulgi : public AAIC_Base
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
-	TObjectPtr<APawn> TargetPawn;
-
-	UPROPERTY()
-	TObjectPtr<AWakgood_Dakdulgi> OwningDulgi;
-
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBehaviorTree> BT_Dakdulgi;
 
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_Dakdulgi;
 
-	// Timer
-	FTimerHandle RepeatTimerHandle;
-	float RepeatInterval;
-
-	void OnRepeatTimer();
-
 public:
 	AAIC_Dakdulgi();
 
 	static const FName HomePosKey;
 	static const FName PatrolPosKey;
-
-	// Target Setting
-	void SetTargetPawn(APawn* Target);
-	void InitTargetPawn();
+	static const FName TargetKey;
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
-	void Chase();
 };

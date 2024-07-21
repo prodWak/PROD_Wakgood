@@ -43,6 +43,7 @@ AWakgood_DebugPlayer::AWakgood_DebugPlayer()
 	GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -68.5));
 
 	GetCapsuleComponent()->SetCapsuleHalfHeight(66.0f);
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
 
 	// Y 이동 제한
 	GetCharacterMovement()->bConstrainToPlane = true;

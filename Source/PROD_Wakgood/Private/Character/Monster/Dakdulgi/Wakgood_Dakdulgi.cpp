@@ -29,18 +29,13 @@ AWakgood_Dakdulgi::AWakgood_Dakdulgi()
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);
 
-	PlayerDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("PlayerDetector"));
+	/*PlayerDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("PlayerDetector"));
 	PlayerDetector->SetupAttachment(GetRootComponent());
 	PlayerDetector->SetBoxExtent(FVector(100.0f, 100.0f, 50.0f));
 	PlayerDetector->OnComponentBeginOverlap.AddDynamic(this, &AWakgood_Dakdulgi::BeginOverlap);
-	PlayerDetector->OnComponentEndOverlap.AddDynamic(this, &AWakgood_Dakdulgi::EndOverlap);
+	PlayerDetector->OnComponentEndOverlap.AddDynamic(this, &AWakgood_Dakdulgi::EndOverlap);*/
 
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
-}
-
-void AWakgood_Dakdulgi::BeginPlay()
-{
-	Super::BeginPlay();
 }
 
 void AWakgood_Dakdulgi::MoveToward(FVector WorldDirection, float Value)
@@ -65,7 +60,7 @@ void AWakgood_Dakdulgi::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* O
 
 		if (AIC_Dak != nullptr)
 		{
-			AIC_Dak->SetTargetPawn(Player);
+			// AIC_Dak->SetTargetPawn(Player);
 		}
 	}
 }
@@ -78,7 +73,7 @@ void AWakgood_Dakdulgi::EndOverlap(UPrimitiveComponent* OverlapComp, AActor* Oth
 
 		if (AIC_Dak != nullptr)
 		{
-			AIC_Dak->InitTargetPawn();
+			// AIC_Dak->InitTargetPawn();
 		}
 	}
 }

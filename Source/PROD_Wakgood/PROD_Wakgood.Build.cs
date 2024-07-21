@@ -17,7 +17,7 @@ public class PROD_Wakgood : ModuleRules
 			"EnhancedInput",
             "NavigationSystem",
 			"AIModule",
-			"GamePlayTasks"
+            "GameplayTasks"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
