@@ -39,8 +39,3 @@ void AAIC_Dakdulgi::OnPossess(APawn* InPawn)
 		}
 	}
 }
-
-void AAIC_Dakdulgi::OnUnPossess()
-{
-	Super::OnUnPossess();
-}

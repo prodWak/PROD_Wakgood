@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AI/Behavior/BTService/BTService_Detect.h"
+#include "AI/Dakdulgi/Behavior/BTService/BTService_Detect.h"
 
 #include "Character/Player/Wakgood_DebugPlayer.h"
 #include "Character/Monster/Dakdulgi/Wakgood_Dakdulgi.h"
@@ -53,22 +53,19 @@ void UBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 			{
 				for (auto const& OverlapResult : OverlapResults)
 				{
-					AWakgood_DebugPlayer* Character = Cast<AWakgood_DebugPlayer>(OverlapResult.GetActor());
-					if (Character != nullptr && Character->GetController()->IsPlayerController())
+					AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OverlapResult.GetActor());
+					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::TargetKey, Character);
-						UE_LOG(LogTemp, Warning, TEXT("Target Detected"));
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::TargetKey, Target);
 
 						DrawDebugSphere(world, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
-						DrawDebugPoint(world, Character->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
-						DrawDebugLine(world, ControllingPawn->GetActorLocation(), Character->GetActorLocation(), FColor::Blue, false, 0.2f);
+						DrawDebugPoint(world, Target->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
+						DrawDebugLine(world, ControllingPawn->GetActorLocation(), Target->GetActorLocation(), FColor::Blue, false, 0.2f);
 						
 						return;
 					}
 				}
 			}
-
-			UE_LOG(LogTemp, Warning, TEXT("Target is not Detected"));
 			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::TargetKey, nullptr);
 		}
 	}

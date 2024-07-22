@@ -9,6 +9,7 @@
 
 // Kismet & BlueprintFunc
 #include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Player
 #include "Character/Player/Wakgood_DebugPlayer.h"
@@ -29,12 +30,6 @@ AWakgood_Dakdulgi::AWakgood_Dakdulgi()
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);
 
-	/*PlayerDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("PlayerDetector"));
-	PlayerDetector->SetupAttachment(GetRootComponent());
-	PlayerDetector->SetBoxExtent(FVector(100.0f, 100.0f, 50.0f));
-	PlayerDetector->OnComponentBeginOverlap.AddDynamic(this, &AWakgood_Dakdulgi::BeginOverlap);
-	PlayerDetector->OnComponentEndOverlap.AddDynamic(this, &AWakgood_Dakdulgi::EndOverlap);*/
-
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
@@ -52,28 +47,10 @@ void AWakgood_Dakdulgi::MoveToward(FVector WorldDirection, float Value)
 	}
 }
 
-void AWakgood_Dakdulgi::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult)
+void AWakgood_Dakdulgi::Attack()
 {
-	if (AWakgood_DebugPlayer* Player = Cast<AWakgood_DebugPlayer>(OtherActor))
-	{		
-		AAIC_Dakdulgi* AIC_Dak = Cast<AAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(this));
+	// Attack Logic...
 
-		if (AIC_Dak != nullptr)
-		{
-			// AIC_Dak->SetTargetPawn(Player);
-		}
-	}
-}
-
-void AWakgood_Dakdulgi::EndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	if (AWakgood_DebugPlayer* Player = Cast<AWakgood_DebugPlayer>(OtherActor))
-	{
-		AAIC_Dakdulgi* AIC_Dak = Cast<AAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(this));
-
-		if (AIC_Dak != nullptr)
-		{
-			// AIC_Dak->InitTargetPawn();
-		}
-	}
+	// Called by BTTaskNode Attack
+	OnAttackEnd.Broadcast();
 }
