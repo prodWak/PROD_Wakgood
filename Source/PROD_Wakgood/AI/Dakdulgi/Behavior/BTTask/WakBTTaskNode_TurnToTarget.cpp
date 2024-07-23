@@ -1,24 +1,24 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTaskNode_TurnToTarget.h"
+#include "WakBTTaskNode_TurnToTarget.h"
 
-#include "PROD_Wakgood/AI/Dakdulgi/AIC_Dakdulgi.h"
-#include "PROD_Wakgood/Character/Player/Wakgood_DebugPlayer.h"
-#include "PROD_Wakgood/Character/Monster/Dakdulgi/Wakgood_Dakdulgi.h"
+#include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
+#include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
+#include "PROD_Wakgood/Character/Monster/Dakdulgi/WakDakdulgi.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-UBTTaskNode_TurnToTarget::UBTTaskNode_TurnToTarget()
+UWakBTTaskNode_TurnToTarget::UWakBTTaskNode_TurnToTarget()
 {
 	NodeName = TEXT("Dakdulgi_TurnToTarget");
 }
 
-EBTNodeResult::Type UBTTaskNode_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UWakBTTaskNode_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	AWakgood_Dakdulgi* Dakdulgi = Cast<AWakgood_Dakdulgi>(OwnerComp.GetAIOwner()->GetPawn());
-	AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AAIC_Dakdulgi::Dakdulgi_TargetKey));
+	AWakDakdulgi* Dakdulgi = Cast<AWakDakdulgi>(OwnerComp.GetAIOwner()->GetPawn());
+	AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey));
 
 	if (Dakdulgi != nullptr && Target != nullptr)
 	{

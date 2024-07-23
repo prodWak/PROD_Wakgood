@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Wakgood_DebugPlayer.h"
+#include "WakDebugPlayer.h"
 
 // Camera
 #include "GameFramework/SpringArmComponent.h"
@@ -20,7 +20,7 @@
 // Kismet
 #include "Kismet/GameplayStatics.h"
 
-AWakgood_DebugPlayer::AWakgood_DebugPlayer()
+AWakDebugPlayer::AWakDebugPlayer()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -45,12 +45,10 @@ AWakgood_DebugPlayer::AWakgood_DebugPlayer()
 	GetCapsuleComponent()->SetCapsuleHalfHeight(66.0f);
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
 
-	// Y �̵� ����
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.0f, 1.0f, 0.0f));
 	GetCharacterMovement()->bUseFlatBaseForFloorChecks = true;
 
-	// ������ ������
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	GetCharacterMovement()->JumpZVelocity = 500.0f;
 	GetCharacterMovement()->GravityScale = 5.0f;
@@ -58,13 +56,12 @@ AWakgood_DebugPlayer::AWakgood_DebugPlayer()
 	GetCharacterMovement()->FallingLateralFriction = 50.0f;
 	JumpMaxHoldTime = 0.4f;
 
-	// ȸ��
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);
 }
 
-void AWakgood_DebugPlayer::BeginPlay()
+void AWakDebugPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -83,22 +80,22 @@ void AWakgood_DebugPlayer::BeginPlay()
 	
 }
 
-void AWakgood_DebugPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AWakDebugPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// Move
-		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AWakgood_DebugPlayer::Move);
+		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AWakDebugPlayer::Move);
 
 		// Jump
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &AWakgood_DebugPlayer::Jump);
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Completed, this, &AWakgood_DebugPlayer::StopJumping);
+		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &AWakDebugPlayer::Jump);
+		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Completed, this, &AWakDebugPlayer::StopJumping);
 	}
 }
 
-void AWakgood_DebugPlayer::Move(const FInputActionValue& Value)
+void AWakDebugPlayer::Move(const FInputActionValue& Value)
 {
 	FVector2D Input = Value.Get<FVector2D>();
 
@@ -112,7 +109,7 @@ void AWakgood_DebugPlayer::Move(const FInputActionValue& Value)
 	}
 }
 
-void AWakgood_DebugPlayer::UpdateMeshRotation(float Direction)
+void AWakDebugPlayer::UpdateMeshRotation(float Direction)
 {
 	if (Direction != 0.0f)
 	{

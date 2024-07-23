@@ -1,20 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AIC_Dakdulgi.h"
+#include "WakAIC_Dakdulgi.h"
 
 // Behavior
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AAIC_Dakdulgi::Dakdulgi_HomePosKey(TEXT("HomePos"));
-const FName AAIC_Dakdulgi::Dakdulgi_PatrolPosKey(TEXT("PatrolPos"));
-const FName AAIC_Dakdulgi::Dakdulgi_TargetKey(TEXT("Target"));
+const FName AWakAIC_Dakdulgi::Dakdulgi_HomePosKey(TEXT("HomePos"));
+const FName AWakAIC_Dakdulgi::Dakdulgi_PatrolPosKey(TEXT("PatrolPos"));
+const FName AWakAIC_Dakdulgi::Dakdulgi_TargetKey(TEXT("Target"));
 
-AAIC_Dakdulgi::AAIC_Dakdulgi()
+AWakAIC_Dakdulgi::AWakAIC_Dakdulgi()
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void AAIC_Dakdulgi::OnPossess(APawn* InPawn)
+void AWakAIC_Dakdulgi::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 

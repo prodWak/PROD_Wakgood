@@ -4,19 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTaskNode_FindPatrolPos.generated.h"
+#include "WakBTTaskNode_Wakmusae_FindPatrolPos.generated.h"
+
+// header error
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UBTTaskNode_FindPatrolPos : public UBTTaskNode
+class PROD_WAKGOOD_API UWakBTTaskNode_Wakmusae_FindPatrolPos : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 public:
-	UBTTaskNode_FindPatrolPos();
+	UWakBTTaskNode_Wakmusae_FindPatrolPos();
 
+protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	
 };

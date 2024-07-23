@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTaskNode_Attack.h"
+#include "WakBTTaskNode_Attack.h"
 
-#include "PROD_Wakgood/AI/Dakdulgi/AIC_Dakdulgi.h"
-#include "PROD_Wakgood/Character/Monster/Dakdulgi/Wakgood_Dakdulgi.h"
+#include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
+#include "PROD_Wakgood/Character/Monster/Dakdulgi/WakDakdulgi.h"
 
-UBTTaskNode_Attack::UBTTaskNode_Attack()
+UWakBTTaskNode_Attack::UWakBTTaskNode_Attack()
 {
 	NodeName = TEXT("Dakdulgi_Attack");
 
@@ -14,11 +14,11 @@ UBTTaskNode_Attack::UBTTaskNode_Attack()
 	IsAttacking = false;
 }
 
-EBTNodeResult::Type UBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UWakBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	AWakgood_Dakdulgi* Dakdulgi = Cast<AWakgood_Dakdulgi>(OwnerComp.GetAIOwner()->GetPawn());
+	AWakDakdulgi* Dakdulgi = Cast<AWakDakdulgi>(OwnerComp.GetAIOwner()->GetPawn());
 	if (Dakdulgi == nullptr)
 	{
 		return EBTNodeResult::Failed;
@@ -33,7 +33,7 @@ EBTNodeResult::Type UBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& Owne
 	return EBTNodeResult::InProgress;
 }
 
-void UBTTaskNode_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+void UWakBTTaskNode_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 

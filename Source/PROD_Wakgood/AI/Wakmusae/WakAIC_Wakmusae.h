@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PROD_Wakgood/AI/AIC_Base.h"
+#include "PROD_Wakgood/AI/WakAIC_Base.h"
 #include "WakAIC_Wakmusae.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API AWakAIC_Wakmusae : public AAIC_Base
+class PROD_WAKGOOD_API AWakAIC_Wakmusae : public AWakAIC_Base
 {
 	GENERATED_BODY()
 

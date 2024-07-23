@@ -4,23 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTaskNode_Attack.generated.h"
+#include "WakBTTaskNode_TurnToTarget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UBTTaskNode_Attack : public UBTTaskNode
+class PROD_WAKGOOD_API UWakBTTaskNode_TurnToTarget : public UBTTaskNode
 {
 	GENERATED_BODY()
 
-	bool IsAttacking;
-
 public:
-	UBTTaskNode_Attack();
-
+	UWakBTTaskNode_TurnToTarget();
+	
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-
-protected:
-	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+	
 };

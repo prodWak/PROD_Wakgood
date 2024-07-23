@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PROD_Wakgood/AI/AIC_Base.h"
-#include "AIC_Dakdulgi.generated.h"
+#include "PROD_Wakgood/AI/WakAIC_Base.h"
+#include "WakAIC_Dakdulgi.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API AAIC_Dakdulgi : public AAIC_Base
+class PROD_WAKGOOD_API AWakAIC_Dakdulgi : public AWakAIC_Base
 {
 	GENERATED_BODY()
 
@@ -21,7 +21,7 @@ class PROD_WAKGOOD_API AAIC_Dakdulgi : public AAIC_Base
 	TObjectPtr<UBlackboardData> BB_Dakdulgi;
 
 public:
-	AAIC_Dakdulgi();
+	AWakAIC_Dakdulgi();
 
 	static const FName Dakdulgi_HomePosKey;
 	static const FName Dakdulgi_PatrolPosKey;

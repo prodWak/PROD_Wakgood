@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTaskNode_TurnToTarget.generated.h"
+#include "WakBTTaskNode_Dakdulgi_FindPatrolPos.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UBTTaskNode_TurnToTarget : public UBTTaskNode
+class PROD_WAKGOOD_API UWakBTTaskNode_Dakdulgi_FindPatrolPos : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 public:
-	UBTTaskNode_TurnToTarget();
-	
+	UWakBTTaskNode_Dakdulgi_FindPatrolPos();
+
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Wakgood_DebugPlayer.generated.h"
+#include "WakDebugPlayer.generated.h"
 
 // Camera
 class USpringArmComponent;
@@ -16,7 +16,7 @@ class UInputAction;
 struct FInputActionValue;
 
 UCLASS()
-class PROD_WAKGOOD_API AWakgood_DebugPlayer : public ACharacter
+class PROD_WAKGOOD_API AWakDebugPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -54,7 +54,7 @@ class PROD_WAKGOOD_API AWakgood_DebugPlayer : public ACharacter
 	void UpdateMeshRotation(float Direction);
 
 public:
-	AWakgood_DebugPlayer();
+	AWakDebugPlayer();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:

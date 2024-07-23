@@ -1,18 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTaskNode_FindPatrolPos.h"
+#include "WakBTTaskNode_Dakdulgi_FindPatrolPos.h"
 
 #include "BehaviorTree/BlackboardComponent.h"
 #include "NavigationSystem.h"
-#include "PROD_Wakgood/AI/Dakdulgi/AIC_Dakdulgi.h"
+#include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
 
-UBTTaskNode_FindPatrolPos::UBTTaskNode_FindPatrolPos()
+UWakBTTaskNode_Dakdulgi_FindPatrolPos::UWakBTTaskNode_Dakdulgi_FindPatrolPos()
 {
 	NodeName = TEXT("Dakdulgi_FindPatrolPos");
 }
 
-EBTNodeResult::Type UBTTaskNode_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UWakBTTaskNode_Dakdulgi_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
@@ -24,14 +24,14 @@ EBTNodeResult::Type UBTTaskNode_FindPatrolPos::ExecuteTask(UBehaviorTreeComponen
 
 		if (NavSys != nullptr)
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AAIC_Dakdulgi::Dakdulgi_HomePosKey);
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_Dakdulgi::Dakdulgi_HomePosKey);
 			FNavLocation NextPatrol;
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
 				// ��� �̵�
 				NextPatrol.Location.Y = 0;
-				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AAIC_Dakdulgi::Dakdulgi_PatrolPosKey, NextPatrol.Location);
+				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Dakdulgi::Dakdulgi_PatrolPosKey, NextPatrol.Location);
 				return EBTNodeResult::Succeeded;
 			}
 		}
