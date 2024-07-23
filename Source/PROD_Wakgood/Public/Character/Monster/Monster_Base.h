@@ -15,9 +15,4 @@ class PROD_WAKGOOD_API AMonster_Base : public ACharacter
 
 public:
 	AMonster_Base();
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-protected:
-	virtual void BeginPlay() override;
-
 };

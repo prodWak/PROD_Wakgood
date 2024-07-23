@@ -9,7 +9,7 @@
 
 UBTDecorator_IsInAttackRange::UBTDecorator_IsInAttackRange()
 {
-	NodeName = TEXT("CanAttack");
+	NodeName = TEXT("Dakdulgi_CanAttack");
 
 	AttackRadius = 200.0f;
 }
@@ -21,7 +21,7 @@ bool UBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeCompo
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
-		AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AAIC_Dakdulgi::TargetKey));
+		AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AAIC_Dakdulgi::Dakdulgi_TargetKey));
 		if (Target != nullptr)
 		{
 			bResult = (Target->GetDistanceTo(ControllingPawn) <= AttackRadius);

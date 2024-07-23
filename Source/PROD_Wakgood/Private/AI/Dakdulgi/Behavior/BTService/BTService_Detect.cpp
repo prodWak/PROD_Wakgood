@@ -12,7 +12,7 @@
 
 UBTService_Detect::UBTService_Detect()
 {
-	NodeName = TEXT("Detect");
+	NodeName = TEXT("Dakdulgi_Detect");
 	Interval = 1.0f;
 }
 
@@ -56,7 +56,7 @@ void UBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 					AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::TargetKey, Target);
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::Dakdulgi_TargetKey, Target);
 
 						DrawDebugSphere(world, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
 						DrawDebugPoint(world, Target->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
@@ -66,7 +66,7 @@ void UBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::TargetKey, nullptr);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AAIC_Dakdulgi::Dakdulgi_TargetKey, nullptr);
 		}
 	}
 }

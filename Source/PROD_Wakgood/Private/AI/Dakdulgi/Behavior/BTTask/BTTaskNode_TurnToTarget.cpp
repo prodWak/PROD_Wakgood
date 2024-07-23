@@ -10,7 +10,7 @@
 
 UBTTaskNode_TurnToTarget::UBTTaskNode_TurnToTarget()
 {
-	NodeName = TEXT("TurnToTarget");
+	NodeName = TEXT("Dakdulgi_TurnToTarget");
 }
 
 EBTNodeResult::Type UBTTaskNode_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -18,7 +18,7 @@ EBTNodeResult::Type UBTTaskNode_TurnToTarget::ExecuteTask(UBehaviorTreeComponent
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	AWakgood_Dakdulgi* Dakdulgi = Cast<AWakgood_Dakdulgi>(OwnerComp.GetAIOwner()->GetPawn());
-	AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AAIC_Dakdulgi::TargetKey));
+	AWakgood_DebugPlayer* Target = Cast<AWakgood_DebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AAIC_Dakdulgi::Dakdulgi_TargetKey));
 
 	if (Dakdulgi != nullptr && Target != nullptr)
 	{

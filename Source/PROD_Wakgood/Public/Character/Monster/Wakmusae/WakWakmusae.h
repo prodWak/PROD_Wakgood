@@ -4,21 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "Character/Monster/Monster_Base.h"
-#include "Wakgood_Dakdulgi.generated.h"
-
-DECLARE_MULTICAST_DELEGATE(FOnAttackEndDelegate);
+#include "WakWakmusae.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API AWakgood_Dakdulgi : public AMonster_Base
+class PROD_WAKGOOD_API AWakWakmusae : public AMonster_Base
 {
 	GENERATED_BODY()
 
 public:
-	AWakgood_Dakdulgi();
+	AWakWakmusae();
 
 	void Attack();
-	FOnAttackEndDelegate OnAttackEnd;
+	
 };

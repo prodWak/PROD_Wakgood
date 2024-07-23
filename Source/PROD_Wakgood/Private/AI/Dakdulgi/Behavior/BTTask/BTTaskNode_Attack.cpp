@@ -8,6 +8,8 @@
 
 UBTTaskNode_Attack::UBTTaskNode_Attack()
 {
+	NodeName = TEXT("Dakdulgi_Attack");
+
 	bNotifyTick = true;
 	IsAttacking = false;
 }
