@@ -3,7 +3,7 @@
 
 #include "WorldMapPortal.h"
 
-#include "MainGameInstance.h"
+#include "PROD_Wakgood/Game/MainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 

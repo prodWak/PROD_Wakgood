@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
-#include "InteractionInterface.h"
-#include "InteractionBase.h"
+#include "PROD_Wakgood/Interaction/InteractionInterface.h"
+#include "PROD_Wakgood/Interaction/InteractionBase.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "TP_ThirdPersonCharacter.generated.h"

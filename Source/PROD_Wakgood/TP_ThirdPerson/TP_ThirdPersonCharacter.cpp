@@ -10,8 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "MainGameInstance.h"
-#include "WorldPortal.h"
+#include "PROD_Wakgood/Game/MainGameInstance.h"
+#include "PROD_Wakgood/Interaction/WorldPortal.h"
 #include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);

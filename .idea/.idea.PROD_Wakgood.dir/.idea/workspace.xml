@@ -8,10 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4692cb40-51f5-4185-a7b5-6e190ba88166" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/Interaction/BP_WorldPortal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PROD_Wakgood/Blueprints/Interaction/BP_WorldPortal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/Maps/MAP_Debug.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PROD_Wakgood/Maps/MAP_Debug.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PROD_Wakgood/UI/UI_Portal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PROD_Wakgood/UI/UI_Portal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PROD_Wakgood/Private/WorldPortal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PROD_Wakgood/Private/WorldPortal.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +137,8 @@
       <workItem from="1720236194551" duration="2967000" />
       <workItem from="1720364045432" duration="1943000" />
       <workItem from="1720786499300" duration="1212000" />
+      <workItem from="1720939619943" duration="3477000" />
+      <workItem from="1720954630573" duration="2339000" />
     </task>
     <servers />
   </component>
