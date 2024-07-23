@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "LevelScript.generated.h"
+#include "WakLevelScript.generated.h"
 
 UCLASS()
 class PROD_WAKGOOD_API ALevelScript : public AActor

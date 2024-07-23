@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "InteractionBase.h"
-#include "WorldMapPortal.generated.h"
+#include "WakInteractionBase.h"
+#include "WakWorldMapPortal.generated.h"
 
 /**
  * 
@@ -16,7 +16,7 @@ class PROD_WAKGOOD_API AWorldMapPortal : public AInteractionBase
 
 	AWorldMapPortal();
 
-	virtual void InteractionWithMe(AActor* target) override;
+	virtual void Interaction(AActor* target) override;
 
 private:
 	UPROPERTY(EditAnywhere, Category="Game Instance")

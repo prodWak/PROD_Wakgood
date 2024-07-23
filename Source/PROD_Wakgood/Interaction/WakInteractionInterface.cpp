@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "InteractionInterface.h"
+#include "WakInteractionInterface.h"
 
 // Add default functionality here for any IInteractionInterface functions that are not pure virtual.
-void IInteractionInterface::InteractionWithMe(AActor* target)
+void IInteractionInterface::Interaction(AActor* target)
 {
 }

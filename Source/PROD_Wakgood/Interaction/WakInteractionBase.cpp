@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "InteractionBase.h"
+#include "WakInteractionBase.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values
@@ -56,7 +56,7 @@ void AInteractionBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor*
 	PointLight->SetIntensity(0);
 }
 
-void AInteractionBase::InteractionWithMe(AActor* target)
+void AInteractionBase::Interaction(AActor* target)
 {
-	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Call InteractionWithMe")));
+	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Call Interaction")));
 }

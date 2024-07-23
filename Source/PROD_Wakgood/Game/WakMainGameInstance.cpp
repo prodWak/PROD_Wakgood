@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MainGameInstance.h"
+#include "WakMainGameInstance.h"
 
 void UMainGameInstance::SetPlayerLastLocation(int32 LocationIndex)
 {

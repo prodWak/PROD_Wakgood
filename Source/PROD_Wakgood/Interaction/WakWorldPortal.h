@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "InteractionBase.h"
+#include "WakInteractionBase.h"
 #include "Components/WidgetComponent.h"
-#include "WorldPortal.generated.h"
+#include "WakWorldPortal.generated.h"
 
 UCLASS()
 class PROD_WAKGOOD_API AWorldPortal : public AInteractionBase
@@ -14,7 +14,7 @@ class PROD_WAKGOOD_API AWorldPortal : public AInteractionBase
 
 	AWorldPortal();
 	
-	virtual void InteractionWithMe(AActor* target) override;
+	virtual void Interaction(AActor* target) override;
 
 	virtual void BeginPlay() override;
 	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

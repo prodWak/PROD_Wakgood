@@ -10,8 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "PROD_Wakgood/Game/MainGameInstance.h"
-#include "PROD_Wakgood/Interaction/WorldPortal.h"
+#include "PROD_Wakgood/Game/WakMainGameInstance.h"
+#include "PROD_Wakgood/Interaction/WakWorldPortal.h"
 #include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -173,7 +173,7 @@ void ATP_ThirdPersonCharacter::OnInteract()
 			Interface = Cast<IInteractionInterface>(InteractionTarget);
 			if (Interface)
 			{
-				Interface->InteractionWithMe(this);
+				Interface->Interaction(this);
 			}
 		}
 		else

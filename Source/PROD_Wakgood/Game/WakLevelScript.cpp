@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LevelScript.h"
+#include "WakLevelScript.h"
 
-#include "MainGameInstance.h"
+#include "WakMainGameInstance.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values

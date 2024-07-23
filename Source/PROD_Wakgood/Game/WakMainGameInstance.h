@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "MainGameInstance.generated.h"
+#include "WakMainGameInstance.generated.h"
 
 /**
  * 

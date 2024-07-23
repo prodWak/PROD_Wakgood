@@ -6,9 +6,9 @@
 // #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
-#include "InteractionInterface.h"
+#include "WakInteractionInterface.h"
 #include "Components/PointLightComponent.h"
-#include "InteractionBase.generated.h"
+#include "WakInteractionBase.generated.h"
 
 
 UCLASS()
@@ -44,5 +44,5 @@ public:
 	bool isOverlap = false;
 
 	UFUNCTION()
-	virtual void InteractionWithMe(AActor* target) override;
+	virtual void Interaction(AActor* target) override;
 };

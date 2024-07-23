@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "WorldPortal.h"
+#include "WakWorldPortal.h"
 
-#include "PROD_Wakgood/Game/MainGameInstance.h"
+#include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
@@ -19,9 +19,9 @@ AWorldPortal::AWorldPortal()
 
 
 
-void AWorldPortal::InteractionWithMe(AActor* target)
+void AWorldPortal::Interaction(AActor* target)
 {
-	Super::InteractionWithMe(target);
+	Super::Interaction(target);
 	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());   
 	if (GameInstance)
 	{
