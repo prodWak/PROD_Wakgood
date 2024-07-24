@@ -8,8 +8,7 @@ ABaseNPC::ABaseNPC()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	isInteracting = false;
+	
 
 }
 
@@ -34,13 +33,13 @@ void ABaseNPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+// 상호작용 시작 함수 
 void ABaseNPC::EnterInteraction()
 {
 	isInteracting = true;
 }
-
+// 상호작용 종료 함수
 void ABaseNPC::ExitInteraction()
 {
 	isInteracting = false;
 }
-

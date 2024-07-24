@@ -21,11 +21,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//interaction begin
+	// 상호작용 시작
 	UFUNCTION(BlueprintCallable)
 	void EnterInteraction();
 
-	//interaction end
+	// 상호작용 끝
 	UFUNCTION(BlueprintCallable)
 	void ExitInteraction();
 
@@ -33,7 +33,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//bool 변수 isinteracting 기본값 false
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NPC")
-	bool isInteracting;
-
+	bool isInteracting = false;
 };
