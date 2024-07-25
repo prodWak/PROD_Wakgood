@@ -8,7 +8,9 @@ public class PROD_Wakgood : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "GameplayAbilities", "GameplayTags" });
+
+		PrivateIncludePaths.AddRange(new string[] { "PROD_Wakgood" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

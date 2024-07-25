@@ -10,6 +10,6 @@ public class PROD_WakgoodEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
-		ExtraModuleNames.Add("PROD_Wakgood");
-	}
+		ExtraModuleNames.AddRange(new string[] { "PROD_Wakgood" });
+    }
 }
