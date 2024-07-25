@@ -6,18 +6,35 @@
 // Behavior
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_Wakmusae::Wakmusae_HomePosKey(TEXT("HomePos"));
-const FName AWakAIC_Wakmusae::Wakmusae_PatrolPosKey(TEXT("PatrolPos"));
-const FName AWakAIC_Wakmusae::Wakmusae_TargetKey(TEXT("Target"));
+#include "PROD_Wakgood/Character/Monster/Wakmusae/WakWakmusae.h"
+
+const FName AWakAIC_Wakmusae::Wakmusae_HomePosKey(TEXT("Wakmusae_HomePos"));
+const FName AWakAIC_Wakmusae::Wakmusae_PatrolPosKey(TEXT("Wakmusae_PatrolPos"));
+const FName AWakAIC_Wakmusae::Wakmusae_TargetKey(TEXT("Wakmusae_Target"));
 
 AWakAIC_Wakmusae::AWakAIC_Wakmusae()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+
+	IsDetectPlayer = false;
+}
+
+void AWakAIC_Wakmusae::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	// Test
+	if (OwningPawn != nullptr)
+	{
+		OwningPawn->WalkToward(1.0f);
+	}
 }
 
 void AWakAIC_Wakmusae::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
+
+	OwningPawn = Cast<AWakWakmusae>(InPawn);
 
 	UBlackboardComponent* BLACKBOARD = Blackboard.Get();
 

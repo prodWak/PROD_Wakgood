@@ -30,7 +30,7 @@ void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 	{
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float DetectRadius = 600.0f;
+		const FVector3f DetectHalfExtent = FVector3f(300.0f);
 
 		if (world != nullptr)
 		{
@@ -43,11 +43,11 @@ void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 				Center,
 				FQuat::Identity,
 				ECollisionChannel::ECC_GameTraceChannel1,
-				FCollisionShape::MakeSphere(DetectRadius),
+				FCollisionShape::MakeBox(DetectHalfExtent),
 				CollisionQueryParam
 			);
 
-			DrawDebugSphere(world, Center, DetectRadius, 16, FColor::Red, false, 0.2f);
+			DrawDebugBox(world, Center, FVector(300.0f, 300.0f, 300.0f), FColor::Red, false, 0.2f);
 
 			if (bResult)
 			{
@@ -58,7 +58,7 @@ void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey, Target);
 
-						DrawDebugSphere(world, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
+						DrawDebugBox(world, Center, FVector(300.0f, 300.0f, 300.0f), FColor::Green, false, 0.2f);
 						DrawDebugPoint(world, Target->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
 						DrawDebugLine(world, ControllingPawn->GetActorLocation(), Target->GetActorLocation(), FColor::Blue, false, 0.2f);
 						

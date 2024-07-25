@@ -30,9 +30,7 @@ EBTNodeResult::Type UWakBTTaskNode_Wakmusae_FindPatrolPos::ExecuteTask(UBehavior
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
-				// ���� �ʿ�
 				NextPatrol.Location.Y = 0;
-				NextPatrol.Location.Z = 0;
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Wakmusae::Wakmusae_PatrolPosKey, NextPatrol.Location);
 				return EBTNodeResult::Succeeded;
 			}

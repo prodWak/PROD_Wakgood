@@ -77,7 +77,6 @@ void AWakDebugPlayer::BeginPlay()
 	{
 		SubSystem->AddMappingContext(DefaultMappingContext, 0);
 	}
-	
 }
 
 void AWakDebugPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
