@@ -16,6 +16,7 @@ class PROD_WAKGOOD_API AWakDakdulgi : public AMonster_Base
 {
 	GENERATED_BODY()
 
+
 public:
 	AWakDakdulgi();
 

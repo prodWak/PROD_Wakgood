@@ -1,35 +1,38 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WakBTService_Detect.h"
+#include "WakBTService_Wakmusae_Detect.h"
 
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
+#include "PROD_Wakgood/Character/Monster/Wakmusae/WakWakmusae.h"
 
-#include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
+#include "PROD_Wakgood/AI/Wakmusae/WakAIC_Wakmusae.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "DrawDebugHelpers.h"
 
-UWakBTService_Detect::UWakBTService_Detect()
+UWakBTService_Wakmusae_Detect::UWakBTService_Wakmusae_Detect()
 {
-	NodeName = TEXT("Dakdulgi_Detect");
+	NodeName = TEXT("Wakmusae_Detect");
 	Interval = 1.0f;
 }
 
-void UWakBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+void UWakBTService_Wakmusae_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
-	DetectRogic(OwnerComp);
+	DetectLogic(OwnerComp);
 }
 
-void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
+void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 {
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+	AWakWakmusae* AIOwner = Cast<AWakWakmusae>(ControllingPawn);
+
 	if (ControllingPawn != nullptr)
 	{
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		const FVector3f DetectHalfExtent = FVector3f(300.0f);
+		float Radius = 600.0f;
 
 		if (world != nullptr)
 		{
@@ -42,11 +45,11 @@ void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 				Center,
 				FQuat::Identity,
 				ECollisionChannel::ECC_GameTraceChannel1,
-				FCollisionShape::MakeBox(DetectHalfExtent),
+				FCollisionShape::MakeSphere(Radius),
 				CollisionQueryParam
 			);
 
-			DrawDebugBox(world, Center, FVector(300.0f, 300.0f, 300.0f), FColor::Red, false, 0.2f);
+			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
 
 			if (bResult)
 			{
@@ -55,13 +58,15 @@ void UWakBTService_Detect::DetectRogic(UBehaviorTreeComponent& OwnerComp)
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey, Target);
-						DrawDebugBox(world, Center, FVector(300.0f, 300.0f, 300.0f), FColor::Green, false, 0.2f);						
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey, Target);
+						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
+						AIOwner->SetIsDetectPlayer(true);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey, nullptr);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey, nullptr);
+			AIOwner->SetIsDetectPlayer(false);
 		}
 	}
 }

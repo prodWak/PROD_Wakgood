@@ -1,20 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WakBTDecorator_IsInAttackRange.h"
+#include "WakBTDecorator_Dakdulbi_IsInAttackRange.h"
 
 #include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-UWakBTDecorator_IsInAttackRange::UWakBTDecorator_IsInAttackRange()
+UWakBTDecorator_Dakdulbi_IsInAttackRange::UWakBTDecorator_Dakdulbi_IsInAttackRange()
 {
 	NodeName = TEXT("Dakdulgi_CanAttack");
 
 	AttackRadius = 200.0f;
 }
 
-bool UWakBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
+bool UWakBTDecorator_Dakdulbi_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
 	bool bResult = Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 

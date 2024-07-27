@@ -4,21 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTDecorator.h"
-#include "WakBTDecorator_IsInAttackRange.generated.h"
+#include "WakBTDecorator_Wakmusae_IsInAttackRange.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UWakBTDecorator_IsInAttackRange : public UBTDecorator
+class PROD_WAKGOOD_API UWakBTDecorator_Wakmusae_IsInAttackRange : public UBTDecorator
 {
 	GENERATED_BODY()
 
 	float AttackRadius;
-	
+
 public:
-	UWakBTDecorator_IsInAttackRange();
+	UWakBTDecorator_Wakmusae_IsInAttackRange();
 
 protected:
 	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
+	
 };

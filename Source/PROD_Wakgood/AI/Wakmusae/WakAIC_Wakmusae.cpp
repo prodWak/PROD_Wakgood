@@ -24,9 +24,9 @@ void AWakAIC_Wakmusae::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	// Test
-	if (OwningPawn != nullptr)
+	if (OwningPawn != nullptr && !OwningPawn->IsDetectPlayer())
 	{
-		OwningPawn->WalkToward(1.0f);
+		OwningPawn->WalkToward(0.5f);
 	}
 }
 
