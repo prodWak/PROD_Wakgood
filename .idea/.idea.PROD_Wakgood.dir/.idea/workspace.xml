@@ -7,7 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4692cb40-51f5-4185-a7b5-6e190ba88166" name="Changes" comment="" />
+    <list default="true" id="4692cb40-51f5-4185-a7b5-6e190ba88166" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +31,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Uproject.PROD_Wakgood.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop-world-map&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -129,6 +131,14 @@
       <updated>1715939731258</updated>
       <workItem from="1715939733776" duration="344000" />
       <workItem from="1715940525127" duration="320000" />
+      <workItem from="1719496364398" duration="1928000" />
+      <workItem from="1719499061439" duration="8541000" />
+      <workItem from="1719650259731" duration="7696000" />
+      <workItem from="1720236194551" duration="2967000" />
+      <workItem from="1720364045432" duration="1943000" />
+      <workItem from="1720786499300" duration="1212000" />
+      <workItem from="1720939619943" duration="3477000" />
+      <workItem from="1720954630573" duration="2339000" />
     </task>
     <servers />
   </component>
