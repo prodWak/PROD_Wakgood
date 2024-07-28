@@ -45,10 +45,12 @@ AWakDebugPlayer::AWakDebugPlayer()
 	GetCapsuleComponent()->SetCapsuleHalfHeight(66.0f);
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
 
+	// Fixed Y axis
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.0f, 1.0f, 0.0f));
 	GetCharacterMovement()->bUseFlatBaseForFloorChecks = true;
 
+	// Adjusting Movement
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	GetCharacterMovement()->JumpZVelocity = 500.0f;
 	GetCharacterMovement()->GravityScale = 5.0f;
@@ -56,6 +58,7 @@ AWakDebugPlayer::AWakDebugPlayer()
 	GetCharacterMovement()->FallingLateralFriction = 50.0f;
 	JumpMaxHoldTime = 0.4f;
 
+	// Smooth Rotation
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);

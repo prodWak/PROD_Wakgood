@@ -26,14 +26,12 @@ AWakWakmusae::AWakWakmusae()
 	GetCharacterMovement()->DefaultLandMovementMode = EMovementMode::MOVE_Flying;
 	GetCharacterMovement()->MaxFlySpeed = 400.0f;
 
-	IsDetectplayer = false;
+	IsDetectPlayer = false;
 }
 
 void AWakWakmusae::Attack()
 {
-	// Attack Logic...
-	// Need Timer
-	if (IsDetectplayer)
+	if (IsDetectPlayer)
 	{
 		Custom_Debug_Log(Warning, TEXT("Attack"));
 		SpawnProjectile();
@@ -45,22 +43,13 @@ void AWakWakmusae::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Set the target to get the projectile launch angle
 	Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
-}
-
-void AWakWakmusae::TurnCharacter()
-{
-	FRotator CombineA = GetActorRotation();
-	FRotator CombineB = FRotator(0.0f, 180.0f, 0.0f);
-
-	FRotator Result = UKismetMathLibrary::ComposeRotators(CombineA, CombineB);
-
-	SetActorRotation(Result);
 }
 
 void AWakWakmusae::SpawnProjectile()
 {
-	Custom_Debug_Assert(Target);
+	check(Target);
 
 	if (Wakmusae_ProjectileClass != nullptr)
 	{
@@ -80,11 +69,6 @@ void AWakWakmusae::SpawnProjectile()
 void AWakWakmusae::WalkToward(float Delta)
 {
 	AddMovementInput(GetActorForwardVector(), Delta);
-}
-
-bool AWakWakmusae::IsDetectPlayer() const
-{
-	return IsDetectplayer;
 }
 
 void AWakWakmusae::GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

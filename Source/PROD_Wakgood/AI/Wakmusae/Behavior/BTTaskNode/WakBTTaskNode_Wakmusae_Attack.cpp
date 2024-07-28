@@ -19,19 +19,20 @@ EBTNodeResult::Type UWakBTTaskNode_Wakmusae_Attack::ExecuteTask(UBehaviorTreeCom
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	AWakWakmusae* Wakmusae = Cast<AWakWakmusae>(OwnerComp.GetAIOwner()->GetPawn());
-	if (Wakmusae == nullptr)
+	if (Wakmusae != nullptr)
 	{
-		return EBTNodeResult::Failed;
+		// For now, the attack function is called directly, but it needs to be changed to the calling method by animation notify.
+		IsAttacking = true;
+		Wakmusae->Attack();
+		Wakmusae->OnAttackDelegate.AddLambda([this]()->void
+			{
+				IsAttacking = false;
+			});
+
+		return EBTNodeResult::InProgress;
 	}
 
-	IsAttacking = true;
-	Wakmusae->Attack();
-	Wakmusae->OnAttackDelegate.AddLambda([this]()->void
-		{
-			IsAttacking = false;
-		});
-
-	return EBTNodeResult::InProgress;
+	return EBTNodeResult::Failed;
 }
 
 void UWakBTTaskNode_Wakmusae_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)

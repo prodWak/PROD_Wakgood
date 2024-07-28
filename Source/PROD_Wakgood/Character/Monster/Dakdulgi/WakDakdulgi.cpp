@@ -24,8 +24,5 @@ AWakDakdulgi::AWakDakdulgi()
 
 void AWakDakdulgi::Attack()
 {
-	// Attack Logic...
-
-	// Called by BTTaskNode Attack
 	OnAttackEnd.Broadcast();
 }

@@ -28,7 +28,7 @@ class PROD_WAKGOOD_API AWakWakmusae : public AMonster_Base
 	TObjectPtr<AWakDebugPlayer> Target;
 
 	UPROPERTY()
-	bool IsDetectplayer;
+	bool IsDetectPlayer;
 
 	UFUNCTION()
 	void GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
@@ -37,17 +37,18 @@ public:
 	AWakWakmusae();
 
 	// Attack
-	void Attack();
-	void SpawnProjectile();
 	FOnAttackDelegate OnAttackDelegate;
 
-	// Debug
+	void Attack();
+	void SpawnProjectile();
+
+	// Movement
 	void WalkToward(float Delta);
-	bool IsDetectPlayer() const;
-	FORCEINLINE void SetIsDetectPlayer(bool IsDetect) { IsDetectplayer = IsDetect; }
+
+	// State
+	FORCEINLINE bool GetIsDetectPlayer() const { return IsDetectPlayer; }
+	FORCEINLINE void SetIsDetectPlayer(bool IsDetect) { IsDetectPlayer = IsDetect; }
 
 protected:
 	virtual void BeginPlay() override;
-
-	void TurnCharacter();
 };

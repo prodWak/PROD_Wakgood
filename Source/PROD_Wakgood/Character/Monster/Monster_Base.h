@@ -15,4 +15,9 @@ class PROD_WAKGOOD_API AMonster_Base : public ACharacter
 
 public:
 	AMonster_Base();
+
+protected:
+
+	// Movement
+	virtual void TurnCharacter();
 };

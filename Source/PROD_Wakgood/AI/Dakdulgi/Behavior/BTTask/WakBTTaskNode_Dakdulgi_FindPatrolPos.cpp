@@ -29,7 +29,7 @@ EBTNodeResult::Type UWakBTTaskNode_Dakdulgi_FindPatrolPos::ExecuteTask(UBehavior
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
-				// ��� �̵�
+				// Fixed Y-axis
 				NextPatrol.Location.Y = 0;
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Dakdulgi::Dakdulgi_PatrolPosKey, NextPatrol.Location);
 				return EBTNodeResult::Succeeded;

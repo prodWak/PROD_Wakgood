@@ -5,6 +5,8 @@
 
 #include "GameFramework/CharacterMovementComponent.h"
 
+#include "Kismet/KismetMathLibrary.h"
+
 AMonster_Base::AMonster_Base()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -19,4 +21,14 @@ AMonster_Base::AMonster_Base()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);
 
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+}
+
+void AMonster_Base::TurnCharacter()
+{
+	FRotator CombineA = GetActorRotation();
+	FRotator CombineB = FRotator(0.0f, 180.0f, 0.0f);
+
+	FRotator Result = UKismetMathLibrary::ComposeRotators(CombineA, CombineB);
+
+	SetActorRotation(Result);
 }

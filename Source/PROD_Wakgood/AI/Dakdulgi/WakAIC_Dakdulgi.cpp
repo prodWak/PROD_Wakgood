@@ -25,7 +25,7 @@ void AWakAIC_Dakdulgi::OnPossess(APawn* InPawn)
 		BLACKBOARD->SetValueAsVector(Dakdulgi_HomePosKey, InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BT_Dakdulgi))
 		{
-			UE_LOG(LogTemp, Error, TEXT("Can't Run BehaviorTree"));
+			UE_LOG(LogTemp, Error, TEXT("Behavior Tree is not working"));
 		}
 	}
 }

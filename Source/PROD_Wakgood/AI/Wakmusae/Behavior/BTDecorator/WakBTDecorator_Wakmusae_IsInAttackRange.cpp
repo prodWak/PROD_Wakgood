@@ -11,7 +11,7 @@ UWakBTDecorator_Wakmusae_IsInAttackRange::UWakBTDecorator_Wakmusae_IsInAttackRan
 {
     NodeName = TEXT("Wakmusae_CanAttack");
 
-    AttackRadius = 200.0f;
+    AttackRadius = 250.0f;
 }
 
 bool UWakBTDecorator_Wakmusae_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const

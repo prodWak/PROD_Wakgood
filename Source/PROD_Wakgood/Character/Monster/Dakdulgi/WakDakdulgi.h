@@ -20,6 +20,7 @@ class PROD_WAKGOOD_API AWakDakdulgi : public AMonster_Base
 public:
 	AWakDakdulgi();
 
-	void Attack();
+	// Attack
 	FOnAttackEndDelegate OnAttackEnd;
+	void Attack();
 };

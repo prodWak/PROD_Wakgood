@@ -20,20 +20,12 @@ class PROD_WAKGOOD_API AWakDebugPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
-	///////////////
-	//	VARIABLE //
-	///////////////
-
-#pragma region CAMERA
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	TObjectPtr<USpringArmComponent> SpringArm;
 
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	TObjectPtr<UCameraComponent> FollowCamera;
 
-#pragma endregion
-
-#pragma region MOVEMENT
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
@@ -43,13 +35,6 @@ class PROD_WAKGOOD_API AWakDebugPlayer : public ACharacter
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> IA_Jump;
 
-#pragma endregion
-
-	///////////////
-	//	FUNCTION //
-	///////////////
-
-#pragma region MOVEMENT
 	void Move(const FInputActionValue& Value);
 	void UpdateMeshRotation(float Direction);
 
