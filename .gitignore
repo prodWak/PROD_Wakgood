@@ -1,5 +1,6 @@
 # Visual Studio 2015 user specific files
 .vs/
+.idea/
 
 # Compiled Object files
 *.slo
@@ -72,4 +73,4 @@ PROD_Wakgood/Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 PROD_Wakgood/DerivedDataCache/*
-.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml
+PROD_Wakgood/.idea/.idea.PROD_Wakgood.dir/.idea/workspace.xml
