@@ -1,38 +1,38 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WakBTService_Wakmusae_Detect.h"
+#include "WakBTService_BatDan_Detect.h"
 
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
-#include "PROD_Wakgood/Character/Monster/Wakmusae/WakWakmusae.h"
+#include "PROD_Wakgood/Character/Monster/BatDan/WakBatDan.h"
 
-#include "PROD_Wakgood/AI/Wakmusae/WakAIC_Wakmusae.h"
+#include "PROD_Wakgood/AI/BatDan/WakAIC_BatDan.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 
-UWakBTService_Wakmusae_Detect::UWakBTService_Wakmusae_Detect()
+UWakBTService_BatDan_Detect::UWakBTService_BatDan_Detect()
 {
-	NodeName = TEXT("Wakmusae_Detect");
-	Interval = 1.0f;
+	NodeName = TEXT("BatDan_Detect");
 }
 
-void UWakBTService_Wakmusae_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+void UWakBTService_BatDan_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
 	DetectLogic(OwnerComp);
 }
 
-void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
+void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 {
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
-	AWakWakmusae* AIOwner = Cast<AWakWakmusae>(ControllingPawn);
+	AWakBatDan* AIOwner = Cast<AWakBatDan>(ControllingPawn);
 
 	if (ControllingPawn != nullptr)
 	{
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 600.0f;
+		float Radius = 500.0f;
 
 		if (world != nullptr)
 		{
@@ -57,15 +57,16 @@ void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey, Target);
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_BatDan::BatDan_TargetKey, Target);
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
-						AIOwner->SetIsDetectPlayer(true);
+						AIOwner->SetTarget(Target);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey, nullptr);
-			AIOwner->SetIsDetectPlayer(false);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_BatDan::BatDan_TargetKey, nullptr);
+			AIOwner->SetTarget(nullptr);
+			AIOwner->GetAttackDetector()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		}
 	}
 }

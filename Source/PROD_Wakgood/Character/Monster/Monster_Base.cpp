@@ -23,6 +23,11 @@ AMonster_Base::AMonster_Base()
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
+void AMonster_Base::WalkForward(float Delta)
+{
+	AddMovementInput(GetActorForwardVector(), Delta);
+}
+
 void AMonster_Base::TurnCharacter()
 {
 	FRotator CombineA = GetActorRotation();

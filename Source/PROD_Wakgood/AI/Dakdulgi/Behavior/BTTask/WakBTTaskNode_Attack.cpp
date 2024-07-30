@@ -24,7 +24,7 @@ EBTNodeResult::Type UWakBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& O
 		// For now, the attack function is called directly, but it needs to be changed to the calling method by animation notify.
 		IsAttacking = true;
 		Dakdulgi->Attack();
-		Dakdulgi->OnAttackEnd.AddLambda([this]()->void 
+		Dakdulgi->OnAttackDelegate.AddLambda([this]()->void
 			{
 			IsAttacking = false;
 			});

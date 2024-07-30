@@ -24,5 +24,5 @@ AWakDakdulgi::AWakDakdulgi()
 
 void AWakDakdulgi::Attack()
 {
-	OnAttackEnd.Broadcast();
+	OnAttackDelegate.Broadcast();
 }

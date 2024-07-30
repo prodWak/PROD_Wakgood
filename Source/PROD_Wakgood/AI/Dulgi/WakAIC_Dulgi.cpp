@@ -8,6 +8,8 @@
 
 #include "PROD_Wakgood/Character/Monster/Dulgi/WakDulgi.h"
 
+const FName AWakAIC_Dulgi::Dulgi_TargetKey(TEXT("Dulgi_Target"));
+
 AWakAIC_Dulgi::AWakAIC_Dulgi()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -17,7 +19,7 @@ void AWakAIC_Dulgi::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (OwningPawn != nullptr)
+	if (OwningPawn != nullptr && !OwningPawn->GetIsDetectPlayer())
 	{
 		OwningPawn->WalkForward(0.5f);
 	}

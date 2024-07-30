@@ -6,6 +6,10 @@
 #include "PROD_Wakgood/Character/Monster/Monster_Base.h"
 #include "WakDulgi.generated.h"
 
+class AWakDebugPlayer;
+
+DECLARE_MULTICAST_DELEGATE(FOnAttackDelegate);
+
 /**
  * 
  */
@@ -17,12 +21,27 @@ class PROD_WAKGOOD_API AWakDulgi : public AMonster_Base
 	UPROPERTY(VisibleAnywhere, Category = Collsion)
 	TObjectPtr<UBoxComponent> GroundDetector;
 
+	UPROPERTY()
+	TObjectPtr<AWakDebugPlayer> Target;
+
+	UPROPERTY()
+	bool IsDetectPlayer;
+
+	float KnockBackPowerHor;
+	float KnockBackPowerVert;
+
 	UFUNCTION()
 	void GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 public:
 	AWakDulgi();
 
-	// Movement
-	void WalkForward(float Delta);
+	FORCEINLINE bool GetIsDetectPlayer()const { return IsDetectPlayer; }
+	FORCEINLINE void SetIsDetectPlayer(bool IsDetect) { IsDetectPlayer = IsDetect; }
+
+	void SetTarget(TObjectPtr<AWakDebugPlayer> TargetObject);
+	void AttackTarget(APawn* TargetObject);
+
+	void Attack();
+	FOnAttackDelegate OnAttackDelegate;
 };

@@ -21,6 +21,6 @@ public:
 	AWakDakdulgi();
 
 	// Attack
-	FOnAttackEndDelegate OnAttackEnd;
+	FOnAttackEndDelegate OnAttackDelegate;
 	void Attack();
 };

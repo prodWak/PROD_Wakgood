@@ -23,7 +23,7 @@ void AWakAIC_Wakmusae::Tick(float DeltaSeconds)
 
 	if (OwningPawn != nullptr && !OwningPawn->GetIsDetectPlayer())
 	{
-		OwningPawn->WalkToward(0.5f);
+		OwningPawn->WalkForward(0.5f);
 	}
 }
 

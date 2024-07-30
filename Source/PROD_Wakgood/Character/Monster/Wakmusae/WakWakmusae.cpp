@@ -66,11 +66,6 @@ void AWakWakmusae::SpawnProjectile()
 	}
 }
 
-void AWakWakmusae::WalkToward(float Delta)
-{
-	AddMovementInput(GetActorForwardVector(), Delta);
-}
-
 void AWakWakmusae::GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	// Detects worldstatic collision channel ( Custom Preset )

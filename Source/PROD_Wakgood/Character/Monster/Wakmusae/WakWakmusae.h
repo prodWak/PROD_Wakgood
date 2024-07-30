@@ -42,9 +42,6 @@ public:
 	void Attack();
 	void SpawnProjectile();
 
-	// Movement
-	void WalkToward(float Delta);
-
 	// State
 	FORCEINLINE bool GetIsDetectPlayer() const { return IsDetectPlayer; }
 	FORCEINLINE void SetIsDetectPlayer(bool IsDetect) { IsDetectPlayer = IsDetect; }
