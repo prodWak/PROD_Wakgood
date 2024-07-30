@@ -15,12 +15,13 @@ class PROD_WAKGOOD_API UMainGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
+	// interaction - world-map
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Game Instance")
 	FName LastLocationName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Game Instance")
 	FVector LastLocationVector;
-
+	
 	UFUNCTION(BlueprintCallable, Category="Game Instance")
 	void SetPlayerLastLocation(int32 LocationIndex);
 	

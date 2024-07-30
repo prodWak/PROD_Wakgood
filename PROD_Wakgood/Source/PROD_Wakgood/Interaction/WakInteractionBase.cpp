@@ -5,7 +5,7 @@
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values
-AInteractionBase::AInteractionBase()
+AWakInteractionBase::AWakInteractionBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -24,16 +24,16 @@ AInteractionBase::AInteractionBase()
 	PointLight->SetupAttachment(RootComponent);
 }
 
-void AInteractionBase::BeginPlay()
+void AWakInteractionBase::BeginPlay()
 {
 	Super::BeginPlay();
-	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &AInteractionBase::OnBeginOverlap);
-	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &AInteractionBase::OnEndOverlap);
+	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &AWakInteractionBase::OnBeginOverlap);
+	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &AWakInteractionBase::OnEndOverlap);
 
 	PointLight->SetIntensity(0);
 }
 
-void AInteractionBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AWakInteractionBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
@@ -50,13 +50,13 @@ void AInteractionBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
 	}
 }
 
-void AInteractionBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AWakInteractionBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	PointLight->SetIntensity(0);
 }
 
-void AInteractionBase::Interaction(AActor* target)
+void AWakInteractionBase::Interaction(AActor* target)
 {
 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Call Interaction")));
 }

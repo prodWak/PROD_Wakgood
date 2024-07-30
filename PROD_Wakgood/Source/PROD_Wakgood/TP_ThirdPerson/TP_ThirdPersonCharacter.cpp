@@ -147,7 +147,7 @@ void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCom
 	{
 		if(!InteractionTarget && GetWorld())
 		{
-			InteractionTarget = Cast<AInteractionBase>(OtherActor);
+			InteractionTarget = Cast<AWakInteractionBase>(OtherActor);
 		}
 	}
 }

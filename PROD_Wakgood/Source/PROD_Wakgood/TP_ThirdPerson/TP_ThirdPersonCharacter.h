@@ -67,22 +67,12 @@ protected:
 	UFUNCTION()
 	void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-	AInteractionBase* InteractionTarget;
+	AWakInteractionBase* InteractionTarget;
 	void OnInteract();
 	bool isInteractInput = false;
 
-	// spawn
-protected:
-	UPROPERTY(EditAnywhere)
-	FVector LastLoc = {100.0f, 100.0f, 100.0f};
-
-public:
-	void setLastLoc(FVector loc) {LastLoc = loc;}
-	FVector getLastLoc() {return LastLoc;}
-	
-// public:
-// 	virtual void updateInteractionTarget(AActor* target) override;
-	
+	// interaction - item
+		
 public:
 	void switchInteractInput();
 	bool getIsInteractInput();
