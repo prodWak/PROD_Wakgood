@@ -25,13 +25,3 @@ void UMainGameInstance::SetPlayerLastLocation(int32 LocationIndex)
 			UE_LOG(LogTemp, Warning, TEXT("Init Location Data"));
 	}
 }
-
-FName UMainGameInstance::GetPlayerLastLocationName()
-{
-	return LastLocationName;
-}
-
-FVector UMainGameInstance::GetPlayerLastLocationVector()
-{
-	return LastLocationVector;
-}

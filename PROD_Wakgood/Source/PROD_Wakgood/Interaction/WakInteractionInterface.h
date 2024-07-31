@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/Interface.h"
+// #include "UObject/Interface.h"
 #include "WakInteractionInterface.generated.h"
 
 // This class does not need to be modified.

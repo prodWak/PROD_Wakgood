@@ -24,9 +24,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Game Instance")
 	void SetPlayerLastLocation(int32 LocationIndex);
 	
-	UFUNCTION(BlueprintCallable, Category="Game Instance")
-	FName GetPlayerLastLocationName();
-	
-	UFUNCTION(BlueprintCallable, Category="Game Instance")
-	FVector GetPlayerLastLocationVector();
+	FORCEINLINE FName GetPlayerLastLocationName() const { return LastLocationName; };
+	FORCEINLINE FVector GetPlayerLastLocationVector() const { return LastLocationVector; };
 };

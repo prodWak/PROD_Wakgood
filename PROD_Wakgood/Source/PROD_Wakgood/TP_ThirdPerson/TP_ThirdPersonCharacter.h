@@ -14,6 +14,8 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class UBoxComponent;
+class AInteractionBase;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -67,22 +69,12 @@ protected:
 	UFUNCTION()
 	void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
 	AInteractionBase* InteractionTarget;
+	
 	void OnInteract();
-	bool isInteractInput = false;
+	bool bIsInteractInput = false;
 
-	// spawn
-protected:
-	UPROPERTY(EditAnywhere)
-	FVector LastLoc = {100.0f, 100.0f, 100.0f};
-
-public:
-	void setLastLoc(FVector loc) {LastLoc = loc;}
-	FVector getLastLoc() {return LastLoc;}
-	
-// public:
-// 	virtual void updateInteractionTarget(AActor* target) override;
-	
 public:
 	void switchInteractInput();
 	bool getIsInteractInput();
@@ -94,7 +86,5 @@ protected:
 public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
-public:
 
 };

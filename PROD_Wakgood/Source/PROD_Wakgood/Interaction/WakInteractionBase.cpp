@@ -2,6 +2,8 @@
 
 
 #include "WakInteractionBase.h"
+#include "Components/BoxComponent.h"
+#include "Components/PointLightComponent.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values
