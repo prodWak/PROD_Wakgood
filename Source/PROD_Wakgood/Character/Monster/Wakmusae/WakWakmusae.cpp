@@ -33,7 +33,6 @@ void AWakWakmusae::Attack()
 {
 	if (IsDetectPlayer)
 	{
-		Custom_Debug_Log(Warning, TEXT("Attack"));
 		SpawnProjectile();
 		OnAttackDelegate.Broadcast();
 	}

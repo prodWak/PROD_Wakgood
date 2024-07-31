@@ -17,7 +17,7 @@ class PROD_WAKGOOD_API AWakBatDan : public AMonster_Base
 	GENERATED_BODY()
 
 	UPROPERTY(VisibleAnywhere, Category = Collision)
-	TObjectPtr<UCapsuleComponent> AttackDetector;
+	TObjectPtr<UCapsuleComponent> PlayerDetector;
 
 	UPROPERTY()
 	TObjectPtr<APawn> Target;
@@ -25,16 +25,20 @@ class PROD_WAKGOOD_API AWakBatDan : public AMonster_Base
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor
 		, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult);
+
+	void SetPlayerDetectorRotation();
+
+	// Test
+	UPROPERTY(EditDefaultsOnly, Category = Test)
+	TSubclassOf<AActor> ActorClass;
 	
 public:
 	AWakBatDan();
-
-	virtual void Tick(float Delta) override;
 
 	void Attack();
 	FOnAttackDelegate OnAttackDelegate;
 
 	FORCEINLINE void SetTarget(APawn* TargetObject) { Target = TargetObject; }
-	FORCEINLINE TObjectPtr<UCapsuleComponent> GetAttackDetector() const { return AttackDetector; }
+	FORCEINLINE TObjectPtr<UCapsuleComponent> GetAttackDetector() const { return PlayerDetector; }
 
 };
