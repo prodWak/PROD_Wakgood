@@ -56,6 +56,9 @@ void AWakBatDan::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherAct
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		GetWorld()->SpawnActor<AActor>(ActorClass, Loc, Rot, SpawnParams);
 	}
+
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Attack"));
+	DrawDebugCapsule(GetWorld(), GetActorLocation(), 400.0f, 50.0f, PlayerDetector->GetComponentQuat(), FColor::Green, false, 1.0f, 1, 1);
 }
 
 void AWakBatDan::SetPlayerDetectorRotation()

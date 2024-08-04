@@ -61,7 +61,7 @@ AWakDebugPlayer::AWakDebugPlayer()
 	// Smooth Rotation
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 400.0f, 0.0f);
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 }
 
 void AWakDebugPlayer::BeginPlay()

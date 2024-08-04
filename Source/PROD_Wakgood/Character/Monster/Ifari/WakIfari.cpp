@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WakDakdulgi.h"
+#include "WakIfari.h"
 
-AWakDakdulgi::AWakDakdulgi()
+
+AWakIfari::AWakIfari()
 {
-	
 }
 
-void AWakDakdulgi::Attack()
+void AWakIfari::Attack()
 {
 	OnAttackDelegate.Broadcast();
 }

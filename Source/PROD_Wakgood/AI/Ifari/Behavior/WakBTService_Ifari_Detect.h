@@ -4,21 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTService.h"
-#include "WakBTService_Detect.generated.h"
+#include "WakBTService_Ifari_Detect.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UWakBTService_Detect : public UBTService
+class PROD_WAKGOOD_API UWakBTService_Ifari_Detect : public UBTService
 {
 	GENERATED_BODY()
 
 public:
-	UWakBTService_Detect();
+	UWakBTService_Ifari_Detect();
 
 protected:
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
 	void DetectLogic(UBehaviorTreeComponent& OwnerComp);
+	
 };
