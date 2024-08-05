@@ -3,11 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-// #include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
 #include "WakInteractionInterface.h"
-#include "Components/PointLightComponent.h"
 #include "WakInteractionBase.generated.h"
 
 
@@ -29,19 +25,19 @@ public:
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UPROPERTY(EditAnywhere)
-	USceneComponent* _RootComponent;
+	class USceneComponent* _RootComponent;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* StaticMeshComponent;
+	class UStaticMeshComponent* StaticMeshComponent;
 
 	UPROPERTY(EditAnywhere)
-	UBoxComponent* InteractionBox;
+	class UBoxComponent* InteractionBox;
 	
 	UPROPERTY(EditAnywhere)
-	UPointLightComponent* PointLight;
+	class UPointLightComponent* PointLight;
 
 	IInteractionInterface* Interface = nullptr;
-	bool isOverlap = false;
+	bool bIsOverlapped = false;
 
 	UFUNCTION()
 	virtual void Interaction(AActor* target) override;

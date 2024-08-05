@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "WakInteractionBase.h"
-#include "Components/WidgetComponent.h"
 #include "WakWorldPortal.generated.h"
 
 UCLASS()
@@ -30,6 +29,6 @@ private:
 	FName LocationName;
 
 	UPROPERTY(EditAnywhere)
-	UWidgetComponent* WidgetComponent;
+	class UWidgetComponent* WidgetComponent;
 
 };

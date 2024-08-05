@@ -3,6 +3,7 @@
 #include "TP_ThirdPersonCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -89,19 +90,19 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 
 void ATP_ThirdPersonCharacter::switchInteractInput()
 {
-	if (isInteractInput)
+	if (bIsInteractInput)
 	{
-		isInteractInput = false;
+		bIsInteractInput = false;
 	}
 	else
 	{
-		isInteractInput = true;
+		bIsInteractInput = true;
 	}
 }
 
 bool ATP_ThirdPersonCharacter::getIsInteractInput()
 {
-	return isInteractInput;
+	return bIsInteractInput;
 }
 
 void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

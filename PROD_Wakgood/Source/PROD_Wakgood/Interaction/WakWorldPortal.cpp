@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WakWorldPortal.h"
+#include "Components/WidgetComponent.h"
 
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
