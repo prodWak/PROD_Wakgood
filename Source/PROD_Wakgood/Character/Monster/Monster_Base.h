@@ -23,4 +23,6 @@ protected:
 
 	// Movement
 	virtual void TurnCharacter();
+
+	virtual void MeleeAttack(float Damage);
 };

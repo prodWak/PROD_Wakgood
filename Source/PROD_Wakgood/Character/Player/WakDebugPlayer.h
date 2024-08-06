@@ -35,14 +35,36 @@ class PROD_WAKGOOD_API AWakDebugPlayer : public ACharacter
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> IA_Jump;
 
+	// Take Attack Test
+	UPROPERTY(VisibleAnywhere, Category = Health)
+	float Health;
+
 	void Move(const FInputActionValue& Value);
 	void UpdateMeshRotation(float Direction);
 
+
+	// BacteriaDan Test
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> IA_MeleeAttack;
+
+	void MeleeAttack();
 public:
 	AWakDebugPlayer();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Take Attack Test
+	FORCEINLINE void UpdateHealth(float Amount) 
+	{ 
+		Health -= FMath::Max(Amount, 0);
+
+		UE_LOG(LogTemp, Warning, TEXT("Health : %f"), Health);
+
+		if (Health <= 0)
+		{ 
+			this->Destroy();
+		}
+	}
+
 protected:
 	virtual void BeginPlay() override;
-
 };

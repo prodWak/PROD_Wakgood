@@ -20,6 +20,10 @@
 // Kismet
 #include "Kismet/GameplayStatics.h"
 
+// BacteriaDan Test
+#include "PROD_Wakgood/Character/Monster/BacteriaDan/WakBacteriaDan.h"
+#include "DrawDebugHelpers.h"
+
 AWakDebugPlayer::AWakDebugPlayer()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -28,7 +32,7 @@ AWakDebugPlayer::AWakDebugPlayer()
 	SpringArm->SetupAttachment(GetRootComponent());
 	SpringArm->SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f));
 	SpringArm->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	SpringArm->TargetArmLength = 700.0f;
+	SpringArm->TargetArmLength = 500.0f;
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->bUsePawnControlRotation = false;
 	SpringArm->bInheritRoll = false;
@@ -62,11 +66,16 @@ AWakDebugPlayer::AWakDebugPlayer()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
+	
+	// Take Damage Test
+	Health = 100.0f;
 }
 
 void AWakDebugPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UE_LOG(LogTemp, Warning, TEXT("Health : %f"), Health);
 
 	APlayerController* PlayerController = Cast<APlayerController>(Controller);
 
@@ -94,6 +103,9 @@ void AWakDebugPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Jump
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &AWakDebugPlayer::Jump);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Completed, this, &AWakDebugPlayer::StopJumping);
+
+		// BacteriaDan Test
+		EnhancedInputComponent->BindAction(IA_MeleeAttack, ETriggerEvent::Started, this, &AWakDebugPlayer::MeleeAttack);
 	}
 }
 
@@ -126,5 +138,38 @@ void AWakDebugPlayer::UpdateMeshRotation(float Direction)
 		{
 			GetController()->SetControlRotation(Spin);
 		}
+	}
+}
+
+void AWakDebugPlayer::MeleeAttack()
+{
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams(NAME_None, false, this);
+
+	bool bResult = GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * 100.0f,
+		ECollisionChannel::ECC_Pawn,
+		QueryParams
+	);
+
+	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + GetActorForwardVector() * 100.0f, FColor::Red, false, 2.0f, 1);
+
+	if (bResult)
+	{
+		if (AWakBacteriaDan* Target = Cast<AWakBacteriaDan>(HitResult.GetActor()))
+		{
+			GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString("Hit"));
+			Target->SetIsDamaged(true);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Red, FString("No Hit Actor"));
+		}
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Red, FString("No Result"));
 	}
 }

@@ -3,12 +3,16 @@
 
 #include "WakIfari.h"
 
+#include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
+
 
 AWakIfari::AWakIfari()
 {
 }
 
-void AWakIfari::Attack()
+void AWakIfari::MeleeAttack(float Damage)
 {
+	Super::MeleeAttack(Damage);
+
 	OnAttackDelegate.Broadcast();
 }

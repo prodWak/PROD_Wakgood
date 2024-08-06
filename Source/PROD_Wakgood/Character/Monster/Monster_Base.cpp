@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 #include "Kismet/KismetMathLibrary.h"
+#include <PROD_Wakgood/Character/Player/WakDebugPlayer.h>
 
 AMonster_Base::AMonster_Base()
 {
@@ -36,4 +37,27 @@ void AMonster_Base::TurnCharacter()
 	FRotator Result = UKismetMathLibrary::ComposeRotators(CombineA, CombineB);
 
 	SetActorRotation(Result);
+}
+
+void AMonster_Base::MeleeAttack(float Damage)
+{
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams(NAME_None, false, this);
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * 80.0f,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel1,
+		FCollisionShape::MakeSphere(50.0f)
+	);
+
+	if (bResult)
+	{
+		if (AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(HitResult.GetActor()))
+		{
+			GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Hit"));
+			Target->UpdateHealth(Damage);
+		}
+	}
 }

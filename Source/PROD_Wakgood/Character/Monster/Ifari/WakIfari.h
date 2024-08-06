@@ -19,6 +19,6 @@ class PROD_WAKGOOD_API AWakIfari : public AMonster_Base
 public:
 	AWakIfari();
 
-	void Attack();
+	virtual void MeleeAttack(float Damage) override;
 	FOnAttackDelegate OnAttackDelegate;
 };
