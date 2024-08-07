@@ -22,13 +22,17 @@ class PROD_WAKGOOD_API AWakBacteriaDan : public AMonster_Base
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult);
 
 	float LaunchVelocityZ;
+	float LaunchVelocityX;
+	int32 LaunchDirection;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = State, meta = (AllowPrivateAccess = true))
 	bool IsDamaged;
 
 public:
 	AWakBacteriaDan();
 
 	FORCEINLINE void SetIsDamaged(bool Damaged) { IsDamaged = Damaged; }
+	FORCEINLINE void SetLaunchDirection(int32 Direction) { LaunchDirection = Direction; }
 
 protected:
 	virtual void BeginPlay() override;
