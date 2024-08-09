@@ -6,6 +6,13 @@
 #include "PROD_Wakgood/Character/Monster/Monster_Base.h"
 #include "WakChimpanzee.generated.h"
 
+UENUM()
+enum class EChimpanzeeMode : uint8
+{
+	Normal UMETA(DisplayName = "NormalMode"),
+	Angry UMETA(DisplayName = "AngryMode")
+};
+
 /**
  * 
  */
@@ -20,12 +27,22 @@ class PROD_WAKGOOD_API AWakChimpanzee : public AMonster_Base
 	UPROPERTY()
 	float CurrentAngryGauge;
 
-	FTimerHandle IncreaseAngryGaugeHandle;
+	UPROPERTY()
+	float AngryGaugeAmount;
 
+	FTimerHandle IncreaseAngryGaugeHandle;
+	FTimerHandle DecreaseAngryGaugeHandle;
+
+	EChimpanzeeMode Mode;
 
 public:
 	AWakChimpanzee();
 
-	void StartAngryGaugeTimer();
+	void StartIncreaseAngryGaugeTimer();
+	void StartDecreaseAngryGaugeTImer();
+
 	void IncreaseAngryGauge_Recursive();	
+	void DecreaseAngryGauge_Recursive();	
+
+	void SetMode(EChimpanzeeMode Type);
 };

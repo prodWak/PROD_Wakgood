@@ -16,7 +16,7 @@ void AWakAIC_Chimpanzee::OnPossess(APawn* InPawn)
 
 	if (OwningPawn = Cast<AWakChimpanzee>(InPawn))
 	{
-		OwningPawn->StartAngryGaugeTimer();
+		OwningPawn->StartIncreaseAngryGaugeTimer();
 	}
 	else
 	{
