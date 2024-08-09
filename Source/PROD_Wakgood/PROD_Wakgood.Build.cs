@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System;
 using UnrealBuildTool;
 
 public class PROD_Wakgood : ModuleRules
@@ -20,7 +21,7 @@ public class PROD_Wakgood : ModuleRules
             "GameplayTasks"
         });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+		PrivateDependencyModuleNames.AddRange(new string[] { });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

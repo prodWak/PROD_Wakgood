@@ -100,6 +100,10 @@ void AWakDebugPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Move
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AWakDebugPlayer::Move);
 
+		// Run
+		EnhancedInputComponent->BindAction(IA_Run, ETriggerEvent::Triggered, this, &AWakDebugPlayer::StartRunning);
+		EnhancedInputComponent->BindAction(IA_Run, ETriggerEvent::Completed, this, &AWakDebugPlayer::StopRunning);
+
 		// Jump
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &AWakDebugPlayer::Jump);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Completed, this, &AWakDebugPlayer::StopJumping);
@@ -121,6 +125,16 @@ void AWakDebugPlayer::Move(const FInputActionValue& Value)
 			UpdateMeshRotation(float(Input.Y));
 		}
 	}
+}
+
+void AWakDebugPlayer::StartRunning()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+}
+
+void AWakDebugPlayer::StopRunning()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 }
 
 void AWakDebugPlayer::UpdateMeshRotation(float Direction)

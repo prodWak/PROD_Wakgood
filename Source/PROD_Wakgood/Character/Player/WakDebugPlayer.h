@@ -35,11 +35,16 @@ class PROD_WAKGOOD_API AWakDebugPlayer : public ACharacter
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> IA_Jump;
 
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+	TObjectPtr<UInputAction> IA_Run;
+
 	// Take Attack Test
 	UPROPERTY(VisibleAnywhere, Category = Health)
 	float Health;
 
 	void Move(const FInputActionValue& Value);
+	void StartRunning();
+	void StopRunning();
 	void UpdateMeshRotation(float Direction);
 
 
