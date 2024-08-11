@@ -16,11 +16,21 @@ class PROD_WAKGOOD_API AWakAIC_Chimpanzee : public AWakAIC_Base
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = AI)
+	TObjectPtr<UBehaviorTree> BT_Chimpanzee;
+
+	UPROPERTY(EditDefaultsOnly, Category = AI)
+	TObjectPtr<UBlackboardData> BB_Chimpanzee;
+
 	UPROPERTY()
 	TObjectPtr<AWakChimpanzee> OwningPawn;
 
 public:
 	AWakAIC_Chimpanzee();
+
+	static const FName Chimpanzee_HomePosKey;
+	static const FName Chimpanzee_PatrolPosKey;
+	static const FName Chimpanzee_TargetKey;
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

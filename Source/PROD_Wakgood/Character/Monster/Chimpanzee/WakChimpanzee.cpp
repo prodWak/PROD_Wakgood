@@ -46,12 +46,17 @@ void AWakChimpanzee::IncreaseAngryGauge_Recursive()
 	CurrentAngryGauge += AngryGaugeAmount;
 	UE_LOG(LogTemp, Warning, TEXT("AG : %f"), CurrentAngryGauge);
 
+	// TODO : Write ProgressBar update code here
+	// ...
+
 	if (MaxAngryGauge <= CurrentAngryGauge)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Clear Timer"));
 		GetWorldTimerManager().ClearTimer(IncreaseAngryGaugeHandle);
+		SetMode(EChimpanzeeMode::Angry);
 
 		StartDecreaseAngryGaugeTImer();
+		bCanAttack = true;
 	}
 }
 
@@ -60,18 +65,26 @@ void AWakChimpanzee::DecreaseAngryGauge_Recursive()
 	CurrentAngryGauge -= AngryGaugeAmount;
 	UE_LOG(LogTemp, Warning, TEXT("AG : %f"), CurrentAngryGauge);
 
+	// TODO : Write ProgressBar update code here
+	// ...
+
 	if (CurrentAngryGauge <= 0)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString("Clear Decrease Timer"));
 		GetWorldTimerManager().ClearTimer(DecreaseAngryGaugeHandle);
+		SetMode(EChimpanzeeMode::Normal);
 
 		StartIncreaseAngryGaugeTimer();
+		bCanAttack = false;
 	}
 }
 
 void AWakChimpanzee::SetMode(EChimpanzeeMode Type)
 {
-	Mode = Type;
+	if (Mode != Type)
+	{
+		Mode = Type;
+	}
 
 	// TODO : Change Chimpanzee mesh or animation ...
 
@@ -86,4 +99,9 @@ void AWakChimpanzee::SetMode(EChimpanzeeMode Type)
 		break;
 	}
 	}
+}
+
+void AWakChimpanzee::Attack()
+{
+	OnAttackDelegate.Broadcast();
 }

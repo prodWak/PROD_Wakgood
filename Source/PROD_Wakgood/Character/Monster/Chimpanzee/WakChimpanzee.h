@@ -6,6 +6,8 @@
 #include "PROD_Wakgood/Character/Monster/Monster_Base.h"
 #include "WakChimpanzee.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnAttackDelegate);
+
 UENUM()
 enum class EChimpanzeeMode : uint8
 {
@@ -30,19 +32,27 @@ class PROD_WAKGOOD_API AWakChimpanzee : public AMonster_Base
 	UPROPERTY()
 	float AngryGaugeAmount;
 
+	UPROPERTY()
+	bool bCanAttack;
+
 	FTimerHandle IncreaseAngryGaugeHandle;
 	FTimerHandle DecreaseAngryGaugeHandle;
 
 	EChimpanzeeMode Mode;
 
+	void StartDecreaseAngryGaugeTImer();
+
+	void IncreaseAngryGauge_Recursive();
+	void DecreaseAngryGauge_Recursive();
+
 public:
 	AWakChimpanzee();
 
+	FORCEINLINE bool GetCanAttack() const { return bCanAttack; }
+
 	void StartIncreaseAngryGaugeTimer();
-	void StartDecreaseAngryGaugeTImer();
-
-	void IncreaseAngryGauge_Recursive();	
-	void DecreaseAngryGauge_Recursive();	
-
 	void SetMode(EChimpanzeeMode Type);
+
+	void Attack();
+	FOnAttackDelegate OnAttackDelegate;
 };
