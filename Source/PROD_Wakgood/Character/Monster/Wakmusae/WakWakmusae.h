@@ -46,6 +46,5 @@ public:
 	FORCEINLINE bool GetIsDetectPlayer() const { return IsDetectPlayer; }
 	FORCEINLINE void SetIsDetectPlayer(bool IsDetect) { IsDetectPlayer = IsDetect; }
 
-protected:
-	virtual void BeginPlay() override;
+	void SetTarget(AWakDebugPlayer* target);
 };

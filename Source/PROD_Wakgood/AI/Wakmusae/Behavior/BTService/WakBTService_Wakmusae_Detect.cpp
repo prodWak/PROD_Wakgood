@@ -60,6 +60,7 @@ void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey, Target);
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						AIOwner->SetIsDetectPlayer(true);
+						AIOwner->SetTarget(Target);
 						return;
 					}
 				}

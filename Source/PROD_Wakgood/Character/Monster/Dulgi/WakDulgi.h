@@ -31,6 +31,10 @@ class PROD_WAKGOOD_API AWakDulgi : public AMonster_Base
 	float KnockBackPowerVert;
 
 	UFUNCTION()
+	void PlayerBeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Result);
+
+	UFUNCTION()
 	void GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 public:

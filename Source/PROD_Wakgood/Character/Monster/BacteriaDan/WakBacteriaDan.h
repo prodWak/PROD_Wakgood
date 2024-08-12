@@ -14,19 +14,16 @@ class PROD_WAKGOOD_API AWakBacteriaDan : public AMonster_Base
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, Category = Collision)
-	TObjectPtr<UBoxComponent> GroundDetector;
-
-	UFUNCTION()
-	void BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor,
-		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult);
-
 	float LaunchVelocityZ;
 	float LaunchVelocityX;
 	int32 LaunchDirection;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = State, meta = (AllowPrivateAccess = true))
+	UPROPERTY(VisibleAnywhere, Category = State)
 	bool IsDamaged;
+
+	FTimerHandle LaunchCharacterHandle;
+
+	void BacteriaDan_LaunchCharacter();
 
 public:
 	AWakBacteriaDan();
@@ -36,4 +33,5 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Landed(const FHitResult& Hit) override;
 };

@@ -8,13 +8,7 @@
 
 AWakBacteriaDan::AWakBacteriaDan()
 {
-	PrimaryActorTick.bCanEverTick = true;
-
-	GroundDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("GroundDetector"));
-	GroundDetector->SetupAttachment(GetRootComponent());
-	GroundDetector->SetRelativeLocation(FVector(0.0f, 0.0f, -80.0f));
-	GroundDetector->SetBoxExtent(FVector(25.0f, 25.0f, 10.0f));
-	GroundDetector->OnComponentBeginOverlap.AddDynamic(this, &AWakBacteriaDan::BeginOverlap);
+	PrimaryActorTick.bCanEverTick = false;
 
 	IsDamaged = false;
 
@@ -23,21 +17,27 @@ AWakBacteriaDan::AWakBacteriaDan()
 	LaunchDirection = 0;
 }
 
+void AWakBacteriaDan::BacteriaDan_LaunchCharacter()
+{
+	if (IsDamaged)
+	{
+		LaunchVelocityZ *= 1.2;
+	}
+
+	LaunchCharacter(FVector(LaunchVelocityX * LaunchDirection, 0.0f, LaunchVelocityZ), true, true);
+	IsDamaged = false;
+}
+
 void AWakBacteriaDan::BeginPlay()
 {
 	Super::BeginPlay();
 
-	LaunchCharacter(FVector(0.0f, 0.0f, LaunchVelocityZ), true, true);
+	BacteriaDan_LaunchCharacter();
 }
 
-void AWakBacteriaDan::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult)
+void AWakBacteriaDan::Landed(const FHitResult& Hit)
 {
-	if (!IsDamaged)
-	{
-		LaunchCharacter(FVector(LaunchVelocityX * LaunchDirection, 0.0f, LaunchVelocityZ), true, true);
-	}
-	else
-	{
-		LaunchCharacter(FVector(LaunchVelocityX * LaunchDirection, 0.0f, LaunchVelocityZ * 1.5f), true, true);
-	}
+	Super::Landed(Hit);
+
+	BacteriaDan_LaunchCharacter();
 }

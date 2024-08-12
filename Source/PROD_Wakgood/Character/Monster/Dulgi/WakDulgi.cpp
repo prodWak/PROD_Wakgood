@@ -5,6 +5,7 @@
 
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
@@ -19,6 +20,8 @@ AWakDulgi::AWakDulgi()
 	GroundDetector->SetRelativeLocation(FVector(80.0f, 0.0f, -240.0f));
 	GroundDetector->SetBoxExtent(FVector(50.0f, 100.0f, 300.0f));
 	GroundDetector->OnComponentEndOverlap.AddDynamic(this, &AWakDulgi::GroundEndOverlap);
+
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AWakDulgi::PlayerBeginOverlap);
 
 	GetCharacterMovement()->DefaultLandMovementMode = EMovementMode::MOVE_Flying;
 	GetCharacterMovement()->MaxFlySpeed = 400.0f;
@@ -52,6 +55,15 @@ void AWakDulgi::Attack()
 	GEngine->AddOnScreenDebugMessage(16, 1.0f, FColor::Red, FString("Attack"));
 
 	AttackTarget(Target);
+}
+
+void AWakDulgi::PlayerBeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Result)
+{
+	if (AWakDebugPlayer* Player = Cast<AWakDebugPlayer>(OtherActor))
+	{
+		this->Destroy();
+		Player->UpdateHealth(50.0f);
+	}
 }
 
 void AWakDulgi::GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

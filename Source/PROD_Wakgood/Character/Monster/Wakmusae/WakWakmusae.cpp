@@ -38,18 +38,8 @@ void AWakWakmusae::Attack()
 	}
 }
 
-void AWakWakmusae::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// Set the target to get the projectile launch angle
-	Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
-}
-
 void AWakWakmusae::SpawnProjectile()
 {
-	check(Target);
-
 	if (Wakmusae_ProjectileClass != nullptr)
 	{
 		FActorSpawnParameters SpawnParams;
@@ -63,6 +53,11 @@ void AWakWakmusae::SpawnProjectile()
 		AWakWakmusae_Projectile* Projectile =
 			GetWorld()->SpawnActor<AWakWakmusae_Projectile>(Wakmusae_ProjectileClass, Loc, Rot, SpawnParams);
 	}
+}
+
+void AWakWakmusae::SetTarget(AWakDebugPlayer* target)
+{
+	Target = target;
 }
 
 void AWakWakmusae::GroundEndOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

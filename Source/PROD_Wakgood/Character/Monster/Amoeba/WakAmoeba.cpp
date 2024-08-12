@@ -18,13 +18,11 @@ void AWakAmoeba::CheckTransformation()
 	{
 		// Call Transformation Function in 5 second
 		Transformation();
-		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Start Timer"));
 	}
 }
 
 void AWakAmoeba::Transformation()
 {
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Start Transformation"));
 	int32 Idx = FMath::RandRange(1, 7);
 	TSubclassOf<AMonster_Base> SpawnMonsterClass = *MonsterList.Find(Idx);
 
@@ -36,8 +34,11 @@ void AWakAmoeba::Transformation()
 
 	// If the monster class is flying object, the Loc Z axis needs to be adjusted
 	// idx : 2 (BatDan), 5 (Dulgi), 7 (Wakmusae)
+	if (Idx == 2 || Idx == 5 || Idx == 7)
+	{
+		Loc.Z += 225;
+	}
 
 	this->Destroy();
 	GetWorld()->SpawnActor<AMonster_Base>(SpawnMonsterClass, Loc, Rot, SpawnParams);
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("End Transformation"));
 }
