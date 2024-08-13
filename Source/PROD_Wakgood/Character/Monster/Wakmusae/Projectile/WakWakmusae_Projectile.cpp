@@ -37,9 +37,7 @@ void AWakWakmusae_Projectile::BeginOverlap(UPrimitiveComponent* OverlapComp, AAc
 {
 	if (AWakDebugPlayer* Player = Cast<AWakDebugPlayer>(OtherActor))
 	{
-		GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Red, FString("Overlap"));
-		// Add Damage to player Script...
-		
+		Player->SetDamage(50.0f);
 		this->Destroy();
 	}
 }

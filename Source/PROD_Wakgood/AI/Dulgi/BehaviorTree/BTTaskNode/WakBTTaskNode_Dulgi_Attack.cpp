@@ -10,7 +10,7 @@ UWakBTTaskNode_Dulgi_Attack::UWakBTTaskNode_Dulgi_Attack()
 {
     NodeName = TEXT("Dulgi_Attack");
 
-    bNotifyTick = true;
+    // bNotifyTick = true;
     IsAttacking = false;
 }
 
@@ -29,18 +29,18 @@ EBTNodeResult::Type UWakBTTaskNode_Dulgi_Attack::ExecuteTask(UBehaviorTreeCompon
 				IsAttacking = false;
 			});
 
-		return EBTNodeResult::InProgress;
+		return EBTNodeResult::Succeeded;
 	}
 
 	return EBTNodeResult::Failed;
 }
 
-void UWakBTTaskNode_Dulgi_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-
-	if (!IsAttacking)
-	{
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-	}
-}
+//void UWakBTTaskNode_Dulgi_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+//{
+//	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+//
+//	if (!IsAttacking)
+//	{
+//		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+//	}
+//}

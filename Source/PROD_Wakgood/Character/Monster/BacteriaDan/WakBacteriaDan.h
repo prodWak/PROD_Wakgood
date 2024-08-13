@@ -18,9 +18,6 @@ class PROD_WAKGOOD_API AWakBacteriaDan : public AMonster_Base
 	float LaunchVelocityX;
 	int32 LaunchDirection;
 
-	UPROPERTY(VisibleAnywhere, Category = State)
-	bool IsDamaged;
-
 	FTimerHandle LaunchCharacterHandle;
 
 	void BacteriaDan_LaunchCharacter();
@@ -28,7 +25,6 @@ class PROD_WAKGOOD_API AWakBacteriaDan : public AMonster_Base
 public:
 	AWakBacteriaDan();
 
-	FORCEINLINE void SetIsDamaged(bool Damaged) { IsDamaged = Damaged; }
 	FORCEINLINE void SetLaunchDirection(int32 Direction) { LaunchDirection = Direction; }
 
 protected:

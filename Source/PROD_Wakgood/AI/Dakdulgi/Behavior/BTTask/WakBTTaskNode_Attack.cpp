@@ -10,7 +10,7 @@ UWakBTTaskNode_Attack::UWakBTTaskNode_Attack()
 {
 	NodeName = TEXT("Dakdulgi_Attack");
 
-	bNotifyTick = true;
+	// bNotifyTick = true;
 	IsAttacking = false;
 }
 
@@ -23,24 +23,24 @@ EBTNodeResult::Type UWakBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& O
 	{
 		// For now, the attack function is called directly, but it needs to be changed to the calling method by animation notify.
 		IsAttacking = true;
-		Dakdulgi->Attack();
+		Dakdulgi->MeleeAttack(50.0f);
 		Dakdulgi->OnAttackDelegate.AddLambda([this]()->void
 			{
 			IsAttacking = false;
 			});
 
-		return EBTNodeResult::InProgress;
+		return EBTNodeResult::Succeeded;
 	}
 
 	return EBTNodeResult::Failed;
 }
 
-void UWakBTTaskNode_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-
-	if (!IsAttacking)
-	{
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-	}
-}
+//void UWakBTTaskNode_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+//{
+//	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+//
+//	if (!IsAttacking)
+//	{
+//		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+//	}
+//}

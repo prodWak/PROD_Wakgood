@@ -32,11 +32,7 @@ void AWakBatDan::Attack()
 {
 	if (Target != nullptr)
 	{
-		// if Montage_IsPlaying
-		//		return
-
 		SetPlayerDetectorRotation();
-		// Montage Play
 		OnAttackDelegate.Broadcast();
 	}
 }
@@ -46,8 +42,6 @@ void AWakBatDan::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherAct
 	// Player Enters AttackRange
 	if (AWakDebugPlayer* Player = Cast<AWakDebugPlayer>(OtherActor))
 	{
-		// TODO : Spawn VFX Actor, Damage to Player
-		// ...
 		FVector Loc = GetActorLocation();
 		FRotator Rot = PlayerDetector->GetComponentRotation();
 		FActorSpawnParameters SpawnParams;
@@ -55,10 +49,9 @@ void AWakBatDan::BeginOverlap(UPrimitiveComponent* OverlapComp, AActor* OtherAct
 		SpawnParams.Instigator = this;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		GetWorld()->SpawnActor<AActor>(ActorClass, Loc, Rot, SpawnParams);
-	}
 
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Attack"));
-	DrawDebugCapsule(GetWorld(), GetActorLocation(), 400.0f, 50.0f, PlayerDetector->GetComponentQuat(), FColor::Green, false, 1.0f, 1, 1);
+		// TODO : Actor -> Player->SetDamage(50.0f);
+	}
 }
 
 void AWakBatDan::SetPlayerDetectorRotation()

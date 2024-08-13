@@ -101,7 +101,9 @@ void AWakChimpanzee::SetMode(EChimpanzeeMode Type)
 	}
 }
 
-void AWakChimpanzee::Attack()
+void AWakChimpanzee::MeleeAttack(float Damage)
 {
+	Super::MeleeAttack(Damage);
+
 	OnAttackDelegate.Broadcast();
 }

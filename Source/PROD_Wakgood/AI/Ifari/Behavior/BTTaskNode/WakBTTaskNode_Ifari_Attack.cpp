@@ -10,7 +10,7 @@ UWakBTTaskNode_Ifari_Attack::UWakBTTaskNode_Ifari_Attack()
 {
     NodeName = TEXT("Ifari_Attack");
 
-    bNotifyTick = true;
+    // bNotifyTick = true;
     IsAttacking = false;
 }
 
@@ -28,18 +28,18 @@ EBTNodeResult::Type UWakBTTaskNode_Ifari_Attack::ExecuteTask(UBehaviorTreeCompon
                 IsAttacking = false;
             });
 
-        return EBTNodeResult::InProgress;
+        return EBTNodeResult::Succeeded;
     }
 
     return EBTNodeResult::Failed;
 }
 
-void UWakBTTaskNode_Ifari_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-    Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-
-    if (!IsAttacking)
-    {
-        FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-    }
-}
+//void UWakBTTaskNode_Ifari_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+//{
+//    Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+//
+//    if (!IsAttacking)
+//    {
+//        FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+//    }
+//}

@@ -13,16 +13,18 @@ class PROD_WAKGOOD_API AMonster_Base : public ACharacter
 {
 	GENERATED_BODY()
 
+	UPROPERTY(VisibleAnywhere, Category = State)
+	bool IsDamaged;
+
 public:
 	AMonster_Base();
 
-	// Movement
 	virtual void WalkForward(float Delta);
 
+	FORCEINLINE void SetIsDamaged(bool Damaged) { IsDamaged = Damaged; }
+	FORCEINLINE bool GetIsDamaged() const { return IsDamaged; }
+
 protected:
-
-	// Movement
 	virtual void TurnCharacter();
-
 	virtual void MeleeAttack(float Damage);
 };

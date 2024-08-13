@@ -57,7 +57,7 @@ void AMonster_Base::MeleeAttack(float Damage)
 		if (AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(HitResult.GetActor()))
 		{
 			GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("Hit"));
-			Target->UpdateHealth(Damage);
+			Target->SetDamage(Damage);
 		}
 	}
 }

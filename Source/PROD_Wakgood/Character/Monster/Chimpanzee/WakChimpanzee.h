@@ -53,6 +53,6 @@ public:
 	void StartIncreaseAngryGaugeTimer();
 	void SetMode(EChimpanzeeMode Type);
 
-	void Attack();
+	virtual void MeleeAttack(float Damage) override;
 	FOnAttackDelegate OnAttackDelegate;
 };

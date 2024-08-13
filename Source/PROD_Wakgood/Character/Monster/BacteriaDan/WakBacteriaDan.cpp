@@ -10,7 +10,7 @@ AWakBacteriaDan::AWakBacteriaDan()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	IsDamaged = false;
+	SetIsDamaged(false);
 
 	LaunchVelocityZ = 500.0f;
 	LaunchVelocityX = 100.0f;
@@ -19,13 +19,13 @@ AWakBacteriaDan::AWakBacteriaDan()
 
 void AWakBacteriaDan::BacteriaDan_LaunchCharacter()
 {
-	if (IsDamaged)
+	if (GetIsDamaged())
 	{
 		LaunchVelocityZ *= 1.2;
 	}
 
 	LaunchCharacter(FVector(LaunchVelocityX * LaunchDirection, 0.0f, LaunchVelocityZ), true, true);
-	IsDamaged = false;
+	SetIsDamaged(false);
 }
 
 void AWakBacteriaDan::BeginPlay()

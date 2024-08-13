@@ -58,7 +58,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Take Attack Test
-	FORCEINLINE void UpdateHealth(float Amount) 
+	FORCEINLINE void SetDamage(float Amount) 
 	{ 
 		Health -= FMath::Max(Amount, 0);
 

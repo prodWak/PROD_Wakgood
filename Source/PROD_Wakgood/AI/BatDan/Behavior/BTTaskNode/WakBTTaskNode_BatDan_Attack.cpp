@@ -10,7 +10,7 @@
 UWakBTTaskNode_BatDan_Attack::UWakBTTaskNode_BatDan_Attack()
 {
 	NodeName = TEXT("BatDan_Attack");
-	bNotifyTick = true;
+	// bNotifyTick = true;
 	IsAttacking = false;
 }
 
@@ -28,18 +28,18 @@ EBTNodeResult::Type UWakBTTaskNode_BatDan_Attack::ExecuteTask(UBehaviorTreeCompo
 				IsAttacking = false;
 			});
 
-		return EBTNodeResult::InProgress;
+		return EBTNodeResult::Succeeded;
 	}
 
 	return EBTNodeResult::Failed;
 }
-
-void UWakBTTaskNode_BatDan_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-
-	if (!IsAttacking)
-	{
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-	}
-}
+//
+//void UWakBTTaskNode_BatDan_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+//{
+//	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+//
+//	if (!IsAttacking)
+//	{
+//		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+//	}
+//}

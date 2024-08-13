@@ -10,7 +10,7 @@ UWakBTTask_Chimpanzee_Attack::UWakBTTask_Chimpanzee_Attack()
 {
 	NodeName = TEXT("Chimpanzee_Attack");
 
-	bNotifyTick = true;
+	// bNotifyTick = true;
 	IsAttacking = false;
 }
 
@@ -22,24 +22,24 @@ EBTNodeResult::Type UWakBTTask_Chimpanzee_Attack::ExecuteTask(UBehaviorTreeCompo
 	if (Chimpanzee != nullptr)
 	{
 		IsAttacking = true;
-		Chimpanzee->Attack();
+		Chimpanzee->MeleeAttack(50.0f);
 		Chimpanzee->OnAttackDelegate.AddLambda([this]()->void
 			{
 				IsAttacking = false;
 			});
 
-		return EBTNodeResult::InProgress;
+		return EBTNodeResult::Succeeded;
 	}
 
 	return EBTNodeResult::Failed;
 }
 
-void UWakBTTask_Chimpanzee_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
-{
-	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-
-	if (!IsAttacking)
-	{
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-	}
-}
+//void UWakBTTask_Chimpanzee_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+//{
+//	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+//
+//	if (!IsAttacking)
+//	{
+//		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+//	}
+//}

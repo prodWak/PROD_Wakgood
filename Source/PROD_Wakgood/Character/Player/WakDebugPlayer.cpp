@@ -20,8 +20,7 @@
 // Kismet
 #include "Kismet/GameplayStatics.h"
 
-// BacteriaDan Test
-#include "PROD_Wakgood/Character/Monster/BacteriaDan/WakBacteriaDan.h"
+#include "PROD_Wakgood/Character/Monster/Monster_Base.h"
 #include "DrawDebugHelpers.h"
 
 AWakDebugPlayer::AWakDebugPlayer()
@@ -172,18 +171,10 @@ void AWakDebugPlayer::MeleeAttack()
 
 	if (bResult)
 	{
-		if (AWakBacteriaDan* Target = Cast<AWakBacteriaDan>(HitResult.GetActor()))
+		if (AMonster_Base* Target = Cast<AMonster_Base>(HitResult.GetActor()))
 		{
 			GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString("Hit"));
 			Target->SetIsDamaged(true);
 		}
-		else
-		{
-			GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Red, FString("No Hit Actor"));
-		}
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Red, FString("No Result"));
 	}
 }

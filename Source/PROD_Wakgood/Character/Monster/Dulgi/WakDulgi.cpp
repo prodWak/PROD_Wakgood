@@ -62,7 +62,8 @@ void AWakDulgi::PlayerBeginOverlap(UPrimitiveComponent* OverlapComp, AActor* Oth
 	if (AWakDebugPlayer* Player = Cast<AWakDebugPlayer>(OtherActor))
 	{
 		this->Destroy();
-		Player->UpdateHealth(50.0f);
+		Player->SetDamage(50.0f);
+		OnAttackDelegate.Broadcast();
 	}
 }
 

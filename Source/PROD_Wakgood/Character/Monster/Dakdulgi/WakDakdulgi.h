@@ -21,6 +21,6 @@ public:
 	AWakDakdulgi();
 
 	// Attack
+	virtual void MeleeAttack(float Damage) override;
 	FOnAttackEndDelegate OnAttackDelegate;
-	void Attack();
 };

@@ -8,7 +8,9 @@ AWakDakdulgi::AWakDakdulgi()
 	
 }
 
-void AWakDakdulgi::Attack()
+void AWakDakdulgi::MeleeAttack(float Damage)
 {
+	Super::MeleeAttack(Damage);
+
 	OnAttackDelegate.Broadcast();
 }
