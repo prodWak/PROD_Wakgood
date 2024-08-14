@@ -24,12 +24,16 @@ class PROD_WAKGOOD_API AWakAIC_Amoeba : public AWakAIC_Base
 
 	TObjectPtr<AWakAmoeba> OwningPawn;
 
+	const FName Amoeba_HomePosKey;
+	const FName Amoeba_PatrolPosKey;
+	const FName Amoeba_CanTransformKey;
+
 public:
 	AWakAIC_Amoeba();
 
-	static const FName Amoeba_HomePosKey;
-	static const FName Amoeba_PatrolPosKey;
-	static const FName Amoeba_CanTransformKey;
+	const FName GetHomePosKey() const { return Amoeba_HomePosKey; }
+	const FName GetPatrolPosKey() const { return Amoeba_PatrolPosKey; }
+	const FName GetCanTransformKey() const { return Amoeba_CanTransformKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

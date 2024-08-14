@@ -21,7 +21,9 @@ bool UWakBTDecorator_Chimpanzee_IsInAttackRange::CalculateRawConditionValue(UBeh
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
-		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AWakAIC_Chimpanzee::Chimpanzee_TargetKey));
+		AWakAIC_Chimpanzee* AIController = Cast<AWakAIC_Chimpanzee>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
+		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AIController->GetTargetKey()));
 		if (Target != nullptr)
 		{
 			bResult = (Target->GetDistanceTo(ControllingPawn) <= AttackRadius);

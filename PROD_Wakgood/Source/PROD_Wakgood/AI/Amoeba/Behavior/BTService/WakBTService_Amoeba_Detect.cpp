@@ -30,6 +30,8 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 	if (ControllingPawn != nullptr && AIOwner != nullptr)
 	{
+		AWakAIC_Amoeba* AIController = Cast<AWakAIC_Amoeba>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 		float Radius = 600.0f;
@@ -58,13 +60,13 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
-						OwnerComp.GetBlackboardComponent()->SetValueAsBool(AWakAIC_Amoeba::Amoeba_CanTransformKey, true);
+						OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetCanTransformKey(), true);
 						AIOwner->SetCanTransformation(true);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsBool(AWakAIC_Amoeba::Amoeba_CanTransformKey, false);
+			OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetCanTransformKey(), false);
 		}
 	}
 }

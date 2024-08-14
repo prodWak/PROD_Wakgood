@@ -5,11 +5,10 @@
 
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_Ifari::Ifari_HomePosKey(TEXT("Ifari_HomePos"));
-const FName AWakAIC_Ifari::Ifari_PatrolPosKey(TEXT("Ifari_PatrolPos"));
-const FName AWakAIC_Ifari::Ifari_TargetKey(TEXT("Ifari_Target"));
-
 AWakAIC_Ifari::AWakAIC_Ifari()
+	: Ifari_HomePosKey(TEXT("Ifari_HomePos"))
+	, Ifari_PatrolPosKey(TEXT("Ifari_PatrolPos"))
+	, Ifari_TargetKey(TEXT("Ifari_Target"))
 {
 	PrimaryActorTick.bCanEverTick = false;
 }

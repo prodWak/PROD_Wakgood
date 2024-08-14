@@ -7,11 +7,10 @@
 
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_Chimpanzee::Chimpanzee_HomePosKey(TEXT("Chimpanzee_HomePos"));
-const FName AWakAIC_Chimpanzee::Chimpanzee_PatrolPosKey(TEXT("Chimpanzee_PatrolPos"));
-const FName AWakAIC_Chimpanzee::Chimpanzee_TargetKey(TEXT("Chimpanzee_Target"));
-
 AWakAIC_Chimpanzee::AWakAIC_Chimpanzee()
+	: Chimpanzee_HomePosKey(TEXT("Chimpanzee_HomePos"))
+	, Chimpanzee_PatrolPosKey(TEXT("Chimpanzee_PatrolPos"))
+	, Chimpanzee_TargetKey(TEXT("Chimpanzee_Target"))
 {
 
 }

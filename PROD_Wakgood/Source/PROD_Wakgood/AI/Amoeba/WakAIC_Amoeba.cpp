@@ -6,11 +6,10 @@
 #include "PROD_Wakgood/Character/Monster/Amoeba/WakAmoeba.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_Amoeba::Amoeba_HomePosKey(TEXT("Amoeba_HomePos"));
-const FName AWakAIC_Amoeba::Amoeba_PatrolPosKey(TEXT("Amoeba_PatrolPos"));
-const FName AWakAIC_Amoeba::Amoeba_CanTransformKey(TEXT("Amoeba_CanTransform"));
-
 AWakAIC_Amoeba::AWakAIC_Amoeba()
+	: Amoeba_HomePosKey(TEXT("Amoeba_HomePos"))
+	, Amoeba_PatrolPosKey(TEXT("Amoeba_PatrolPos"))
+	, Amoeba_CanTransformKey(TEXT("Amoeba_CanTransform"))
 {
 
 }
@@ -30,12 +29,6 @@ void AWakAIC_Amoeba::OnPossess(APawn* InPawn)
 		if (!RunBehaviorTree(BT_Amoeba))
 		{
 			UE_LOG(LogTemp, Error, TEXT("BehaviorTree is not working"));
-		}
-		else
-		{
-			// GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, FString("BeginPlay"));
-			// OwningPawn->SetCanTransformation(true);
-			// OwningPawn->CheckTransformation();
 		}
 	}
 }

@@ -20,18 +20,20 @@ EBTNodeResult::Type UWakBTTaskNode_Ifari_FindPatrolPos::ExecuteTask(UBehaviorTre
 
     if (ControllingPawn != nullptr)
     {
+        AWakAIC_Ifari* AIController = Cast<AWakAIC_Ifari>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
         UNavigationSystemV1* NavSys = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
 
         if (NavSys != nullptr)
         {
-            FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_Ifari::Ifari_HomePosKey);
+            FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
             FNavLocation NextPatrol;
 
             if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
             {
                 // Fixed Y axis
                 NextPatrol.Location.Y = 0;
-                OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Ifari::Ifari_PatrolPosKey, NextPatrol);
+                OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol);
                 return EBTNodeResult::Succeeded;
             }
         }

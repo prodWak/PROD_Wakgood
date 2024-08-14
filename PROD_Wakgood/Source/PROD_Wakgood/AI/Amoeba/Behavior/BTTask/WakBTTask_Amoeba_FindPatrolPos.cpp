@@ -19,16 +19,17 @@ EBTNodeResult::Type UWakBTTask_Amoeba_FindPatrolPos::ExecuteTask(UBehaviorTreeCo
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
+		AWakAIC_Amoeba* AIController = Cast<AWakAIC_Amoeba>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 		UNavigationSystemV1* NavSys = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
 		if (NavSys != nullptr)
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_Amoeba::Amoeba_HomePosKey);
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
 				NextPatrol.Location.Y = 0;
-				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Amoeba::Amoeba_PatrolPosKey, NextPatrol);
+				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol);
 				return EBTNodeResult::Succeeded;
 			}
 		}

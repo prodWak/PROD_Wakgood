@@ -30,6 +30,8 @@ void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 	if (ControllingPawn != nullptr)
 	{
+		AWakAIC_BatDan* AIController = Cast<AWakAIC_BatDan>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 		float Radius = 500.0f;
@@ -57,14 +59,14 @@ void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_BatDan::BatDan_TargetKey, Target);
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						AIOwner->SetTarget(Target);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_BatDan::BatDan_TargetKey, nullptr);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), nullptr);
 			AIOwner->SetTarget(nullptr);
 			AIOwner->GetAttackDetector()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		}

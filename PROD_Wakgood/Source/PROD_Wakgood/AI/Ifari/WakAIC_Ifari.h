@@ -20,12 +20,16 @@ class PROD_WAKGOOD_API AWakAIC_Ifari : public AWakAIC_Base
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_Ifari;
 
+	const FName Ifari_HomePosKey;
+	const FName Ifari_PatrolPosKey;
+	const FName Ifari_TargetKey;
+
 public:
 	AWakAIC_Ifari();
 
-	static const FName Ifari_HomePosKey;
-	static const FName Ifari_PatrolPosKey;
-	static const FName Ifari_TargetKey;
+	const FName GetHomePosKey() const { return Ifari_HomePosKey; }
+	const FName GetPatrolPosKey() const { return Ifari_PatrolPosKey; }
+	const FName GetTargetKey() const { return Ifari_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

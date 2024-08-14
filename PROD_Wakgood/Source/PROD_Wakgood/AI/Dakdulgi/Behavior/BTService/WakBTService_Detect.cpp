@@ -27,6 +27,8 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
+		AWakAIC_Dakdulgi* AIController = Cast<AWakAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();\
 		float Radius = 600.0f;
@@ -54,13 +56,13 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey, Target);
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey, nullptr);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), nullptr);
 		}
 	}
 }

@@ -21,7 +21,9 @@ bool UWakBTDecorator_Wakmusae_IsInAttackRange::CalculateRawConditionValue(UBehav
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
-		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AWakAIC_Wakmusae::Wakmusae_TargetKey));
+		AWakAIC_Wakmusae* AIController = Cast<AWakAIC_Wakmusae>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
+		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AIController->GetTargetKey()));
 		if (Target != nullptr)
 		{
 			bResult = (Target->GetDistanceTo(ControllingPawn) <= AttackRadius);

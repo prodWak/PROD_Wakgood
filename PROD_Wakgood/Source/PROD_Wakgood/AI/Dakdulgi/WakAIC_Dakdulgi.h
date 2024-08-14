@@ -20,12 +20,16 @@ class PROD_WAKGOOD_API AWakAIC_Dakdulgi : public AWakAIC_Base
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_Dakdulgi;
 
+	const FName Dakdulgi_HomePosKey;
+	const FName Dakdulgi_PatrolPosKey;
+	const FName Dakdulgi_TargetKey;
+
 public:
 	AWakAIC_Dakdulgi();
 
-	static const FName Dakdulgi_HomePosKey;
-	static const FName Dakdulgi_PatrolPosKey;
-	static const FName Dakdulgi_TargetKey;
+	const FName GetHomePosKey() const { return Dakdulgi_HomePosKey; }
+	const FName GetPatrolPosKey() const { return Dakdulgi_PatrolPosKey; }
+	const FName GetTargetKey() const { return Dakdulgi_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

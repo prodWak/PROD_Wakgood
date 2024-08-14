@@ -20,18 +20,20 @@ EBTNodeResult::Type UWakBTTaskNode_Dakdulgi_FindPatrolPos::ExecuteTask(UBehavior
 
 	if (ControllingPawn != nullptr)
 	{
+		AWakAIC_Dakdulgi* AIController = Cast<AWakAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		UNavigationSystemV1* NavSys = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
 
 		if (NavSys != nullptr)
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_Dakdulgi::Dakdulgi_HomePosKey);
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
 				// Fixed Y-axis
 				NextPatrol.Location.Y = 0;
-				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Dakdulgi::Dakdulgi_PatrolPosKey, NextPatrol.Location);
+				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol.Location);
 				return EBTNodeResult::Succeeded;
 			}
 		}

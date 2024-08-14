@@ -7,9 +7,8 @@
 
 #include "PROD_Wakgood/Character/Monster/BatDan/WakBatDan.h"
 
-const FName AWakAIC_BatDan::BatDan_TargetKey(TEXT("BatDan_Target"));
-
 AWakAIC_BatDan::AWakAIC_BatDan()
+	: BatDan_TargetKey(TEXT("BatDan_Target"))
 {
 
 }

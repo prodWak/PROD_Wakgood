@@ -29,6 +29,8 @@ class PROD_WAKGOOD_API AWakAIC_Wakmusae : public AWakAIC_Base
 	UPROPERTY()
 	bool IsDetectPlayer;
 
+	const FName Wakmusae_TargetKey;
+
 public:
 	AWakAIC_Wakmusae();
 
@@ -36,7 +38,7 @@ public:
 
 	FORCEINLINE bool GetIsDetectPlayer() const { return IsDetectPlayer; }
 
-	static const FName Wakmusae_TargetKey;
+	const FName GetTargetKey() const { return Wakmusae_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

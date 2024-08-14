@@ -21,7 +21,9 @@ bool UWakBTDecorator_Dakdulbi_IsInAttackRange::CalculateRawConditionValue(UBehav
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
-		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AWakAIC_Dakdulgi::Dakdulgi_TargetKey));
+		AWakAIC_Dakdulgi* AIController = Cast<AWakAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
+		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AIController->GetTargetKey()));
 		if (Target != nullptr)
 		{
 			bResult = (Target->GetDistanceTo(ControllingPawn) <= AttackRadius);

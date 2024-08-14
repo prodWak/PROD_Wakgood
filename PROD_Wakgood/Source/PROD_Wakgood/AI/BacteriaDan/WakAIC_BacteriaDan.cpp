@@ -5,9 +5,8 @@
 
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_BacteriaDan::BacteriaDan_HomePosKey(TEXT("BacteriaDan_HomePos"));
-
 AWakAIC_BacteriaDan::AWakAIC_BacteriaDan()
+	:BacteriaDan_HomePosKey(TEXT("BacteriaDan_HomePos"))
 {
 }
 

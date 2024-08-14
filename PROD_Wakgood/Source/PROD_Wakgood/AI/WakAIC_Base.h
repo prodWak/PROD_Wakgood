@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "WakAIC_Base.generated.h"
 
 /**

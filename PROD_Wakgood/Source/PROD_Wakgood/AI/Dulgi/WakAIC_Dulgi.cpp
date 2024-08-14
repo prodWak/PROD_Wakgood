@@ -8,9 +8,8 @@
 
 #include "PROD_Wakgood/Character/Monster/Dulgi/WakDulgi.h"
 
-const FName AWakAIC_Dulgi::Dulgi_TargetKey(TEXT("Dulgi_Target"));
-
 AWakAIC_Dulgi::AWakAIC_Dulgi()
+	: Dulgi_TargetKey(TEXT("Dulgi_Target"))
 {
 	PrimaryActorTick.bCanEverTick = true;
 }

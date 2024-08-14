@@ -23,11 +23,13 @@ EBTNodeResult::Type UWakBTTask_BacteriaDan_FindPatrolPos::ExecuteTask(UBehaviorT
 	// Get OwnerPawn
 	if (OwnerPawn != nullptr)
 	{
+		AWakAIC_BacteriaDan* AIController = Cast<AWakAIC_BacteriaDan>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		// Get NavSys
 		UNavigationSystemV1* NavSys = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
 		if (NavSys != nullptr)
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_BacteriaDan::BacteriaDan_HomePosKey);
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
 			// Set RandomPoint

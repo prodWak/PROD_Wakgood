@@ -5,11 +5,10 @@
 // Behavior
 #include "BehaviorTree/BlackboardComponent.h"
 
-const FName AWakAIC_Dakdulgi::Dakdulgi_HomePosKey(TEXT("Dakdulgi_HomePos"));
-const FName AWakAIC_Dakdulgi::Dakdulgi_PatrolPosKey(TEXT("Dakdulgi_PatrolPos"));
-const FName AWakAIC_Dakdulgi::Dakdulgi_TargetKey(TEXT("Dakdulgi_Target"));
-
 AWakAIC_Dakdulgi::AWakAIC_Dakdulgi()
+	: Dakdulgi_HomePosKey(TEXT("Dakdulgi_HomePos"))
+	, Dakdulgi_PatrolPosKey(TEXT("Dakdulgi_PatrolPos"))
+	, Dakdulgi_TargetKey(TEXT("Dakdulgi_Target"))
 {
 	PrimaryActorTick.bCanEverTick = false;
 }

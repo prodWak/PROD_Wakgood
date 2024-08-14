@@ -20,7 +20,9 @@ bool UWakBTDecorator_Ifari_IsInAttackRange::CalculateRawConditionValue(UBehavior
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
-		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AWakAIC_Ifari::Ifari_TargetKey));
+		AWakAIC_Ifari* AIController = Cast<AWakAIC_Ifari>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
+		AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AIController->GetTargetKey()));
 		if (Target != nullptr)
 		{
 			bResult = (Target->GetDistanceTo(ControllingPawn) <= AttackRadius);

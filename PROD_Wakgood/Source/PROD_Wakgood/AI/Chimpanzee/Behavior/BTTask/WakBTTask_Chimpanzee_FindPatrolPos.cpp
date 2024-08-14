@@ -19,16 +19,17 @@ EBTNodeResult::Type UWakBTTask_Chimpanzee_FindPatrolPos::ExecuteTask(UBehaviorTr
 	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (ControllingPawn != nullptr)
 	{
+		AWakAIC_Chimpanzee* AIController = Cast<AWakAIC_Chimpanzee>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 		UNavigationSystemV1* NavSys = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
 		if (NavSys != nullptr)
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AWakAIC_Chimpanzee::Chimpanzee_HomePosKey);
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
 			{
 				NextPatrol.Location.Y = 0;
-				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AWakAIC_Chimpanzee::Chimpanzee_PatrolPosKey, NextPatrol.Location);
+				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol.Location);
 				return EBTNodeResult::Succeeded;
 			}
 		}

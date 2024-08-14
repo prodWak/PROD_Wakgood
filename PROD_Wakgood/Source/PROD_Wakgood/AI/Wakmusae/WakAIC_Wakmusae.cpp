@@ -8,9 +8,8 @@
 
 #include "PROD_Wakgood/Character/Monster/Wakmusae/WakWakmusae.h"
 
-const FName AWakAIC_Wakmusae::Wakmusae_TargetKey(TEXT("Wakmusae_Target"));
-
 AWakAIC_Wakmusae::AWakAIC_Wakmusae()
+	: Wakmusae_TargetKey(TEXT("Wakmusae_Target"))
 {
 	PrimaryActorTick.bCanEverTick = true;
 

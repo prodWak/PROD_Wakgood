@@ -29,6 +29,8 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 	AWakChimpanzee* AIOwner = Cast<AWakChimpanzee>(ControllingPawn);
 	if (ControllingPawn != nullptr && AIOwner != nullptr)
 	{
+		AWakAIC_Chimpanzee* AIController = Cast<AWakAIC_Chimpanzee>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 		float Radius = 600.0f;
@@ -56,13 +58,13 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController() && AIOwner->GetCanAttack())
 					{
-						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Chimpanzee::Chimpanzee_TargetKey, Target);
+						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
 						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						return;
 					}
 				}
 			}
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AWakAIC_Chimpanzee::Chimpanzee_TargetKey, nullptr);
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), nullptr);
 		}
 	}
 }
