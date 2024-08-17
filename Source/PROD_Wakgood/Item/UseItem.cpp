@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Items/UseItem.h"
-#include "Character/MyCharacter.h"
+#include "UseItem.h"
+#include "PROD_Wakgood/Character/MyCharacter.h"
 #include "Components/SphereComponent.h"
 
 

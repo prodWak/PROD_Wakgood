@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Items/MyItem.h"
+#include "MyItem.h"
 #include "Components/SphereComponent.h"
-#include "Character/MyCharacter.h"
+#include "PROD_Wakgood/Character/MyCharacter.h"
 
 
 // Called when the game starts or when spawned

@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/MyCharacter.h"
+#include "PROD_Wakgood/Character/MyCharacter.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-#include "Items/MyItem.h"
-#include "Items/UseItem.h"
+#include "PROD_Wakgood/Item/MyItem.h"
+#include "PROD_Wakgood/Item/UseItem.h"
 #include "Components/Image.h"
 #include "Blueprint/UserWidget.h"
 #include "Engine/Engine.h"

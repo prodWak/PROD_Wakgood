@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Items/MyItem.h"
+#include "MyItem.h"
 #include "UseItem.generated.h"
 
 /**
