@@ -1,45 +1,61 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseNPC.h"
+#include "WakBaseNPC.h"
 
 // Sets default values
-ABaseNPC::ABaseNPC()
+AWakBaseNPC::AWakBaseNPC()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-
+	
 }
 
 // Called when the game starts or when spawned
-void ABaseNPC::BeginPlay()
+void AWakBaseNPC::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ABaseNPC::Tick(float DeltaTime)
+void AWakBaseNPC::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
 // Called to bind functionality to input
-void ABaseNPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AWakBaseNPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
 // 상호작용 시작 함수 
-void ABaseNPC::EnterInteraction()
+void AWakBaseNPC::EnterInteraction()
 {
+	
 	isInteracting = true;
 }
+
 // 상호작용 종료 함수
-void ABaseNPC::ExitInteraction()
+void AWakBaseNPC::ExitInteraction()
 {
+	
 	isInteracting = false;
+}
+
+void AWakBaseNPC::Interaction(AActor* target)
+{
+	GEngine->AddOnScreenDebugMessage(0, 1, FColor::Red, FString::Printf(TEXT("Call Interaction")));
+	if (isInteracting)
+	{
+		ExitInteraction();
+	}
+	else
+	{
+		EnterInteraction();
+	}
 }
