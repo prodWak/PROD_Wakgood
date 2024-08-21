@@ -14,6 +14,7 @@ UWakBTService_Wakmusae_Detect::UWakBTService_Wakmusae_Detect()
 {
 	NodeName = TEXT("Wakmusae_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Wakmusae_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -34,7 +35,6 @@ void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 600.0f;
 
 		if (world != nullptr)
 		{

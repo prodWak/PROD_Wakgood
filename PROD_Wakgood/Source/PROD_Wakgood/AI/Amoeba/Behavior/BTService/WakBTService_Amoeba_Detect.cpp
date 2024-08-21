@@ -14,6 +14,7 @@ UWakBTService_Amoeba_Detect::UWakBTService_Amoeba_Detect()
 {
 	NodeName = TEXT("Amoeba_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Amoeba_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -34,7 +35,6 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 600.0f;
 
 		if (world != nullptr)
 		{

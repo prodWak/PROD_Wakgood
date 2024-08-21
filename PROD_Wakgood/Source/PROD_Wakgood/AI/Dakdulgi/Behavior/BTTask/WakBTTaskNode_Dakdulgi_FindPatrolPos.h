@@ -14,6 +14,9 @@ class PROD_WAKGOOD_API UWakBTTaskNode_Dakdulgi_FindPatrolPos : public UBTTaskNod
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
+	float Radius;
+
 public:
 	UWakBTTaskNode_Dakdulgi_FindPatrolPos();
 

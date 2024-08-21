@@ -14,6 +14,7 @@
 UWakBTService_BatDan_Detect::UWakBTService_BatDan_Detect()
 {
 	NodeName = TEXT("BatDan_Detect");
+	Radius = 600.0f;
 }
 
 void UWakBTService_BatDan_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -34,7 +35,6 @@ void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 500.0f;
 
 		if (world != nullptr)
 		{

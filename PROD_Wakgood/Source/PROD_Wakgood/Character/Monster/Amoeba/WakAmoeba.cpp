@@ -23,7 +23,7 @@ void AWakAmoeba::CheckTransformation()
 
 void AWakAmoeba::Transformation()
 {
-	int32 Idx = FMath::RandRange(1, 7);
+	int32 Idx = FMath::RandRange(1, 8);
 	TSubclassOf<AMonster_Base> SpawnMonsterClass = *MonsterList.Find(Idx);
 
 	FVector Loc = GetActorLocation();
@@ -34,6 +34,7 @@ void AWakAmoeba::Transformation()
 
 	// If the monster class is flying object, the Loc Z axis needs to be adjusted
 	// idx : 2 (BatDan), 5 (Dulgi), 7 (Wakmusae)
+	// 나중에 걍 뒤로 몰아넣어야겠다
 	if (Idx == 2 || Idx == 5 || Idx == 7)
 	{
 		Loc.Z += 225;

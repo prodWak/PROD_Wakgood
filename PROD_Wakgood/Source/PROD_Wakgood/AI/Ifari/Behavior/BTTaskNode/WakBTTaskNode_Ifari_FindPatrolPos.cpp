@@ -29,7 +29,7 @@ EBTNodeResult::Type UWakBTTaskNode_Ifari_FindPatrolPos::ExecuteTask(UBehaviorTre
             FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
             FNavLocation NextPatrol;
 
-            if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+            if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
             {
                 // Fixed Y axis
                 NextPatrol.Location.Y = 0;

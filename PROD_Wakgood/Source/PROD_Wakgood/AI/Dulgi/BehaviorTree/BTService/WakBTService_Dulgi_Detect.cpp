@@ -14,6 +14,7 @@ UWakBTService_Dulgi_Detect::UWakBTService_Dulgi_Detect()
 {
 	NodeName = TEXT("Dulgi_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Dulgi_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -34,7 +35,6 @@ void UWakBTService_Dulgi_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 600.0f;
 
 		if (world != nullptr)
 		{

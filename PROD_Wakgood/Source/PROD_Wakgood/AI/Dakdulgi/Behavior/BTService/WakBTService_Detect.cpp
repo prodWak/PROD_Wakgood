@@ -13,6 +13,7 @@ UWakBTService_Detect::UWakBTService_Detect()
 {
 	NodeName = TEXT("Dakdulgi_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -30,8 +31,7 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 		AWakAIC_Dakdulgi* AIController = Cast<AWakAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 
 		UWorld* world = ControllingPawn->GetWorld();
-		FVector Center = ControllingPawn->GetActorLocation();\
-		float Radius = 600.0f;
+		FVector Center = ControllingPawn->GetActorLocation();
 
 		if (world != nullptr)
 		{

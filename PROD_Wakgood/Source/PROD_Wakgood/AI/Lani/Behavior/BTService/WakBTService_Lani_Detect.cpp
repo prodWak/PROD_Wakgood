@@ -16,6 +16,7 @@ UWakBTService_Lani_Detect::UWakBTService_Lani_Detect()
 {
 	NodeName = TEXT("Lani_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Lani_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -35,7 +36,6 @@ void UWakBTService_Lani_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 		{
 			UWorld* world = ControllingPawn->GetWorld();
 			FVector Center = ControllingPawn->GetActorLocation();
-			float Radius = 600.0f;
 
 			if (world != nullptr)
 			{

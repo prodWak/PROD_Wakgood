@@ -13,6 +13,7 @@ UWakBTService_Ifari_Detect::UWakBTService_Ifari_Detect()
 {
 	NodeName = (TEXT("Ifari_Detect"));
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Ifari_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -31,7 +32,6 @@ void UWakBTService_Ifari_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		const float Radius = 500.0f;
 
 		if (world != nullptr)
 		{

@@ -14,6 +14,9 @@ class PROD_WAKGOOD_API UWakBTService_Ifari_Detect : public UBTService
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
+	float Radius;
+
 public:
 	UWakBTService_Ifari_Detect();
 

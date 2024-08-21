@@ -10,6 +10,7 @@
 UWakBTTask_Amoeba_FindPatrolPos::UWakBTTask_Amoeba_FindPatrolPos()
 {
 	NodeName = TEXT("Amoeba_FindPatrolPos");
+	Radius = 500.0f;
 }
 
 EBTNodeResult::Type UWakBTTask_Amoeba_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -26,7 +27,7 @@ EBTNodeResult::Type UWakBTTask_Amoeba_FindPatrolPos::ExecuteTask(UBehaviorTreeCo
 			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
-			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{
 				NextPatrol.Location.Y = 0;
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol);

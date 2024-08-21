@@ -11,6 +11,7 @@
 UWakBTTask_BacteriaDan_FindPatrolPos::UWakBTTask_BacteriaDan_FindPatrolPos()
 {
 	NodeName = TEXT("BacteriaDan_FindPatrolPos");
+	Radius = 500.0f;
 }
 
 EBTNodeResult::Type UWakBTTask_BacteriaDan_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -33,7 +34,7 @@ EBTNodeResult::Type UWakBTTask_BacteriaDan_FindPatrolPos::ExecuteTask(UBehaviorT
 			FNavLocation NextPatrol;
 
 			// Set RandomPoint
-			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{
 				if (NextPatrol.Location.X < Origin.X)
 				{

@@ -14,6 +14,7 @@ class PROD_WAKGOOD_API UWakBTDecorator_Dulgi_IsInAttackRange : public UBTDecorat
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
 	float AttackRadius;
 
 public:

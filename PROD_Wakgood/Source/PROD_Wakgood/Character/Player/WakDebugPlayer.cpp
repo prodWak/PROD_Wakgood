@@ -153,7 +153,7 @@ void AWakDebugPlayer::UpdateMeshRotation(float Direction)
 		}
 	}
 }
-
+	
 void AWakDebugPlayer::MeleeAttack()
 {
 	FHitResult HitResult;

@@ -14,6 +14,9 @@ class PROD_WAKGOOD_API UWakBTTask_BacteriaDan_FindPatrolPos : public UBTTaskNode
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
+	float Radius;
+
 public:
 	UWakBTTask_BacteriaDan_FindPatrolPos();
 

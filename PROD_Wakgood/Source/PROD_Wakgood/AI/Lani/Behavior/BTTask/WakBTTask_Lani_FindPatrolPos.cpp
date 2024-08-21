@@ -11,6 +11,7 @@
 UWakBTTask_Lani_FindPatrolPos::UWakBTTask_Lani_FindPatrolPos()
 {
 	NodeName = TEXT("Lani_FindPatrolPos");
+	Radius = 500.0f;
 }
 
 EBTNodeResult::Type UWakBTTask_Lani_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -28,7 +29,7 @@ EBTNodeResult::Type UWakBTTask_Lani_FindPatrolPos::ExecuteTask(UBehaviorTreeComp
 			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
-			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{
 				NextPatrol.Location.Y = 0;
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol);

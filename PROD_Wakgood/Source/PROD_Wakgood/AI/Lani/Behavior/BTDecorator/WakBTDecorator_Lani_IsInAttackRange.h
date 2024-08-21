@@ -14,6 +14,7 @@ class PROD_WAKGOOD_API UWakBTDecorator_Lani_IsInAttackRange : public UBTDecorato
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
 	float AttackRadius;
 
 public:

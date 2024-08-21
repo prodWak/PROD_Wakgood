@@ -14,6 +14,7 @@ class PROD_WAKGOOD_API AWakAmoeba : public AMonster_Base
 {
 	GENERATED_BODY()
 
+	// Edit Monster Classes in Editor
 	UPROPERTY(EditDefaultsOnly, Category = List)
 	TMap<int32, TSubclassOf<AMonster_Base>> MonsterList;
 

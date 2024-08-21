@@ -14,6 +14,7 @@ class PROD_WAKGOOD_API UWakBTDecorator_Chimpanzee_IsInAttackRange : public UBTDe
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
 	float AttackRadius;
 
 public:

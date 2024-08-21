@@ -10,6 +10,7 @@
 UWakBTTaskNode_Dakdulgi_FindPatrolPos::UWakBTTaskNode_Dakdulgi_FindPatrolPos()
 {
 	NodeName = TEXT("Dakdulgi_FindPatrolPos");
+	Radius = 500.0f;
 }
 
 EBTNodeResult::Type UWakBTTaskNode_Dakdulgi_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -29,7 +30,7 @@ EBTNodeResult::Type UWakBTTaskNode_Dakdulgi_FindPatrolPos::ExecuteTask(UBehavior
 			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
-			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{
 				// Fixed Y-axis
 				NextPatrol.Location.Y = 0;

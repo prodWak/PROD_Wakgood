@@ -10,6 +10,7 @@
 UWakBTTask_Chimpanzee_FindPatrolPos::UWakBTTask_Chimpanzee_FindPatrolPos()
 {
 	NodeName = TEXT("Chimpanzee_FindPatrolPos");
+	Radius = 500.0f;
 }
 
 EBTNodeResult::Type UWakBTTask_Chimpanzee_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -26,7 +27,7 @@ EBTNodeResult::Type UWakBTTask_Chimpanzee_FindPatrolPos::ExecuteTask(UBehaviorTr
 			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
 
-			if (NavSys->GetRandomPointInNavigableRadius(Origin, 500.0f, NextPatrol))
+			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{
 				NextPatrol.Location.Y = 0;
 				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), NextPatrol.Location);

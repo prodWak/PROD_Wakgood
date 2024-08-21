@@ -14,6 +14,7 @@ UWakBTService_Chimpanzee_Detect::UWakBTService_Chimpanzee_Detect()
 {
 	NodeName = TEXT("Chimpanzee_Detect");
 	Interval = 1.0f;
+	Radius = 600.0f;
 }
 
 void UWakBTService_Chimpanzee_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -33,7 +34,6 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
-		float Radius = 600.0f;
 
 		if (world != nullptr)
 		{

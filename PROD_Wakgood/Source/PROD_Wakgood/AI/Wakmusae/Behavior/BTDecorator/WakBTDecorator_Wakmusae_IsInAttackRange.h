@@ -14,6 +14,7 @@ class PROD_WAKGOOD_API UWakBTDecorator_Wakmusae_IsInAttackRange : public UBTDeco
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = Radius)
 	float AttackRadius;
 
 public:
