@@ -6,6 +6,8 @@
 #include "PROD_Wakgood/Character/Monster/Monster_Base.h"
 #include "WakJuMob.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnAttackDelegate);
+
 /**
  * 
  */
@@ -18,5 +20,7 @@ class PROD_WAKGOOD_API AWakJuMob : public AMonster_Base
 public:
 	AWakJuMob();
 
+	FOnAttackDelegate OnAttackDelegate;
 	void CallAllJuMob();
+	virtual void MeleeAttack(float Damage) override;;
 };

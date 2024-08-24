@@ -17,3 +17,10 @@ void AWakJuMob::CallAllJuMob()
         UE_LOG(LogTemp, Warning, TEXT("Name : %s"), *It->GetName());
     }
 }
+
+void AWakJuMob::MeleeAttack(float Damage)
+{
+    Super::MeleeAttack(Damage);
+
+    OnAttackDelegate.Broadcast();
+}
