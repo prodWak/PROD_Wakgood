@@ -11,7 +11,7 @@
 UWakBTTask_Lani_FindPatrolPos::UWakBTTask_Lani_FindPatrolPos()
 {
 	NodeName = TEXT("Lani_FindPatrolPos");
-	Radius = 500.0f;
+	Radius = 600.0f;
 }
 
 EBTNodeResult::Type UWakBTTask_Lani_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

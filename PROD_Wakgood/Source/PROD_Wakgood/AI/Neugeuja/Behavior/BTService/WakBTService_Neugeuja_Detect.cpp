@@ -8,7 +8,7 @@
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 UWakBTService_Neugeuja_Detect::UWakBTService_Neugeuja_Detect()
 {
@@ -32,6 +32,13 @@ void UWakBTService_Neugeuja_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 	{
 		AWakAIC_Neugeuja* AIController = Cast<AWakAIC_Neugeuja>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 
+		if (AIOwner != nullptr && AIOwner->GetIsBusterCalled())
+		{
+			AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerPawn(ControllingPawn->GetWorld(), 0));
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
+			return;
+		}
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 
@@ -49,8 +56,6 @@ void UWakBTService_Neugeuja_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 				CollisionQueryParams
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -59,7 +64,6 @@ void UWakBTService_Neugeuja_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						return;
 					}
 				}

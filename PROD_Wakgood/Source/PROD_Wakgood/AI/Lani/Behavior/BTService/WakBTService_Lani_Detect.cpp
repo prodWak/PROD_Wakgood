@@ -10,7 +10,7 @@
 #include "PROD_Wakgood/Character/Monster/Lani/WakLani.h"
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
-#include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 UWakBTService_Lani_Detect::UWakBTService_Lani_Detect()
 {
@@ -34,6 +34,14 @@ void UWakBTService_Lani_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 		AWakAIC_Lani* AIController = Cast<AWakAIC_Lani>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 		if (AIController != nullptr)
 		{
+			AWakLani* AIOwner = Cast<AWakLani>(ControllingPawn);
+			if (AIOwner != nullptr && AIOwner->GetIsBusterCalled())
+			{
+				AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerPawn(ControllingPawn->GetWorld(), 0));
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
+				return;
+			}
+
 			UWorld* world = ControllingPawn->GetWorld();
 			FVector Center = ControllingPawn->GetActorLocation();
 
@@ -51,8 +59,6 @@ void UWakBTService_Lani_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					CollisionQueryParams
 				);
 
-				DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 				if (bResult)
 				{
 					for (auto const& OverlapResult : OverlapResults)
@@ -61,7 +67,6 @@ void UWakBTService_Lani_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 						if (Target != nullptr && Target->GetController()->IsPlayerController())
 						{
 							OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-							DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 							return;
 						}
 					}

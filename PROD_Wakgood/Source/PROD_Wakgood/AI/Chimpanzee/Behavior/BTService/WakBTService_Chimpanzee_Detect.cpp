@@ -8,7 +8,7 @@
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 UWakBTService_Chimpanzee_Detect::UWakBTService_Chimpanzee_Detect()
 {
@@ -32,6 +32,15 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 	{
 		AWakAIC_Chimpanzee* AIController = Cast<AWakAIC_Chimpanzee>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 
+		if (AIOwner != nullptr && AIOwner->GetIsBusterCalled())
+		{
+			AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerPawn(ControllingPawn->GetWorld(), 0));
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
+			// Change Mesh
+			// 
+			return;
+		}
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 
@@ -49,8 +58,6 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 				CollisionQueryParams
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -59,7 +66,6 @@ void UWakBTService_Chimpanzee_Detect::DetectLogic(UBehaviorTreeComponent& OwnerC
 					if (Target != nullptr && Target->GetController()->IsPlayerController() && AIOwner->GetCanAttack())
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						return;
 					}
 				}

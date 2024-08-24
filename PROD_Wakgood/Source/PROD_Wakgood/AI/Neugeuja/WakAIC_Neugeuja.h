@@ -20,16 +20,8 @@ class PROD_WAKGOOD_API AWakAIC_Neugeuja : public AWakAIC_Base
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_Neugeuja;
 
-	const FName Neugeuja_HomePosKey;
-	const FName Neugeuja_PatrolPosKey;
-	const FName Neugeuja_TargetKey;
-
 public:
 	AWakAIC_Neugeuja();
-
-	const FName GetHomePoskey() const { return Neugeuja_HomePosKey; }
-	const FName GetPatrolPosKey() const { return Neugeuja_PatrolPosKey; }
-	const FName GetTargetKey() const { return Neugeuja_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

@@ -37,14 +37,14 @@ void AWakNeugeuja::SetKey()
 	{
 	case 1:
 	{
-		Key1 = FMath::RandRange(1, 9);
+		Key1 = FMath::RandRange(1, MonsterList.Num());
 
 		break;
 	}
 	case 2:
 	{
-		Key1 = FMath::RandRange(1, 9);
-		Key2 = FMath::RandRange(1, 9);
+		Key1 = FMath::RandRange(1, MonsterList.Num());
+		Key2 = FMath::RandRange(1, MonsterList.Num());
 
 		if (Key1 == Key2)
 		{

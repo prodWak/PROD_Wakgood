@@ -26,14 +26,8 @@ EBTNodeResult::Type UWakBTTask_Neugeuja_FindPatrolPos::ExecuteTask(UBehaviorTree
 
 		if (NavSys != nullptr && !AIOwner->IsTeleporting())
 		{
-			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePoskey());
+			FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AIController->GetHomePosKey());
 			FNavLocation NextPatrol;
-
-			/*if (AIOwner->IsTeleporting())
-			{
-				OwnerComp.GetBlackboardComponent()->SetValueAsVector(AIController->GetPatrolPosKey(), ControllingPawn->GetActorLocation());
-				return EBTNodeResult::Succeeded;
-			}*/
 
 			if (NavSys->GetRandomPointInNavigableRadius(Origin, Radius, NextPatrol))
 			{

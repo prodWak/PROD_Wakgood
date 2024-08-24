@@ -24,12 +24,8 @@ class PROD_WAKGOOD_API AWakAIC_BatDan : public AWakAIC_Base
 
 	TObjectPtr<AWakBatDan> OwningPawn;
 
-	const FName BatDan_TargetKey;
-
 public:
 	AWakAIC_BatDan();
-
-	const FName GetTargetKey() const { return BatDan_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

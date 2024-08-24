@@ -8,8 +8,9 @@
 
 #include "PROD_Wakgood/Character/Monster/Wakmusae/WakWakmusae.h"
 
+// 얘는 버스터콜 받으면 DistanceTo로 움직여야 될거같은디
+
 AWakAIC_Wakmusae::AWakAIC_Wakmusae()
-	: Wakmusae_TargetKey(TEXT("Wakmusae_Target"))
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -20,7 +21,7 @@ void AWakAIC_Wakmusae::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (OwningPawn != nullptr && !OwningPawn->GetIsDetectPlayer())
+	if (OwningPawn != nullptr)
 	{
 		OwningPawn->WalkForward(0.5f);
 	}

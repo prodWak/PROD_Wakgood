@@ -22,11 +22,11 @@ EBTNodeResult::Type UWakBTTaskNode_Ifari_Attack::ExecuteTask(UBehaviorTreeCompon
     if (Ifari != nullptr)
     {
         IsAttacking = true;
-        Ifari->MeleeAttack(50.0f);
         Ifari->OnAttackDelegate.AddLambda([this]()->void
             {
                 IsAttacking = false;
             });
+        Ifari->MeleeAttack(50.0f);
 
         return EBTNodeResult::Succeeded;
     }

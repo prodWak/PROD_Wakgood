@@ -10,6 +10,7 @@
 UWakBTTaskNode_Ifari_FindPatrolPos::UWakBTTaskNode_Ifari_FindPatrolPos()
 {
     NodeName = TEXT("Ifari_FindPatrolPos");
+    Radius = 600.0f;
 }
 
 EBTNodeResult::Type UWakBTTaskNode_Ifari_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

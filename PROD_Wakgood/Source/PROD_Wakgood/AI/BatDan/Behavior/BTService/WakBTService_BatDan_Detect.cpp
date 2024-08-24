@@ -9,7 +9,6 @@
 #include "PROD_Wakgood/AI/BatDan/WakAIC_BatDan.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "DrawDebugHelpers.h"
 
 UWakBTService_BatDan_Detect::UWakBTService_BatDan_Detect()
 {
@@ -50,8 +49,6 @@ void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 				CollisionQueryParam
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -60,7 +57,6 @@ void UWakBTService_BatDan_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						AIOwner->SetTarget(Target);
 						return;
 					}

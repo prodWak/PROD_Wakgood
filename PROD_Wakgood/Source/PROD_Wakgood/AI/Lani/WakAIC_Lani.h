@@ -19,19 +19,11 @@ class PROD_WAKGOOD_API AWakAIC_Lani : public AWakAIC_Base
 
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_Lani;
-
-	const FName Lani_HomePosKey;
-	const FName Lani_PatrolPosKey;
-	const FName Lani_TargetKey;
-	const FName Lani_IsDamagedKey;
+	const FName IsDamagedKey;
 
 public:
 	AWakAIC_Lani();
-
-	const FName GetHomePosKey() const { return Lani_HomePosKey; }
-	const FName GetPatrolPosKey() const { return Lani_PatrolPosKey; }
-	const FName GetTargetKey() const { return Lani_TargetKey; }
-	const FName GetIsDamagedKey() const { return Lani_IsDamagedKey; }
+	const FName GetIsDamagedKey() const { return IsDamagedKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

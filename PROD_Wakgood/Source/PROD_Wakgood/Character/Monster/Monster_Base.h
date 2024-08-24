@@ -16,6 +16,9 @@ class PROD_WAKGOOD_API AMonster_Base : public ACharacter
 	UPROPERTY(VisibleAnywhere, Category = State)
 	bool IsDamaged;
 
+	UPROPERTY(VisibleAnywhere, Category = State)
+	bool IsBusterCalled;
+
 public:
 	AMonster_Base();
 
@@ -24,7 +27,11 @@ public:
 	FORCEINLINE void SetIsDamaged(bool Damaged) { IsDamaged = Damaged; }
 	FORCEINLINE bool GetIsDamaged() const { return IsDamaged; }
 
-protected:
+	FORCEINLINE void SetBusterCall(bool BusterCall) { IsBusterCalled = BusterCall; }
+	FORCEINLINE bool GetIsBusterCalled() const { return IsBusterCalled; }
+
 	virtual void TurnCharacter();
+
+protected:
 	virtual void MeleeAttack(float Damage);
 };

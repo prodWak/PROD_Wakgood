@@ -8,9 +8,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 AWakAIC_Chimpanzee::AWakAIC_Chimpanzee()
-	: Chimpanzee_HomePosKey(TEXT("Chimpanzee_HomePos"))
-	, Chimpanzee_PatrolPosKey(TEXT("Chimpanzee_PatrolPos"))
-	, Chimpanzee_TargetKey(TEXT("Chimpanzee_Target"))
 {
 
 }
@@ -32,7 +29,7 @@ void AWakAIC_Chimpanzee::OnPossess(APawn* InPawn)
 
 	if (UseBlackboard(BB_Chimpanzee, BLACKBOARD))
 	{
-		BLACKBOARD->SetValueAsVector(Chimpanzee_HomePosKey, InPawn->GetActorLocation());
+		BLACKBOARD->SetValueAsVector(GetHomePosKey(), InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BT_Chimpanzee))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("BehaviorTree is not working"));

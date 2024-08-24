@@ -6,8 +6,9 @@
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
 #include "PROD_Wakgood/AI/Dakdulgi/WakAIC_Dakdulgi.h"
+#include "PROD_Wakgood/Character/Monster/Dakdulgi/WakDakdulgi.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 UWakBTService_Detect::UWakBTService_Detect()
 {
@@ -30,6 +31,16 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 	{
 		AWakAIC_Dakdulgi* AIController = Cast<AWakAIC_Dakdulgi>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 
+		if (AWakDakdulgi* AIOwner = Cast<AWakDakdulgi>(ControllingPawn))
+		{
+			if (AIOwner != nullptr && AIOwner->GetIsBusterCalled())
+			{
+				AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerPawn(ControllingPawn->GetWorld(), 0));
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
+				return;
+			}
+		}
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 
@@ -47,8 +58,6 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 				CollisionQueryParam
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -57,7 +66,6 @@ void UWakBTService_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						return;
 					}
 				}

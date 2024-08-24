@@ -11,6 +11,8 @@
 
 #include "Kismet/KismetMathLibrary.h"
 
+// 만약 플레이어가 둘기를 피했을 경우도 만들어야 함
+
 AWakDulgi::AWakDulgi()
 	: Target(nullptr)
 	, IsDetectPlayer(false)
@@ -26,7 +28,7 @@ AWakDulgi::AWakDulgi()
 	GetCharacterMovement()->DefaultLandMovementMode = EMovementMode::MOVE_Flying;
 	GetCharacterMovement()->MaxFlySpeed = 400.0f;
 
-	KnockBackPowerHor = 1200.0f;
+	KnockBackPowerHor = 2000.0f;
 	KnockBackPowerVert = 800.0f;
 }
 

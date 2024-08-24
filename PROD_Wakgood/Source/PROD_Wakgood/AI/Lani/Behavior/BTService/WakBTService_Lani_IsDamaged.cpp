@@ -29,12 +29,21 @@ void UWakBTService_Lani_IsDamaged::CheckIsDamaged(UBehaviorTreeComponent& OwnerC
 	{
 		AWakAIC_Lani* AIController = Cast<AWakAIC_Lani>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 		AWakLani* Lani = Cast<AWakLani>(ControllingPawn);
+
+		if (Lani != nullptr && Lani->GetIsBusterCalled())
+		{
+			OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetIsDamagedKey(), true);
+			// TODO : Call Lani Transformation Function
+			// 
+		}
+
 		if (AIController != nullptr && Lani != nullptr)
 		{
 			if (Lani->GetIsDamaged())
 			{
 				OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetIsDamagedKey(), true);
-				// TODO : Call Lani Transformation Function
+				// TODO : Call Lani Change Mesh Function
+				// 
 			}
 			else
 			{

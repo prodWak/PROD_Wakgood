@@ -25,16 +25,8 @@ class PROD_WAKGOOD_API AWakAIC_Chimpanzee : public AWakAIC_Base
 	UPROPERTY()
 	TObjectPtr<AWakChimpanzee> OwningPawn;
 
-	const FName Chimpanzee_HomePosKey;
-	const FName Chimpanzee_PatrolPosKey;
-	const FName Chimpanzee_TargetKey;
-
 public:
 	AWakAIC_Chimpanzee();
-
-	const FName GetHomePosKey() const { return Chimpanzee_HomePosKey; }
-	const FName GetPatrolPosKey() const { return Chimpanzee_PatrolPosKey; }
-	const FName GetTargetKey() const { return Chimpanzee_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

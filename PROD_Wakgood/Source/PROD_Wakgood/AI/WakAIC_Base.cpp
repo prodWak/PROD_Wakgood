@@ -4,6 +4,9 @@
 #include "WakAIC_Base.h"
 
 AWakAIC_Base::AWakAIC_Base()
+	: HomePosKey(TEXT("HomePos"))
+	, PatrolPosKey(TEXT("PatrolPos"))
+	, TargetKey(TEXT("Target"))
 {
 	
 }

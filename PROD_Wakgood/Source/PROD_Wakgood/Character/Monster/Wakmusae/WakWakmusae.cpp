@@ -8,10 +8,8 @@
 #include "Projectile/WakWakmusae_Projectile.h"
 
 #include "Kismet/KismetMathLibrary.h"
-#include "Kismet/GameplayStatics.h"
 
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
-
 
 AWakWakmusae::AWakWakmusae()
 {
@@ -25,17 +23,12 @@ AWakWakmusae::AWakWakmusae()
 
 	GetCharacterMovement()->DefaultLandMovementMode = EMovementMode::MOVE_Flying;
 	GetCharacterMovement()->MaxFlySpeed = 400.0f;
-
-	IsDetectPlayer = false;
 }
 
 void AWakWakmusae::Attack()
 {
-	if (IsDetectPlayer)
-	{
-		SpawnProjectile();
-		OnAttackDelegate.Broadcast();
-	}
+	SpawnProjectile();
+	OnAttackDelegate.Broadcast();
 }
 
 void AWakWakmusae::SpawnProjectile()

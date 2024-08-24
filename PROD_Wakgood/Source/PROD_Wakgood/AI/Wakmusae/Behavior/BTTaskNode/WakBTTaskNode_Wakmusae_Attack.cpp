@@ -23,11 +23,12 @@ EBTNodeResult::Type UWakBTTaskNode_Wakmusae_Attack::ExecuteTask(UBehaviorTreeCom
 	{
 		// For now, the attack function is called directly, but it needs to be changed to the calling method by animation notify.
 		IsAttacking = true;
-		Wakmusae->Attack();
 		Wakmusae->OnAttackDelegate.AddLambda([this]()->void
 			{
 				IsAttacking = false;
 			});
+
+		Wakmusae->Attack();
 
 		return EBTNodeResult::Succeeded;
 	}

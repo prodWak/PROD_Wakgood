@@ -24,14 +24,10 @@ class PROD_WAKGOOD_API AWakAIC_Dulgi : public AWakAIC_Base
 
 	TObjectPtr<AWakDulgi> OwningPawn;
 
-	const FName Dulgi_TargetKey;
-
 public:
 	AWakAIC_Dulgi();
 
 	virtual void Tick(float DeltaSeconds) override;
-
-	const FName GetTargetKey() const { return Dulgi_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

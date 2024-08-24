@@ -23,7 +23,7 @@ void AWakAmoeba::CheckTransformation()
 
 void AWakAmoeba::Transformation()
 {
-	int32 Idx = FMath::RandRange(1, 8);
+	int32 Idx = FMath::RandRange(1, MonsterList.Num());
 	TSubclassOf<AMonster_Base> SpawnMonsterClass = *MonsterList.Find(Idx);
 
 	FVector Loc = GetActorLocation();

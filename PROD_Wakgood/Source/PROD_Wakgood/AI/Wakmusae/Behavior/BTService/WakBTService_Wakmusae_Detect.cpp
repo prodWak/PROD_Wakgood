@@ -8,7 +8,6 @@
 
 #include "PROD_Wakgood/AI/Wakmusae/WakAIC_Wakmusae.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"
 
 UWakBTService_Wakmusae_Detect::UWakBTService_Wakmusae_Detect()
 {
@@ -50,8 +49,6 @@ void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 				CollisionQueryParam
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -60,15 +57,13 @@ void UWakBTService_Wakmusae_Detect::DetectLogic(UBehaviorTreeComponent& OwnerCom
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
 						OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), Target);
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
-						AIOwner->SetIsDetectPlayer(true);
 						AIOwner->SetTarget(Target);
 						return;
 					}
 				}
 			}
 			OwnerComp.GetBlackboardComponent()->SetValueAsObject(AIController->GetTargetKey(), nullptr);
-			AIOwner->SetIsDetectPlayer(false);
+			AIOwner->SetTarget(nullptr);
 		}
 	}
 }

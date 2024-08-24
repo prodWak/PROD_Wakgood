@@ -6,9 +6,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 AWakAIC_Dakdulgi::AWakAIC_Dakdulgi()
-	: Dakdulgi_HomePosKey(TEXT("Dakdulgi_HomePos"))
-	, Dakdulgi_PatrolPosKey(TEXT("Dakdulgi_PatrolPos"))
-	, Dakdulgi_TargetKey(TEXT("Dakdulgi_Target"))
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
@@ -21,7 +18,7 @@ void AWakAIC_Dakdulgi::OnPossess(APawn* InPawn)
 
 	if (UseBlackboard(BB_Dakdulgi, BLACKBOARD))
 	{
-		BLACKBOARD->SetValueAsVector(Dakdulgi_HomePosKey, InPawn->GetActorLocation());
+		BLACKBOARD->SetValueAsVector(GetHomePosKey(), InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BT_Dakdulgi))
 		{
 			UE_LOG(LogTemp, Error, TEXT("Behavior Tree is not working"));

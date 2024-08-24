@@ -21,7 +21,9 @@
 #include "Kismet/GameplayStatics.h"
 
 #include "PROD_Wakgood/Character/Monster/Monster_Base.h"
+#include "PROD_Wakgood/Character/Monster/JuMob/WakJuMob.h"
 #include "DrawDebugHelpers.h"
+
 
 AWakDebugPlayer::AWakDebugPlayer()
 {

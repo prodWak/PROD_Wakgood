@@ -6,9 +6,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 AWakAIC_Ifari::AWakAIC_Ifari()
-	: Ifari_HomePosKey(TEXT("Ifari_HomePos"))
-	, Ifari_PatrolPosKey(TEXT("Ifari_PatrolPos"))
-	, Ifari_TargetKey(TEXT("Ifari_Target"))
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
@@ -21,7 +18,7 @@ void AWakAIC_Ifari::OnPossess(APawn* InPawn)
 
 	if (UseBlackboard(BB_Ifari, BLACKBOARD))
 	{
-		BLACKBOARD->SetValueAsVector(AWakAIC_Ifari::Ifari_HomePosKey, InPawn->GetActorLocation());
+		BLACKBOARD->SetValueAsVector(GetHomePosKey(), InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BT_Ifari))
 		{
 			UE_LOG(LogTemp, Error, TEXT("Behavior Tree is not working"));

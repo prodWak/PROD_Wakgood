@@ -21,12 +21,8 @@ class PROD_WAKGOOD_API AWakAIC_BacteriaDan : public AWakAIC_Base
 	UPROPERTY(EditDefaultsOnly, Category = AI)
 	TObjectPtr<UBlackboardData> BB_BacteriaDan;
 
-	const FName BacteriaDan_HomePosKey;
-
 public:
 	AWakAIC_BacteriaDan();
-
-	const FName GetHomePosKey() const { return BacteriaDan_HomePosKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

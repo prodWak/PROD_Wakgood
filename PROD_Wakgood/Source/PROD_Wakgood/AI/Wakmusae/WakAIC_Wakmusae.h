@@ -29,16 +29,10 @@ class PROD_WAKGOOD_API AWakAIC_Wakmusae : public AWakAIC_Base
 	UPROPERTY()
 	bool IsDetectPlayer;
 
-	const FName Wakmusae_TargetKey;
-
 public:
 	AWakAIC_Wakmusae();
 
 	virtual void Tick(float DeltaSeconds) override;
-
-	FORCEINLINE bool GetIsDetectPlayer() const { return IsDetectPlayer; }
-
-	const FName GetTargetKey() const { return Wakmusae_TargetKey; }
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

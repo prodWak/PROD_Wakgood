@@ -8,7 +8,7 @@
 #include "PROD_Wakgood/Character/Player/WakDebugPlayer.h"
 
 #include "BehaviorTree/BlackboardComponent.h"
-#include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 UWakBTService_Amoeba_Detect::UWakBTService_Amoeba_Detect()
 {
@@ -33,6 +33,13 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 	{
 		AWakAIC_Amoeba* AIController = Cast<AWakAIC_Amoeba>(UAIBlueprintHelperLibrary::GetAIController(ControllingPawn));
 
+		if (AIOwner != nullptr && AIOwner->GetIsBusterCalled())
+		{
+			AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(UGameplayStatics::GetPlayerPawn(ControllingPawn->GetWorld(), 0));
+			OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetCanTransformKey(), true);
+			return;
+		}
+
 		UWorld* world = ControllingPawn->GetWorld();
 		FVector Center = ControllingPawn->GetActorLocation();
 
@@ -50,8 +57,6 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 				CollisionQueryParams
 			);
 
-			DrawDebugSphere(world, Center, Radius, 16, FColor::Red, false, 0.2f);
-
 			if (bResult)
 			{
 				for (auto const& OverlapResult : OverlapResults)
@@ -59,7 +64,6 @@ void UWakBTService_Amoeba_Detect::DetectLogic(UBehaviorTreeComponent& OwnerComp)
 					AWakDebugPlayer* Target = Cast<AWakDebugPlayer>(OverlapResult.GetActor());
 					if (Target != nullptr && Target->GetController()->IsPlayerController())
 					{
-						DrawDebugSphere(world, Center, Radius, 16, FColor::Green, false, 0.2f);
 						OwnerComp.GetBlackboardComponent()->SetValueAsBool(AIController->GetCanTransformKey(), true);
 						AIOwner->SetCanTransformation(true);
 						return;

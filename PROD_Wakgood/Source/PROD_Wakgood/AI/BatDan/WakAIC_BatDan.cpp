@@ -8,7 +8,6 @@
 #include "PROD_Wakgood/Character/Monster/BatDan/WakBatDan.h"
 
 AWakAIC_BatDan::AWakAIC_BatDan()
-	: BatDan_TargetKey(TEXT("BatDan_Target"))
 {
 
 }
