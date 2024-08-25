@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\source\\prod_wakgood\\interaction\\wakinteractioninterface.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\x64\\prod_wakgoodeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\prod_wakgood\\definitions.prod_wakgood.h",
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\source\\prod_wakgood\\interaction\\wakinteractioninterface.h",
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\unrealeditor\\inc\\prod_wakgood\\uht\\wakinteractioninterface.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

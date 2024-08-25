@@ -1,0 +1,3 @@
+// PCH for Editor/UnrealEd/Public/UnrealEdSharedPCH.h
+#include "C:/Users/pc10/Documents/GitHub/Unr/PROD_Wakgood2/Intermediate/Build/Win64/x64/PROD_WakgoodEditor/Development/UnrealEd/SharedDefinitions.UnrealEd.RTTI.Cpp20.h"
+#include "Editor/UnrealEd/Public/UnrealEdSharedPCH.h"

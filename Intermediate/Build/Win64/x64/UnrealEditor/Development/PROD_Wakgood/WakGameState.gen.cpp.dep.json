@@ -1,0 +1,23 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\unrealeditor\\inc\\prod_wakgood\\uht\\wakgamestate.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\x64\\prod_wakgoodeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\prod_wakgood\\definitions.prod_wakgood.h",
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\source\\prod_wakgood\\game\\wakgamestate.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamestate.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamestatebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\serverstatreplicator.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamemodebase.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamestatebase.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamestate.generated.h",
+            "c:\\users\\pc10\\documents\\github\\unr\\prod_wakgood2\\intermediate\\build\\win64\\unrealeditor\\inc\\prod_wakgood\\uht\\wakgamestate.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

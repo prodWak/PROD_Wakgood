@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "PROD_Wakgood",
+			"Path": "..\\Source\\PROD_Wakgood.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "PROD_WakgoodEditor",
+			"Path": "..\\Source\\PROD_WakgoodEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

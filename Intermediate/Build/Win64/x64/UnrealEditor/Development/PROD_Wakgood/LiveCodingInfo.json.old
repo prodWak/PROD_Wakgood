@@ -1,0 +1,39 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.PROD_Wakgood.cpp.obj": [
+			"MyCharacter.gen.cpp.obj",
+			"MyItem.gen.cpp.obj",
+			"PROD_Wakgood.init.gen.cpp.obj",
+			"TP_ThirdPersonCharacter.gen.cpp.obj",
+			"TP_ThirdPersonGameMode.gen.cpp.obj",
+			"UseItem.gen.cpp.obj",
+			"WakGameModeBase.gen.cpp.obj",
+			"WakGameState.gen.cpp.obj",
+			"WakInteractionBase.gen.cpp.obj",
+			"WakInteractionInterface.gen.cpp.obj",
+			"WakItemBase.gen.cpp.obj",
+			"WakLevelScript.gen.cpp.obj",
+			"WakMainGameInstance.gen.cpp.obj",
+			"WakPlayerController.gen.cpp.obj",
+			"WakWorldMapPortal.gen.cpp.obj",
+			"WakWorldPortal.gen.cpp.obj",
+			"MyCharacter.cpp.obj",
+			"WakGameModeBase.cpp.obj",
+			"WakGameState.cpp.obj",
+			"WakLevelScript.cpp.obj",
+			"WakMainGameInstance.cpp.obj",
+			"WakPlayerController.cpp.obj",
+			"WakInteractionBase.cpp.obj",
+			"WakInteractionInterface.cpp.obj",
+			"WakItemBase.cpp.obj",
+			"WakWorldMapPortal.cpp.obj",
+			"WakWorldPortal.cpp.obj",
+			"MyItem.cpp.obj",
+			"UseItem.cpp.obj",
+			"PROD_Wakgood.cpp.obj",
+			"TP_ThirdPersonCharacter.cpp.obj",
+			"TP_ThirdPersonGameMode.cpp.obj"
+		]
+	}
+}

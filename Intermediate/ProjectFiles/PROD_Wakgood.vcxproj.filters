@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\PROD_Wakgood.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\PROD_Wakgood.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\PROD_WakgoodEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\UpgradeLog.htm" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\PROD_Wakgood">
+      <UniqueIdentifier>{FBE4BEDE-0804-30AE-ACED-433EFCDF28F8}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\PROD_Wakgood\PROD_Wakgood.Build.cs">
+      <Filter>Source\PROD_Wakgood</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\PROD_Wakgood.cpp">
+      <Filter>Source\PROD_Wakgood</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\PROD_Wakgood.h">
+      <Filter>Source\PROD_Wakgood</Filter>
+    </ClInclude>
+    <Filter Include="Source\PROD_Wakgood\Game">
+      <UniqueIdentifier>{3D79060C-2FAF-3BF7-9EC8-DD692CC09BAE}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Game\WakGameModeBase.cpp">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Game\WakGameModeBase.h">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Game\WakGameState.cpp">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Game\WakGameState.h">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Game\WakLevelScript.cpp">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Game\WakLevelScript.h">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Game\WakMainGameInstance.cpp">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Game\WakMainGameInstance.h">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Game\WakPlayerController.cpp">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Game\WakPlayerController.h">
+      <Filter>Source\PROD_Wakgood\Game</Filter>
+    </ClInclude>
+    <Filter Include="Source\PROD_Wakgood\Interaction">
+      <UniqueIdentifier>{0856DB89-38AD-34B2-B7B0-87EB6F9B9EBA}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Interaction\WakInteractionBase.cpp">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Interaction\WakInteractionBase.h">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Interaction\WakInteractionInterface.cpp">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Interaction\WakInteractionInterface.h">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Interaction\WakItemBase.cpp">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Interaction\WakItemBase.h">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Interaction\WakWorldMapPortal.cpp">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Interaction\WakWorldMapPortal.h">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\Interaction\WakWorldPortal.cpp">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\Interaction\WakWorldPortal.h">
+      <Filter>Source\PROD_Wakgood\Interaction</Filter>
+    </ClInclude>
+    <Filter Include="Source\PROD_Wakgood\TP_ThirdPerson">
+      <UniqueIdentifier>{07A311FB-11CF-3A6B-A210-873A3B231B6F}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\TP_ThirdPerson\TP_ThirdPerson.h">
+      <Filter>Source\PROD_Wakgood\TP_ThirdPerson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\TP_ThirdPerson\TP_ThirdPersonCharacter.cpp">
+      <Filter>Source\PROD_Wakgood\TP_ThirdPerson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\TP_ThirdPerson\TP_ThirdPersonCharacter.h">
+      <Filter>Source\PROD_Wakgood\TP_ThirdPerson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\PROD_Wakgood\TP_ThirdPerson\TP_ThirdPersonGameMode.cpp">
+      <Filter>Source\PROD_Wakgood\TP_ThirdPerson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\PROD_Wakgood\TP_ThirdPerson\TP_ThirdPersonGameMode.h">
+      <Filter>Source\PROD_Wakgood\TP_ThirdPerson</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
