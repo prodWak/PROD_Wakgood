@@ -42,9 +42,6 @@ public:
 	////// Interaction
 	UPROPERTY(EditAnywhere)
 	bool IsInteracting = false;
-	
-	UFUNCTION()
-	void EnterInteraction();
 
 	UFUNCTION()
 	void ExitInteraction();

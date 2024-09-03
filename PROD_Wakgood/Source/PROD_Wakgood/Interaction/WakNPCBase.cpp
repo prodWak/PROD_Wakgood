@@ -55,11 +55,14 @@ void AWakNPCBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* Othe
 	int32 OtherBodyIndex)
 {
 	Super::OnEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
-	if (IsInteracting == true)
+	if (TextWidget)
 	{
-		ExitInteraction();
+		EndDialogue();
+		TextWidget = nullptr;
+		
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "TextWidget = nullptr");
+
 	}
-	EndDialogue();
 }
 
 void AWakNPCBase::StartDialogue()
@@ -103,14 +106,6 @@ void AWakNPCBase::EndDialogue()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "NotRemoved");
 	}
-}
-
-void AWakNPCBase::EnterInteraction()
-{
-	// IsInteracting = true;
-	// GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "EnterInteraction");
-	//
-	// StartDialogue();
 }
 
 void AWakNPCBase::ExitInteraction()
