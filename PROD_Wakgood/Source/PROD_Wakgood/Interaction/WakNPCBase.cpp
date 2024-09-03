@@ -1,73 +1,60 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WakBaseNPC2.h"
-#include "Components/SphereComponent.h"
-#include "Blueprint/UserWidget.h"
+#include "WakNPCBase.h"
+
 #include "Widgets/SWidget.h"
+
 #include "Engine/DataTable.h"
-#include "WakDialogueWidget.h"
-#include "Kismet/KismetSystemLibrary.h"
 
-// Sets default values
-AWakBaseNPC2::AWakBaseNPC2()
+#include "PROD_Wakgood/Game/WakDialogueDataTable.h"
+#include "PROD_Wakgood/Game/WakDialogueWidget.h"
+#include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
+
+
+AWakNPCBase::AWakNPCBase()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
-	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Trigger"));
-	SphereComponent->SetupAttachment(GetRootComponent());
-
+	PrimaryActorTick.bCanEverTick = false;
+	
 	DialogueWidgetClass = nullptr;
 	TextWidget = nullptr;
-
 }
 
-// Called when the game starts or when spawned
-void AWakBaseNPC2::BeginPlay()
+void AWakNPCBase::BeginPlay()
 {
 	Super::BeginPlay();
-	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AWakBaseNPC2::OnBeginOverlap);
-	SphereComponent->OnComponentEndOverlap.AddDynamic(this, &AWakBaseNPC2::OnEndOverlap);
 
 	RowNum = DialogueDataTable->GetRowNames();
 	InstanceNPCName = GetActorLabel();
 }
 
-// Called every frame
-void AWakBaseNPC2::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void AWakBaseNPC2::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
-
-void AWakBaseNPC2::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	
-	if (OtherActor && (OtherActor != this) && OtherComp)
+void AWakNPCBase::Interaction(AActor* target)
+{	
+	if (!IsInteracting)
 	{
-		ACharacter* Character = Cast<ACharacter>(OtherActor);
-		if (Character && IsInteracting == false) 
-		{
-			Interaction(OtherActor);
-			
-		}
-
+		StartDialogue();
 	}
 }
 
-void AWakBaseNPC2::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void AWakNPCBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+		
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		ATP_ThirdPersonCharacter* OverlappingCharacter = Cast<ATP_ThirdPersonCharacter>(OtherActor);
+		if(OverlappingCharacter && GetWorld())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s Overlapping"), *OverlappingCharacter->GetName());
+		}
+	}
+}
+
+void AWakNPCBase::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex)
+{
+	Super::OnEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
 	if (IsInteracting == true)
 	{
 		ExitInteraction();
@@ -75,32 +62,7 @@ void AWakBaseNPC2::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	EndDialogue();
 }
 
-void AWakBaseNPC2::Interaction(AActor* target)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, "interaction");
-	if (IsInteracting)
-	{
-		ExitInteraction();
-	}
-	else if (!IsInteracting)
-	{
-		EnterInteraction();
-	}
-}
-void AWakBaseNPC2::EnterInteraction()
-{
-	IsInteracting = true;
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "EnterInteraction");
-}
-
-void AWakBaseNPC2::ExitInteraction()
-{
-	IsInteracting = false;
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "ExitInteraction");
-}
-
-// Dialogue Start
-void AWakBaseNPC2::StartDialogue()
+void AWakNPCBase::StartDialogue()
 {
 	if (DialogueWidgetClass)
 	{
@@ -108,12 +70,12 @@ void AWakBaseNPC2::StartDialogue()
 		{
 			TextWidget = CreateWidget<UWakDialogueWidget>(GetWorld(), DialogueWidgetClass);
 		}
-
+	
 		if (TextWidget != nullptr && (TextWidget->IsInViewport()))
 		{
 			TextWidget->MainTextBox->SetText(FText::FromString(NextText()));
 			GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "SetText");
-
+	
 		}
 		else if (TextWidget !=nullptr && !(TextWidget->IsInViewport()))
 		{
@@ -127,8 +89,8 @@ void AWakBaseNPC2::StartDialogue()
 		}
 	}
 }
-// Dialogue End
-void AWakBaseNPC2::EndDialogue()
+
+void AWakNPCBase::EndDialogue()
 {
 	if (TextWidget != nullptr)
 	{
@@ -143,8 +105,23 @@ void AWakBaseNPC2::EndDialogue()
 	}
 }
 
-// Game내 NPCInstance의 name과 DataTable내의 NPCName이 같아야 함.
-FString AWakBaseNPC2::NextText()
+void AWakNPCBase::EnterInteraction()
+{
+	// IsInteracting = true;
+	// GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "EnterInteraction");
+	//
+	// StartDialogue();
+}
+
+void AWakNPCBase::ExitInteraction()
+{
+	IsInteracting = false;
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "ExitInteraction");
+	
+	EndDialogue();
+}
+
+FString AWakNPCBase::NextText()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, "Start NextText()");
 	
