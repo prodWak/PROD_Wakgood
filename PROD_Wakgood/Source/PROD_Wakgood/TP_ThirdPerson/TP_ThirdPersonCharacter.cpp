@@ -119,6 +119,9 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// interacting
 		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Started, this, &ATP_ThirdPersonCharacter::OnInteract);
+
+		//Dialgoue
+		EnhancedInputComponent->BindAction(DialogueAction, ETriggerEvent::Started, this, &ATP_ThirdPersonCharacter::Dialogue);
 	}
 	else
 	{
@@ -139,6 +142,21 @@ void ATP_ThirdPersonCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
+// Q키를 눌렀을 때 Binding된 대화 함수
+void ATP_ThirdPersonCharacter::Dialogue()
+{
+	if (NPC != nullptr && NPC->IsInteracting == true)
+	{
+		NPC->StartDialogue();
+	}
+	else if (NPC == nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "None NPC");
+	}
+
+	
+}
+
 void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 									  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -149,6 +167,11 @@ void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCom
 		if(!InteractionTarget && GetWorld())
 		{
 			InteractionTarget = Cast<AInteractionBase>(OtherActor);
+		}
+		// overlap된 대상이 character형(npc) 이면 npc에 배정
+		if (NPC == nullptr && OtherActor->IsA(ACharacter::StaticClass()))
+		{
+			NPC = Cast<AWakBaseNPC2>(OtherActor);
 		}
 	}
 }
@@ -161,6 +184,9 @@ void ATP_ThirdPersonCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp,
 	{
 		InteractionTarget = nullptr;
 	}
+
+	// overlap이 끝나면 npc에 nullptr 배정
+	NPC = nullptr;
 }
 
 void ATP_ThirdPersonCharacter::OnInteract()

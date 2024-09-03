@@ -6,6 +6,7 @@
 #include "InputActionValue.h"
 #include "PROD_Wakgood/Interaction/WakInteractionInterface.h"
 #include "PROD_Wakgood/Interaction/WakInteractionBase.h"
+#include "PROD_Wakgood/Game/WakBaseNPC2.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "TP_ThirdPersonCharacter.generated.h"
@@ -49,6 +50,10 @@ class ATP_ThirdPersonCharacter : public ACharacter, public IInteractionInterface
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* InteractionAction;
 
+	// DialogueAction
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* DialogueAction;
+
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* InteractionBox;
 
@@ -61,6 +66,8 @@ public:
 
 protected:
 	void Move(const FInputActionValue& Value);
+
+	
 	
 	// interaction
 	UFUNCTION()
@@ -87,4 +94,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UPROPERTY()
+	AWakBaseNPC2* NPC = nullptr;
+
+	void Dialogue();
 };
