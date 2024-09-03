@@ -3,7 +3,7 @@
 
 #include "WakMainGameInstance.h"
 
-void UMainGameInstance::SetPlayerLastLocation(int32 LocationIndex)
+void UWakMainGameInstance::SetPlayerLastLocation(int32 LocationIndex)
 {
 	switch (LocationIndex)
 	{

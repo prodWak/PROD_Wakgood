@@ -7,13 +7,13 @@
 #include "WakLevelScript.generated.h"
 
 UCLASS()
-class PROD_WAKGOOD_API ALevelScript : public AActor
+class PROD_WAKGOOD_API AWakLevelScript : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ALevelScript();
+	AWakLevelScript();
 
 protected:
 	// Called when the game starts or when spawned

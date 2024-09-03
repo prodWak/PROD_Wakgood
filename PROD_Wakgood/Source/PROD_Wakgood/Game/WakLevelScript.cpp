@@ -7,7 +7,7 @@
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values
-ALevelScript::ALevelScript()
+AWakLevelScript::AWakLevelScript()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -15,10 +15,10 @@ ALevelScript::ALevelScript()
 }
 
 // Called when the game starts or when spawned
-void ALevelScript::BeginPlay()
+void AWakLevelScript::BeginPlay()
 {
 	Super::BeginPlay();
-	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	UWakMainGameInstance* GameInstance = Cast<UWakMainGameInstance>(GetWorld()->GetGameInstance());
 	if (GameInstance && GameInstance->GetPlayerLastLocationName() != TEXT("None"))
 	{
 		APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();

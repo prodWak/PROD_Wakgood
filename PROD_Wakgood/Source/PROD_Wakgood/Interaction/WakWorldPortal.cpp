@@ -7,7 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
-AWorldPortal::AWorldPortal()
+AWakWorldPortal::AWakWorldPortal()
 {	
 	LocationName = TEXT("World1");
 	PlayerLastLocationIndex = 1;
@@ -20,10 +20,11 @@ AWorldPortal::AWorldPortal()
 
 
 
-void AWorldPortal::Interaction(AActor* target)
+void AWakWorldPortal::Interaction(AActor* target)
 {
 	Super::Interaction(target);
-	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());   
+	UWakMainGameInstance* GameInstance = Cast<UWakMainGameInstance>(GetWorld()->GetGameInstance());
+
 	if (GameInstance)
 	{
 		UGameplayStatics::OpenLevel(this, LocationName, false);		
@@ -32,13 +33,13 @@ void AWorldPortal::Interaction(AActor* target)
 	}
 }
 
-void AWorldPortal::BeginPlay()
+void AWakWorldPortal::BeginPlay()
 {
 	Super::BeginPlay();
 	WidgetComponent->SetVisibility(false);
 }
 
-void AWorldPortal::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AWakWorldPortal::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
@@ -52,7 +53,7 @@ void AWorldPortal::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 	}
 }
 
-void AWorldPortal::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+void AWakWorldPortal::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex)
 {
 	Super::OnEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);

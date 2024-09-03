@@ -8,14 +8,14 @@
 
 
 UCLASS()
-class PROD_WAKGOOD_API AInteractionBase : public AActor, public IInteractionInterface
+class PROD_WAKGOOD_API AWakInteractionBase : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
 protected:
 	virtual void BeginPlay();
 public:	
 	// Sets default values for this actor's properties
-	AInteractionBase();
+	AWakInteractionBase();
 
 	UFUNCTION()
 	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

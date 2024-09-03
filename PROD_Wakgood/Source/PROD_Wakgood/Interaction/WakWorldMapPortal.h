@@ -10,11 +10,11 @@
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API AWorldMapPortal : public AInteractionBase
+class PROD_WAKGOOD_API AWakWorldMapPortal : public AWakInteractionBase
 {
 	GENERATED_BODY()
 
-	AWorldMapPortal();
+	AWakWorldMapPortal();
 
 	virtual void Interaction(AActor* target) override;
 

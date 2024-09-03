@@ -5,8 +5,6 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "PROD_Wakgood/Interaction/WakInteractionInterface.h"
-#include "PROD_Wakgood/Interaction/WakInteractionBase.h"
-#include "PROD_Wakgood/Game/WakBaseNPC2.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "TP_ThirdPersonCharacter.generated.h"
@@ -16,7 +14,11 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 class UBoxComponent;
-class AInteractionBase;
+
+class AWakInteractionBase;
+class AWakInteractionInterface;
+class AWakBaseNPC2;
+
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -77,7 +79,7 @@ protected:
 	void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
-	AInteractionBase* InteractionTarget;
+	AWakInteractionBase* InteractionTarget;
 	
 	void OnInteract();
 	bool bIsInteractInput = false;

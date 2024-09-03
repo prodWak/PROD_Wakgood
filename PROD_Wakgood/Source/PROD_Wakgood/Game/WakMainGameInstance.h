@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UMainGameInstance : public UGameInstance
+class PROD_WAKGOOD_API UWakMainGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 

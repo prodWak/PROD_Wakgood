@@ -7,15 +7,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
-AWorldMapPortal::AWorldMapPortal()
+AWakWorldMapPortal::AWakWorldMapPortal()
 {
 	LocationName = TEXT("MAP_Debug");
 }
 
-void AWorldMapPortal::Interaction(AActor* target)
+void AWakWorldMapPortal::Interaction(AActor* target)
 {
 	Super::Interaction(target);
-	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	UWakMainGameInstance* GameInstance = Cast<UWakMainGameInstance>(GetWorld()->GetGameInstance());
 	ATP_ThirdPersonCharacter* targetCharacter = Cast<ATP_ThirdPersonCharacter>(target);
 	if (GameInstance)
 	{

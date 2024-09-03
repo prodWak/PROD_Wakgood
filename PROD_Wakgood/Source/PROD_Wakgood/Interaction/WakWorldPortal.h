@@ -7,11 +7,11 @@
 #include "WakWorldPortal.generated.h"
 
 UCLASS()
-class PROD_WAKGOOD_API AWorldPortal : public AInteractionBase
+class PROD_WAKGOOD_API AWakWorldPortal : public AWakInteractionBase
 {
 	GENERATED_BODY()
 
-	AWorldPortal();
+	AWakWorldPortal();
 	
 	virtual void Interaction(AActor* target) override;
 

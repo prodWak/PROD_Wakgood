@@ -1,18 +1,31 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "TP_ThirdPersonCharacter.h"
+
 #include "Engine/LocalPlayer.h"
+
 #include "Camera/CameraComponent.h"
+
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+
 #include "InputActionValue.h"
+
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
-#include "PROD_Wakgood/Interaction/WakWorldPortal.h"
+#include "PROD_Wakgood/Game/WakBaseNPC2.h"
+
+#include "PROD_Wakgood/Interaction/WakInteractionBase.h"
+#include "PROD_Wakgood/Interaction/WakInteractionInterface.h"
+
+
+
 #include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -82,7 +95,7 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnBeginOverlap);
 	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnEndOverlap);
 	UGameInstance* GameInstance = GetGameInstance();
-	Cast<UMainGameInstance>(GameInstance);
+	Cast<UWakMainGameInstance>(GameInstance);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -166,7 +179,7 @@ void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCom
 	{
 		if(!InteractionTarget && GetWorld())
 		{
-			InteractionTarget = Cast<AInteractionBase>(OtherActor);
+			InteractionTarget = Cast<AWakInteractionBase>(OtherActor);
 		}
 		// overlap된 대상이 character형(npc) 이면 npc에 배정
 		if (NPC == nullptr && OtherActor->IsA(ACharacter::StaticClass()))
