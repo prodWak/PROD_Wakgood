@@ -21,17 +21,33 @@ UCLASS()
 class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+	
 	AWakPlayerController();
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
-	
+
+	UFUNCTION(BlueprintCallable)
 	void Move(const FInputActionValue& InputActionValue);
+
+	UFUNCTION()
+	void Jump();
+	UFUNCTION()
+	void PressedShift(bool InIsPressed);
+
+	float BaseWalkSpeed = 650.f;
+
+	float MaxWalkSpeed = 1000.f;
+	 
+	UPROPERTY()
+	bool IsPressedShift = false;
+	
 	TObjectPtr<UWAKASC> GetASC();
+
+	
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
-	UInputMappingContext* WakContext;
-	UInputAction* MoveAction;
+
 
 	TObjectPtr<UWAKASC> WakAbilitySystem;
 
@@ -52,7 +68,47 @@ class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 
 	UPROPERTY()
 	TObjectPtr<AWAKTestCharacter> TargetActor;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* MoveAction;
 	
+	UPROPERTY(EditAnywhere)
+	UInputMappingContext* WakContext;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputA;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputD;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputS;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputW;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputESC;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputJ;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputK;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputM;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputLMB;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputRMB;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputSpace;
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* InputShift;
+
+	
+
+	
+
+	
+
 public:	
 	UFUNCTION()
 	void GetEnemyCharacterUnderCursor();

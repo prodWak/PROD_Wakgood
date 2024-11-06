@@ -42,53 +42,26 @@ class AWAKTestCharacter : public ACharacter, public IAbilitySystemInterface, pub
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 	
-	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* DefaultMappingContext;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* AbilityMappingContext;
-
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* JumpAction;
-
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveAction;
-
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* LookAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* Attack1;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* ComboAttack_NormalAttack1;
 	UPROPERTY(EditAnywhere,Category= "Animation");
-	UAnimMontage* NormalAttackAnim;
-
+	UAnimMontage* NormalAttackAnim; // Player로
+	
 	
 public:
 	AWAKTestCharacter();
 
-	FOnNotifyEnd* NotifyEnd;
+	FOnNotifyEnd* NotifyEnd; 
 protected:
 
 	/** Called for movement input */
-	void Move(const FInputActionValue& Value);
+	void Move(const FInputActionValue& Value); //Enemy로
 
-	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
 			
 
 protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
 
 
 public:
@@ -139,8 +112,6 @@ private:
 	UFUNCTION(CallInEditor)
 	void NormalCatch();
 	void AsyncLoadWeapon(TSoftObjectPtr<UStaticMesh> WeaponData);
-	UFUNCTION()
-	virtual void PossessedBy(AController* NewController) override;
 	UFUNCTION(CallInEditor)
 	void Experinment_HadokenAbility();
 	
@@ -170,7 +141,7 @@ private:
 	FOnHealthChange HealthChangeDelegate;
 protected:
 	UPROPERTY(VisibleAnywhere, Category="GAS")
-	TObjectPtr<UWAKASC> ASC;
+	TObjectPtr<UAbilitySystemComponent> ASC;
 	UPROPERTY()
 	TObjectPtr<UWAKAttributeSet> AttributeSet;
 

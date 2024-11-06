@@ -20,6 +20,7 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	FGameplayTag FormTag = FWAKGameplayTags::Get().Character_Form_Normal;
+
 protected:
 	int32 Level = 1;
 	ECharacterClass CharacterClass = ECharacterClass::Fighter;

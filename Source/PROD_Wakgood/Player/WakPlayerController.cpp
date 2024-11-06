@@ -12,18 +12,13 @@
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
 #include "WAKTag.h"
+#include "Character/WakPlayerCharacter.h"
 #include "Components/SplineComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 AWakPlayerController::AWakPlayerController()
 {
 	bReplicates = true;
-	ConstructorHelpers::FObjectFinder<UInputMappingContext> ContextFinder(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/ThirdPerson/Input/IMC_Default.IMC_Default'"));
-	if(ContextFinder.Succeeded())
-		WakContext = ContextFinder.Object;
-
-	ConstructorHelpers::FObjectFinder<UInputAction> MoveActionFinder(TEXT("/Script/EnhancedInput.InputAction'/Game/ThirdPerson/Input/Actions/IA_Move.IA_Move'"));
-	if(MoveActionFinder.Succeeded())
-		MoveAction = MoveActionFinder.Object;
 
 	ConstructorHelpers::FObjectFinder<UWAKInputConfig> InputConfigFinder(TEXT("/Script/PROD_Wakgood.WAKInputConfig'/Game/DataTable/DA_InputConfig.DA_InputConfig'"));
 	if(InputConfigFinder.Succeeded())
@@ -38,6 +33,7 @@ void AWakPlayerController::PlayerTick(float DeltaTime)
 	Super::PlayerTick(DeltaTime);
 	AutoRun();
 	GetEnemyCharacterUnderCursor();
+	
 }
 
 void AWakPlayerController::GetEnemyCharacterUnderCursor()
@@ -123,8 +119,18 @@ void AWakPlayerController::SetupInputComponent()
 	}
 	if(UWAKInputComponent* WakInputComponent = Cast<UWAKInputComponent>(InputComponent))
 	{
-		WakInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered,this,&AWakPlayerController::Move);
-		WakInputComponent->BindAbilityActions(InputConfig, this, &AWakPlayerController::AbilityInputTagPressed,&AWakPlayerController::AbilityInputTagReleased);
+		//Move
+		WakInputComponent->BindAction(InputA,ETriggerEvent::Triggered,this,&AWakPlayerController::Move);
+		WakInputComponent->BindAction(InputD,ETriggerEvent::Triggered,this,&AWakPlayerController::Move);
+
+		//Jump
+		WakInputComponent->BindAction(InputSpace,ETriggerEvent::Completed,this,&AWakPlayerController::Jump);
+
+		//Jump
+		WakInputComponent->BindAction(InputShift,ETriggerEvent::Started,this,&AWakPlayerController::PressedShift,true);
+		WakInputComponent->BindAction(InputShift,ETriggerEvent::Triggered,this,&AWakPlayerController::PressedShift,true);
+		WakInputComponent->BindAction(InputShift,ETriggerEvent::Completed,this,&AWakPlayerController::PressedShift,false);
+		//WakInputComponent->BindAbilityActions(InputConfig, this, &AWakPlayerController::AbilityInputTagPressed,&AWakPlayerController::AbilityInputTagReleased);
 		
 	}
 	else
@@ -135,21 +141,41 @@ void AWakPlayerController::SetupInputComponent()
 
 void AWakPlayerController::Move(const FInputActionValue& InputActionValue)
 {
-	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+	float InputAxisValue = InputActionValue.Get<float>();
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotator(0.f,Rotation.Yaw,0.f);
 
-	const FVector ForwardDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::Y);
+	//const FVector ForwardDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::X);
 
 	if(APawn* ControlledPawn = GetPawn<APawn>())
 	{
-		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
-		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
+		//ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
 		
+		if(IsPressedShift)
+		{
+			Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
+		}
+		else
+		{
+			Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
+		}
+		ControlledPawn->AddMovementInput(RightDirection,InputAxisValue);
 	}
 	
 }
+
+void AWakPlayerController::Jump()
+{
+	Cast<AWakPlayerCharacter>(GetPawn())->bPressedJump = true;
+}
+
+void AWakPlayerController::PressedShift(bool InIsPressed)
+{
+	UE_LOG(LogTemp,Warning,TEXT("is pressed shift"));
+	IsPressedShift = InIsPressed;
+}
+
 
 TObjectPtr<UWAKASC> AWakPlayerController::GetASC()
 {

@@ -12,17 +12,26 @@ AWakPlayerCharacter::AWakPlayerCharacter()
 	
 }
 
-
+void AWakPlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	GetWorld()->GetFirstPlayerController()->Possess(this);
+}
 
 void AWakPlayerCharacter::PossessedBy(AController* NewController)
 {
-	ASC = CastChecked<UWAKASC>(GetPlayerState<AWakPlayerState>()->GetAbilitySystemComponent());
+	Super::PossessedBy(NewController);
+	ASC = Cast<AWakPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
 	ASC->InitAbilityActorInfo(GetPlayerState(),this);
 	AttributeSet = GetPlayerState<AWakPlayerState>()->GetAttributeSet();
+
 	ASC->AddLooseGameplayTag(FWAKGameplayTags::Get().Character_Form_Normal);
-	ASC->CurrentFormTag = FWAKGameplayTags::Get().Character_Form_Normal;
+	Cast<UWAKASC>(ASC)->CurrentFormTag = FWAKGameplayTags::Get().Character_Form_Normal;
+
 	InitializeAttributeToEffect();
 }
+
+
 
 
 void AWakPlayerCharacter::Die()

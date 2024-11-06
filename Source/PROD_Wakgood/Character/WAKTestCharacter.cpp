@@ -104,25 +104,13 @@ AWAKTestCharacter::AWAKTestCharacter()
 
 void AWAKTestCharacter::BeginPlay()
 {
-	// Call the base class  
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
-	//Add Input Mapping Context
-	/*
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
-	*/
+
 	ASC->InitAbilityActorInfo(this,this);
 	
 	FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget,EAttachmentRule::SnapToTarget,EAttachmentRule::SnapToTarget,true);
 	Weapon->AttachToComponent(GetMesh(),TransformRules,FName("hand_r_weapon"));
-	//Weapon->AttachToComponent(GetMesh(),TransformRules,FName("hand_r_weapon"));
-	//Weapon->SetRelativeTransform(GetMesh()->GetSocketTransform(FName("hand_r_weapon")));
 	Weapon->SetGenerateOverlapEvents(false);
 
 	ASC->RegisterGameplayTagEvent(FWAKGameplayTags::Get().Effects_HitReact,EGameplayTagEventType::NewOrRemoved).AddUObject(
@@ -133,7 +121,7 @@ void AWAKTestCharacter::BeginPlay()
 	NormalCharacterStatus = CharacterStatusDT->FindRow<FCharacterStatus>(FName("Normal"),TEXT(""));
 
 	if(IsPlayerControlled())
-		ASC->AddCharacterAbilities(NormalCharacterStatus->MoveSet);
+		Cast<UWAKASC>(ASC)->AddCharacterAbilities(NormalCharacterStatus->MoveSet);
 }
 
 void AWAKTestCharacter::ApplyEffectToTarget(AActor* OtherActor, TSubclassOf<UGameplayEffect> EffectClass)
@@ -164,7 +152,7 @@ void AWAKTestCharacter::HitReactTagChange(const FGameplayTag CallbackTag, int32 
 	//HitReact Tag 부여시 자동 실행. 
 	bHitReacting = NewCount > 0;
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f : BaseWalkSpeed;
-	//TSubclassOf<UGameplayAbility> HitReactAbilityClass =UWakGA_HitReact::StaticClass(); 
+	TSubclassOf<UGameplayAbility> HitReactAbilityClass =UWakGA_HitReact::StaticClass(); 
 	if(bHitReacting)
 	{
 		ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(FWAKGameplayTags::Get().Effects_HitReact)); //HitReact 어빌리티 실행.
@@ -311,12 +299,6 @@ void AWAKTestCharacter::AsyncLoadWeapon(TSoftObjectPtr<UStaticMesh> WeaponData)
 	}
 }
 
-void AWAKTestCharacter::PossessedBy(AController* NewController)
-{
-	Super::PossessedBy(NewController);
-
-}
-
 void AWAKTestCharacter::Experinment_HadokenAbility()
 {
 	FGameplayAbilitySpec AbilitySpec(UWakGA_RangedAttackTest::StaticClass());
@@ -325,40 +307,4 @@ void AWAKTestCharacter::Experinment_HadokenAbility()
 	GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,TEXT("Try Experiment_Hadoken Ability Activate"));
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void AWAKTestCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	// Set up action bindings
-	/*if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AWAKTestCharacter::Move);
-
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AWAKTestCharacter::Look);
-
-		//Attack
-		EnhancedInputComponent->BindAction(Attack1, ETriggerEvent::Started, this, &AWAKTestCharacter::NormalAttack);
-	}*/
-}
-
-
-void AWAKTestCharacter::Look(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
-	}
-}
  

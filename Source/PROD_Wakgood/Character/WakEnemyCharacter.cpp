@@ -12,6 +12,7 @@ void AWakEnemyCharacter::BeginPlay()
 	//GetAbilitySystemComponent()->AddLooseGameplayTag(FormTag);
 }
 
+
 void AWakEnemyCharacter::InitializeAttributeToEffect()
 {
 	UWakAbilitySystemLibrary::InitializeDefaultAttributes(this,CharacterClass,Level,GetAbilitySystemComponent());	
