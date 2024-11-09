@@ -71,6 +71,13 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	float Effectiveness = GetEffectivenessMultiplier(SourceTags,TargetTags);
 	Damage = (Damage + (Damage * Effectiveness)) - (Resist * Effectiveness);
 
+	/*
+	if(TargetTags->HasTag(FWAKGameplayTags::Get().Action_IsBlocking))
+	{
+		Damage *= 0.25f;
+	}
+	*/
+
 	const FGameplayModifierEvaluatedData EvaluatedData(UWAKAttributeSet::GetIncomingDamageAttribute(),EGameplayModOp::Additive, Damage); //Resiste값을 기존 Resist에 더함.
 	OutExecutionOutput.AddOutputModifier(EvaluatedData); // 평가한 데이터를 밖으로 내보내기
 

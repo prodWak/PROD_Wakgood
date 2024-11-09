@@ -72,6 +72,8 @@ public:
 	// 현재 행동
 	FGameplayTag Action_IsJumping;
 	FGameplayTag Action_IsAttacking;
+	FGameplayTag Action_IsBlocking;
+	FGameplayTag Action_Block;
 
 	//Cue 관리
 	FGameplayTag GameplayCue_Normal_Attack1;
@@ -79,6 +81,8 @@ public:
 	//Resistance
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
 
+	//etc.
+	FGameplayTag Character_CanIgnorePlatform;
 
 };
 

@@ -28,71 +28,7 @@ AWakPlayerController::AWakPlayerController()
 	
 }	
 
-void AWakPlayerController::PlayerTick(float DeltaTime)
-{
-	Super::PlayerTick(DeltaTime);
-	AutoRun();
-	GetEnemyCharacterUnderCursor();
-	
-}
 
-void AWakPlayerController::GetEnemyCharacterUnderCursor()
-{
-	FHitResult HitResult;
-	GetHitResultUnderCursor(ECC_Pawn,false,HitResult);
-	if(HitResult.bBlockingHit)
-	{
-		if(TObjectPtr<AWAKTestCharacter> Target = Cast<AWAKTestCharacter>(HitResult.GetActor()))
-		{
-			if(HitResult.GetActor() != GetPawn())
-			{
-				TargetActor = Target;
-			}
-			else
-				TargetActor = nullptr;
-		}
-		else
-		{
-			TargetActor = nullptr;
-		}
-	}
-}
-
-FVector AWakPlayerController::GetRotationUnderCursor()
-{
-	FVector MouseLocation;
-	FVector MouseDirection;
-	
-	DeprojectMousePositionToWorld(MouseLocation,MouseDirection);
-
-	FVector EndLocation = MouseLocation + (MouseDirection * 100.f);
-	FVector StartLocation = GetPawn()->GetActorLocation();
-	return (EndLocation - StartLocation).GetSafeNormal();
-}
-
-void AWakPlayerController::AutoRun()
-{
-	if(!bAutoRunning)
-		return;
-	if(APawn* ControlledPawn = GetPawn())
-	{
-		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(),ESplineCoordinateSpace::World); // 액터의 위치에서 가장 가까운 스플라인 포인트 벡터
-		//Spline은 방향성을 가지고 있기 때문에 항상 앞을 가장 가까운 지점으로 잡는다.
-		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline,ESplineCoordinateSpace::World);
-		//스플라인 상에서 가장 가까운 지점으로 이동하기 위한 방향을 가져옴.
-		DrawDebugSphere(GetWorld(),LocationOnSpline,8.f,8,FColor::Red); 
-		ControlledPawn->AddMovementInput(Direction);
-		//특정 Actor 무시
-		
-		
-		const float DistanceToDestination = (LocationOnSpline-CachedDestination).Length();
-		if(DistanceToDestination <= AutoRunAcceptanceRadius)
-		{
-			bAutoRunning = false;
-		}
-		
-	}
-}
 
 
 void AWakPlayerController::BeginPlay()
@@ -130,8 +66,11 @@ void AWakPlayerController::SetupInputComponent()
 		WakInputComponent->BindAction(InputShift,ETriggerEvent::Started,this,&AWakPlayerController::PressedShift,true);
 		WakInputComponent->BindAction(InputShift,ETriggerEvent::Triggered,this,&AWakPlayerController::PressedShift,true);
 		WakInputComponent->BindAction(InputShift,ETriggerEvent::Completed,this,&AWakPlayerController::PressedShift,false);
+
+		WakInputComponent->BindAction(InputS,ETriggerEvent::Triggered,this,&AWakPlayerController::Guard);
+		WakInputComponent->BindAction(InputS,ETriggerEvent::Completed,this,&AWakPlayerController::SetPlayerCollisionIgnoreWhenOverPlatform);
+		WakInputComponent->BindAction(InputS,ETriggerEvent::Completed,this,&AWakPlayerController::EndGuard);
 		//WakInputComponent->BindAbilityActions(InputConfig, this, &AWakPlayerController::AbilityInputTagPressed,&AWakPlayerController::AbilityInputTagReleased);
-		
 	}
 	else
 	{
@@ -162,7 +101,6 @@ void AWakPlayerController::Move(const FInputActionValue& InputActionValue)
 		}
 		ControlledPawn->AddMovementInput(RightDirection,InputAxisValue);
 	}
-	
 }
 
 void AWakPlayerController::Jump()
@@ -245,3 +183,109 @@ void AWakPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	else
 		GetASC()->AbilityInputTagReleased(InputTag);
 }
+void AWakPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	AutoRun();
+	GetEnemyCharacterUnderCursor();
+	
+}
+
+void AWakPlayerController::SetPlayerCollisionIgnoreWhenOverPlatform()
+{
+	if(TimetoElaspse < GuardTimeThreshHold)
+	{
+		TimetoElaspse = 0;
+	}
+	else if(AWakPlayerCharacter* PlayerCharacter = Cast<AWakPlayerCharacter>(GetPawn()))
+	{
+		if(PlayerCharacter->bAbleDown)
+		{
+			PlayerCharacter->MoveUnderPlatform();
+		}
+	}
+	Cast<AWakPlayerCharacter>(GetPawn())->SetPlatformCollisionResponseIgnore();
+}
+
+void AWakPlayerController::SetPlayerCollisionBlock()
+{
+	Cast<AWakPlayerCharacter>(GetPawn())->SetPlatformCollisionResponseBlock();
+}
+
+void AWakPlayerController::Guard()
+{
+	TimetoElaspse += GetWorld()->GetDeltaSeconds();
+	if(TimetoElaspse >= GuardTimeThreshHold)
+	{
+		GetASC()->TryActivateAbilitiesByTag(FWAKGameplayTags::Get().Action_Block.GetSingleTagContainer());
+	}
+}
+
+void AWakPlayerController::EndGuard()
+{
+	TimetoElaspse = 0;
+	if(GetASC()->HasMatchingGameplayTag(FWAKGameplayTags::Get().Action_IsBlocking))
+	{
+		GetASC()->RemoveActiveEffectsWithTags(FWAKGameplayTags::Get().Action_IsBlocking.GetSingleTagContainer());
+		
+	}
+}
+
+void AWakPlayerController::GetEnemyCharacterUnderCursor()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Pawn,false,HitResult);
+	if(HitResult.bBlockingHit)
+	{
+		if(TObjectPtr<AWAKTestCharacter> Target = Cast<AWAKTestCharacter>(HitResult.GetActor()))
+		{
+			if(HitResult.GetActor() != GetPawn())
+			{
+				TargetActor = Target;
+			}
+			else
+				TargetActor = nullptr;
+		}
+		else
+		{
+			TargetActor = nullptr;
+		}
+	}
+}
+
+FVector AWakPlayerController::GetRotationUnderCursor()
+{
+	FVector MouseLocation;
+	FVector MouseDirection;
+	
+	DeprojectMousePositionToWorld(MouseLocation,MouseDirection);
+
+	FVector EndLocation = MouseLocation + (MouseDirection * 100.f);
+	FVector StartLocation = GetPawn()->GetActorLocation();
+	return (EndLocation - StartLocation).GetSafeNormal();
+}
+
+void AWakPlayerController::AutoRun()
+{
+	if(!bAutoRunning)
+		return;
+	if(APawn* ControlledPawn = GetPawn())
+	{
+		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(),ESplineCoordinateSpace::World); // 액터의 위치에서 가장 가까운 스플라인 포인트 벡터
+		//Spline은 방향성을 가지고 있기 때문에 항상 앞을 가장 가까운 지점으로 잡는다.
+		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline,ESplineCoordinateSpace::World);
+		//스플라인 상에서 가장 가까운 지점으로 이동하기 위한 방향을 가져옴.
+		DrawDebugSphere(GetWorld(),LocationOnSpline,8.f,8,FColor::Red); 
+		ControlledPawn->AddMovementInput(Direction);
+		//특정 Actor 무시
+		
+		
+		const float DistanceToDestination = (LocationOnSpline-CachedDestination).Length();
+		if(DistanceToDestination <= AutoRunAcceptanceRadius)
+		{
+			bAutoRunning = false;
+		}
+		
+	}
+}
+

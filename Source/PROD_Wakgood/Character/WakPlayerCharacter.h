@@ -6,7 +6,8 @@
 #include "WAKTag.h"
 #include "Character/WAKTestCharacter.h"
 #include "WakPlayerCharacter.generated.h"
-
+class UBoxComponent;
+DECLARE_MULTICAST_DELEGATE(FOnMoveUnderPlatform);
 /**
  * 
  */
@@ -21,6 +22,24 @@ class PROD_WAKGOOD_API AWakPlayerCharacter : public AWAKTestCharacter
 	virtual void Die() override;
 	UPROPERTY(EditAnywhere, Category= "Combat")
 	float Lifespan = 5.f;
+	
+	virtual void Landed(const FHitResult& Hit) override;
+public:
+	UFUNCTION()
+	void SetPlatformCollisionResponseBlock();
+	UFUNCTION()
+	void SetPlatformCollisionResponseIgnore();
+	UFUNCTION()
+	void MoveUnderPlatform();
+	bool bAbleDown = false;
+
+	FOnMoveUnderPlatform OnMoveUnderPlatform;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> Shiled;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	TArray<TSubclassOf<UGameplayAbility>> InitialAbilityList;
 
 	
 };

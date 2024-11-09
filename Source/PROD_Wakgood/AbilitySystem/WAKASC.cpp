@@ -24,6 +24,7 @@ void UWAKASC::SetNormalMode()
 	FGameplayAbilitySpec AbilitySpec(NormalAbility,1);
 	UE_LOG(LogTemp,Warning,TEXT("Normal Mode Ability Spec Tag : %s"),*AbilitySpec.Ability.GetName());
 	GiveAbilityToCharacter(AbilitySpec,FWAKGameplayTags::Get().Character_Form_Normal);
+
 }
 
 

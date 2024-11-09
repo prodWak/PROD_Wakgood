@@ -5,17 +5,23 @@
 
 #include "Input/WAKInputComponent.h"
 #include "AbilitySystem/WAKASC.h"
+#include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Player/WakPlayerState.h"
 
 AWakPlayerCharacter::AWakPlayerCharacter()
 {
-	
+	Shiled = CreateDefaultSubobject<UBoxComponent>(TEXT("Shiled"));
+	Shiled->SetActive(false);
+	Shiled->SetupAttachment(RootComponent);
+	Shiled->SetCollisionProfileName("OverlapAllDynamic");
+
+{}	
 }
 
 void AWakPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorld()->GetFirstPlayerController()->Possess(this);
 }
 
 void AWakPlayerCharacter::PossessedBy(AController* NewController)
@@ -31,13 +37,35 @@ void AWakPlayerCharacter::PossessedBy(AController* NewController)
 	InitializeAttributeToEffect();
 }
 
-
-
-
 void AWakPlayerCharacter::Die()
 {
 	SetLifeSpan(Lifespan);
 	Super::Die();
+}
+
+void AWakPlayerCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	UE_LOG(LogTemp,Warning,TEXT("Is Landed"));
+	SetPlatformCollisionResponseBlock();
+}
+
+void AWakPlayerCharacter::SetPlatformCollisionResponseBlock()
+{
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel1,ECR_Block);
+}
+
+void AWakPlayerCharacter::SetPlatformCollisionResponseIgnore()
+{
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel1,ECR_Ignore);
+}
+
+void AWakPlayerCharacter::MoveUnderPlatform()
+{
+	if(bAbleDown)
+	{
+		OnMoveUnderPlatform.Broadcast();
+	}
 }
 
 

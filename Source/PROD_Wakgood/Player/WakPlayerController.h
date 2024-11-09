@@ -103,12 +103,21 @@ class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* InputShift;
 
-	
+	UFUNCTION()
+	void SetPlayerCollisionIgnoreWhenOverPlatform();
+	UFUNCTION()
+	void SetPlayerCollisionBlock();
 
 	
-
+	float TimetoElaspse = 0.f;
 	
+	float GuardTimeThreshHold = 0.5f;
 
+	UFUNCTION()
+	void Guard(); // 내려가기인지 가드인지 체크
+
+	UFUNCTION()
+	void EndGuard();
 public:	
 	UFUNCTION()
 	void GetEnemyCharacterUnderCursor();

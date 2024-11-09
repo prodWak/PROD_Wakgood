@@ -140,7 +140,7 @@ private:
 
 	FOnHealthChange HealthChangeDelegate;
 protected:
-	UPROPERTY(VisibleAnywhere, Category="GAS")
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite,Category="GAS")
 	TObjectPtr<UAbilitySystemComponent> ASC;
 	UPROPERTY()
 	TObjectPtr<UWAKAttributeSet> AttributeSet;

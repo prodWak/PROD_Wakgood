@@ -64,9 +64,12 @@ void FWAKGameplayTags::InitializeNativeGameplayTags()
 	
 	WAKGameplayTags.Action_IsJumping = GameplayTagsManager.AddNativeGameplayTag(FName("Action.IsJumping"),FString("Character Is Now Jumping"));
 	WAKGameplayTags.Action_IsAttacking = GameplayTagsManager.AddNativeGameplayTag(FName("Action.IsAttacking"),FString("Character Is Now Attacking"));
-
+	WAKGameplayTags.Action_IsBlocking = GameplayTagsManager.AddNativeGameplayTag(FName("Action.IsBlocking"),FString("Character Is Now IsBlocking"));
+	WAKGameplayTags.Action_Block = GameplayTagsManager.AddNativeGameplayTag(FName("Action.Block"),FString("Activate Blocking Ability"));
+		
 	WAKGameplayTags.GameplayCue_Normal_Attack1 = GameplayTagsManager.AddNativeGameplayTag(FName("GameplayCue.Normal.Attack1"),FString("Play Effect For Normal Attack1"));
 //	WAKGameplayTags.DamageTypesToResistances.Add()
-
+	WAKGameplayTags.Character_CanIgnorePlatform = GameplayTagsManager.AddNativeGameplayTag(FName("Character.CanIgnorePlatform"),FString("Give When Player is Under Platform or Upper Platform"));
+	
 	
 }
