@@ -5,6 +5,7 @@
 
 #include "Input/WAKInputComponent.h"
 #include "AbilitySystem/WAKASC.h"
+#include "AbilitySystem/WAKAttributeSet.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Player/WakPlayerState.h"
@@ -22,6 +23,13 @@ AWakPlayerCharacter::AWakPlayerCharacter()
 void AWakPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	UE_LOG(LogTemp,Warning,TEXT("Current Health : %f"),GetAttributeSet()->GetHealth());
+	
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(GetAttributeSet()->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Remain Health : %f"),GetAttributeSet()->GetHealth());
+	});
 }
 
 void AWakPlayerCharacter::PossessedBy(AController* NewController)

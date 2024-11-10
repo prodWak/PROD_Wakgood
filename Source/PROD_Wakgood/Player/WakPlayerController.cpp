@@ -86,20 +86,22 @@ void AWakPlayerController::Move(const FInputActionValue& InputActionValue)
 
 	//const FVector ForwardDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::X);
-
+	
 	if(APawn* ControlledPawn = GetPawn<APawn>())
 	{
 		//ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
-		
-		if(IsPressedShift)
+		if(!GetASC()->HasMatchingGameplayTag(FWAKGameplayTags::Get().Action_IsBlocking))
 		{
-			Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
+			if(IsPressedShift)
+			{
+				Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
+			}
+			else
+			{
+				Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
+			}
+			ControlledPawn->AddMovementInput(RightDirection,InputAxisValue);
 		}
-		else
-		{
-			Cast<AWakPlayerCharacter>(ControlledPawn)->GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
-		}
-		ControlledPawn->AddMovementInput(RightDirection,InputAxisValue);
 	}
 }
 
@@ -193,18 +195,20 @@ void AWakPlayerController::PlayerTick(float DeltaTime)
 
 void AWakPlayerController::SetPlayerCollisionIgnoreWhenOverPlatform()
 {
+	//TimeToElapse값이 더 작으면 실행.
 	if(TimetoElaspse < GuardTimeThreshHold)
 	{
 		TimetoElaspse = 0;
-	}
-	else if(AWakPlayerCharacter* PlayerCharacter = Cast<AWakPlayerCharacter>(GetPawn()))
-	{
-		if(PlayerCharacter->bAbleDown)
+		if(AWakPlayerCharacter* PlayerCharacter = Cast<AWakPlayerCharacter>(GetPawn()))
 		{
-			PlayerCharacter->MoveUnderPlatform();
+			if(PlayerCharacter->bAbleDown)
+			{
+				PlayerCharacter->MoveUnderPlatform();
+			}
 		}
 	}
-	Cast<AWakPlayerCharacter>(GetPawn())->SetPlatformCollisionResponseIgnore();
+	
+	//Cast<AWakPlayerCharacter>(GetPawn())->SetPlatformCollisionResponseIgnore();
 }
 
 void AWakPlayerController::SetPlayerCollisionBlock()

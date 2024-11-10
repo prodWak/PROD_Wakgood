@@ -29,7 +29,7 @@ class PROD_WAKGOOD_API UGuardAbility : public UWAKGA
 	UBoxComponent* PlayerShiled;
 	
 	UFUNCTION()
-	void ShileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void ShiledOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	
 };

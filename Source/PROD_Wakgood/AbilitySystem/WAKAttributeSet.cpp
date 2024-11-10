@@ -10,7 +10,6 @@
 UWAKAttributeSet::UWAKAttributeSet()
 {
 	const FWAKGameplayTags& GameplayTags = FWAKGameplayTags::Get();
-	//TagsToAttributes.Add(GameplayTags.속성,Get속성)
 
 }
 void UWAKAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)

@@ -17,7 +17,8 @@ void UGuardAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, con
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	PlayerShiled = Cast<AWakPlayerCharacter>(GetAvatarActorFromActorInfo())->Shiled;
 	PlayerShiled->SetActive(true);
-	PlayerShiled->OnComponentBeginOverlap.AddUniqueDynamic(this,&UGuardAbility::ShileOverlap);
+	PlayerShiled->OnComponentBeginOverlap.AddUniqueDynamic(this,&UGuardAbility::ShiledOverlap);
+	
 	Cast<AWakPlayerCharacter>(GetAvatarActorFromActorInfo())->GetCharacterMovement()->MaxWalkSpeed = 0.f;
 	Cast<AWakPlayerCharacter>(GetAvatarActorFromActorInfo())->GetCharacterMovement()->RotationRate = FRotator::ZeroRotator;
 	CommitAbility(Handle,ActorInfo,ActivationInfo);
@@ -25,8 +26,7 @@ void UGuardAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, con
     BlockTagDelegateHandle = GetAbilitySystemComponentFromActorInfo()->RegisterGameplayTagEvent(FWAKGameplayTags::Get().Action_IsBlocking,EGameplayTagEventType::NewOrRemoved).AddUObject(this,&UGuardAbility::OnRemoveBlockingTag);
 	//Animation 재생
 
-	//
-	EndAbility(Handle,ActorInfo,ActivationInfo,true,true);
+	
 	
 //UGameplayTask_TagRemoved
 	//Gameplay Effect 적용
@@ -55,7 +55,7 @@ void UGuardAbility::OnRemoveBlockingTag(const FGameplayTag CallbackTag, int32 Ne
 	}
 }
 
-void UGuardAbility::ShileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void UGuardAbility::ShiledOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	//Case1 투사체: 투사체를 제거.

@@ -17,16 +17,21 @@ AGameplayEffectTestActor::AGameplayEffectTestActor()
 	TestTypeTag = FWAKGameplayTags::Get().Character_Type_Iron;
 	TestSM = CreateDefaultSubobject<UStaticMeshComponent>("Test StaticMesh");
 	SetRootComponent(TestSM);
+
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>("Test Only Box Component");
 	OverlapBox->SetBoxExtent(FVector(32,32,32));
-	OverlapBox->SetGenerateOverlapEvents(true);
-	OverlapBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
 	OverlapBox->SetCollisionProfileName(FName("OverlapAllDynamic"));
-	OverlapBox->SetupAttachment(TestSM);
-	OverlapBox->OnComponentBeginOverlap.AddDynamic(this,&AGameplayEffectTestActor::BeginOverlap);
+	OverlapBox->SetupAttachment(RootComponent);
+	OverlapBox->SetGenerateOverlapEvents(false);
+
+	OnActorBeginOverlap.AddUniqueDynamic(this,&AGameplayEffectTestActor::BeginOverlap);
+	//OverlapBox->OnComponentBeginOverlap.AddDynamic(this,&AGameplayEffectTestActor::BeginOverlap);
+
 	ASC = CreateDefaultSubobject<UWAKASC>("ASC");
 	ASC->CurrentFormTag = FWAKGameplayTags::Get().Character_Type_Iron;
 	ASC->AddLooseGameplayTag(ASC->CurrentFormTag);
+	
 	AttributeSet = CreateDefaultSubobject<UWAKAttributeSet>("AttributeSet");
 }
 
@@ -37,11 +42,6 @@ void AGameplayEffectTestActor::BeginPlay()
 	ASC->InitAbilityActorInfo(this,this);
 }
 
-// Called every frame
-void AGameplayEffectTestActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
 
 void AGameplayEffectTestActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
@@ -57,9 +57,9 @@ void AGameplayEffectTestActor::ApplyEffectToTarget(AActor* TargetActor, TSubclas
 	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass,1,EffectHandle);
 	FActiveGameplayEffectHandle ActiveHandle = ASC->ApplyGameplayEffectToTarget(Effect,TargetASC,UGameplayEffect::INVALID_LEVEL,EffectHandle);
 }
-void AGameplayEffectTestActor::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AGameplayEffectTestActor::BeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
+	//콜리전 설정을 Pawn에만 반응하게 안하면 Overlap 이벤트를 여러번 발생시킴.
 	check(GameplayEffect);
 	ApplyEffectToTarget(OtherActor,GameplayEffect);
 }
