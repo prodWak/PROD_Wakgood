@@ -25,4 +25,13 @@ protected:
 	int32 Level = 1;
 	ECharacterClass CharacterClass = ECharacterClass::Fighter;
 	virtual void InitializeAttributeToEffect() override;
+
+private:
+	virtual void HitReact(FGameplayTag Tag, int32 NewCount) override;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAnimMontage> HitReactMontage;
+	
+	void Die() override;
+
 };

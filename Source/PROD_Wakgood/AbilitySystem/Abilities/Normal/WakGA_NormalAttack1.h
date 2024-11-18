@@ -7,6 +7,7 @@
 #include "AbilitySystem/Abilities/WakGA_AttackBase.h"
 #include "Character/WAKTestCharacter.h"
 #include "WakGA_NormalAttack1.generated.h"
+class UAbilityTask_PlayMontageAndWait;
 class UInputMappingContext;
 /**
  * 
@@ -23,7 +24,8 @@ public:
 	void NextAttack();
 	UFUNCTION()
 	void NextAttackCheckDelegate(bool AbleNextAttack);
-
+	UFUNCTION()
+	void OnMontageEnded(); 
 	
 
 private:
@@ -42,4 +44,28 @@ private:
 	bool isAbleNextAttack = false;
 	
 	virtual void InputPressed(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) override;
+
+	UFUNCTION()
+	void ApplyDamageBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UGameplayEffect> NormalAttackEffect;
+
+	UPROPERTY(EditAnywhere)
+	float LaunchForce = 300.f;
+	int8 CurrentHitAmount = 0;
+	int8 MaxHitAmount = 1;
+	AWAKTestCharacter* Avatar;
+
+	UAbilityTask_PlayMontageAndWait* PlayMontageAndWait;
+
+	FTimerHandle* KnockBackTimer;
+
+	UFUNCTION()
+	void KnokBack(AWakEnemyCharacter* Enemy,  FVector TargetLocation);
+
+	UPROPERTY(EditAnywhere)
+	float InterpSpeed;
+
+	UPROPERTY(VisibleAnywhere)
+	TMap<AWakEnemyCharacter*,int> HitEnemies; 
 };

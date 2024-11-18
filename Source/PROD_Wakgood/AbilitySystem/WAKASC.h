@@ -44,7 +44,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,Category="Attack Ability")
 	TSubclassOf<UGameplayAbility> NormalAttackAbility1;
-	
+
 	
 private:
 	UPROPERTY(EditDefaultsOnly,Category="Form Ability")

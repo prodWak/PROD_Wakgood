@@ -48,6 +48,7 @@ public:
 	FGameplayTag Event_ProjectileHit;
 
 	FGameplayTag State_Stun;
+	FGameplayTag State_Grabbed;
 	FGameplayTag Effects_HitReact;
 
 	FGameplayTag Damage;
@@ -65,8 +66,8 @@ public:
 	FGameplayTag Ability_FormChange_Spark;
 	FGameplayTag Ability_FormChange_Paper;
 
-	FGameplayTag Ability_Skill_1;
-	FGameplayTag Ability_Skill_2;
+	FGameplayTag Ability_Normal_Attack;
+	FGameplayTag Ability_Normal_Grab;
 	FGameplayTag Ability_Skill_3;
 	FGameplayTag Ability_Skill_4;
 	// 현재 행동

@@ -6,6 +6,7 @@
 #include "WAKTag.h"
 #include "Character/WAKTestCharacter.h"
 #include "WakPlayerCharacter.generated.h"
+class AWakEnemyCharacter;
 class UBoxComponent;
 DECLARE_MULTICAST_DELEGATE(FOnMoveUnderPlatform);
 /**
@@ -24,6 +25,10 @@ class PROD_WAKGOOD_API AWakPlayerCharacter : public AWAKTestCharacter
 	float Lifespan = 5.f;
 	
 	virtual void Landed(const FHitResult& Hit) override;
+
+	virtual void HitReact(FGameplayTag Tag, int32 NewCount) override;
+
+	
 public:
 	UFUNCTION()
 	void SetPlatformCollisionResponseBlock();
@@ -32,7 +37,7 @@ public:
 	UFUNCTION()
 	void MoveUnderPlatform();
 	bool bAbleDown = false;
-
+	
 	FOnMoveUnderPlatform OnMoveUnderPlatform;
 
 	UPROPERTY(EditAnywhere)
@@ -41,5 +46,26 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TArray<TSubclassOf<UGameplayAbility>> InitialAbilityList;
 
-	
+	UFUNCTION()
+	void NormalAttack();
+
+	UFUNCTION()
+	void NormalGrab();
+
+	UFUNCTION()
+	void ReturnFormNormal();
+
+	UPROPERTY()
+	TMap<AWakEnemyCharacter*,int> OverlappingActors;
+
+	UPROPERTY(EditAnywhere)
+	float RotationRateR = 10000.f;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAnimMontage> HitReactMontage;
+	UPROPERTY(EditDefaultsOnly)
+	float KnockBackDistance = 50.f;
+
+
+
 };

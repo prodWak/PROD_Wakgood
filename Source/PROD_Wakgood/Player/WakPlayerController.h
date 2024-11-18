@@ -29,7 +29,9 @@ class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 
 	UFUNCTION(BlueprintCallable)
 	void Move(const FInputActionValue& InputActionValue);
-
+	UFUNCTION()
+	void NormalAttack();
+	
 	UFUNCTION()
 	void Jump();
 	UFUNCTION()
@@ -118,6 +120,16 @@ class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 
 	UFUNCTION()
 	void EndGuard();
+
+	UFUNCTION()
+	void Grab();
+
+	UFUNCTION()
+	void InputJBranch();
+
+	
+	float GrabTimeElapse = 0.f;
+	float GrabTimeThreshHold = 0.5f;
 public:	
 	UFUNCTION()
 	void GetEnemyCharacterUnderCursor();

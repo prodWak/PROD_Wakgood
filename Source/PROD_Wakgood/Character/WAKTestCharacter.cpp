@@ -30,6 +30,11 @@
 //////////////////////////////////////////////////////////////////////////
 // AWAKTestCharacter
 
+void AWAKTestCharacter::HitReact(FGameplayTag Tag, int32 NewCount)
+{
+	
+}
+
 AWAKTestCharacter::AWAKTestCharacter() 
 {
 	// Set size for collision capsule
@@ -113,8 +118,10 @@ void AWAKTestCharacter::BeginPlay()
 	Weapon->AttachToComponent(GetMesh(),TransformRules,FName("hand_r_weapon"));
 	Weapon->SetGenerateOverlapEvents(false);
 
+	/*
 	ASC->RegisterGameplayTagEvent(FWAKGameplayTags::Get().Effects_HitReact,EGameplayTagEventType::NewOrRemoved).AddUObject(
 		this,&AWAKTestCharacter::HitReactTagChange);
+		*/
 
 	OnNextAttackCheck = new FOnNextAttackCheck();
 	NotifyEnd = new FOnNotifyEnd();
@@ -147,6 +154,7 @@ void AWAKTestCharacter::ApplyEffectToTarget(AActor* OtherActor, TSubclassOf<UGam
 	
 }
 
+/*
 void AWAKTestCharacter::HitReactTagChange(const FGameplayTag CallbackTag, int32 NewCount)
 {
 	//HitReact Tag 부여시 자동 실행. 
@@ -158,6 +166,7 @@ void AWAKTestCharacter::HitReactTagChange(const FGameplayTag CallbackTag, int32 
 		ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(FWAKGameplayTags::Get().Effects_HitReact)); //HitReact 어빌리티 실행.
 	}
 }
+*/
 
 UAbilitySystemComponent* AWAKTestCharacter::GetAbilitySystemComponent() const
 {
@@ -245,46 +254,9 @@ void AWAKTestCharacter::SetNormalMode()
 	
 }
 
-void AWAKTestCharacter::NormalAttack()
-{
-	TSubclassOf<UGameplayAbility> NormalAttackAbility =UWakGA_NormalAttack1::StaticClass();
-	/*UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 
-	if(AnimInstance->Montage_IsPlaying(NormalAttackAnim)) // NormalAttack이 실행 중이라면
-	{
-		if(AnimInstance->Montage_GetCurrentSection(NormalAttackAnim) == FName("Attack1"))
-			AnimInstance->Montage_JumpToSection(FName("Attack2"));
-		else if(AnimInstance->Montage_GetCurrentSection(NormalAttackAnim) == FName("Attack2"))
-			AnimInstance->Montage_JumpToSection(FName("Attack3"));
-	}*/
 
-	if(IsValid(NormalAttackAbility))
-	{
-		UE_LOG(LogTemp,Warning,TEXT("Ability Is Valid"));
-	}
-	FGameplayAbilitySpec AbilitySpec(NormalAttackAbility);
-	AbilitySpec.SourceObject = this;
-	AbilitySpec.InputID = 1;
-	FGameplayAbilitySpecHandle AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
-	
-	ASC->AbilityLocalInputPressed(1);
-	ASC->TryActivateAbility(AbilitySpecHandle); //이미 Activate 중이라면 어처피 다시 Activate 되지 않을 것. 
-	
-	/*
-	FGameplayTagContainer NormalAttack1Container = FGameplayTagContainer();
-	NormalAttack1Container.AddTag(FWAKGameplayTags::Get().Ability_Skill_1);
-	bool IsActive = ASC->TryActivateAbilitiesByTag(NormalAttack1Container,false);
-	*/
-	GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,TEXT("Try Normal Mode Attack activate"));
-}
 
-void AWAKTestCharacter::NormalCatch()
-{
-	FGameplayAbilitySpec AbilitySpec(UWakGA_Catch::StaticClass());
-	AbilitySpec.SourceObject = this;
-	ASC->TryActivateAbility(ASC->GiveAbility(AbilitySpec));
-	GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,TEXT("Try Normal Mode Catch activate"));
-}
 
 
 void AWAKTestCharacter::AsyncLoadWeapon(TSoftObjectPtr<UStaticMesh> WeaponData)

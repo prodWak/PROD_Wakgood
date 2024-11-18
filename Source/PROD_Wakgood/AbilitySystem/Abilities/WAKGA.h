@@ -15,4 +15,5 @@ UCLASS()
 class PROD_WAKGOOD_API UWAKGA : public UGameplayAbility
 {
 	GENERATED_BODY()
+	
 };

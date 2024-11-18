@@ -53,7 +53,7 @@ void UWAKAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 		if(OldHealth > NewValue)
 		{
 			AActor* SourceActor = GetOwningActor();
-			SourceActor->FindComponentByClass<UAbilitySystemComponent>()->AddLooseGameplayTag(FWAKGameplayTags::Get().Effects_HitReact);
+			//SourceActor->FindComponentByClass<UAbilitySystemComponent>()->AddLooseGameplayTag(FWAKGameplayTags::Get().Effects_HitReact);
 		}
 		NewValue = FMath::Clamp(NewValue,0, GetMaxHealth());
 	}

@@ -6,7 +6,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "WAKTag.h"
+#include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
 #include "Abilities/Tasks/AbilityTask_WaitGameplayEvent.h"
+#include "Character/WakPlayerCharacter.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 UWakGA_NormalAttack1::UWakGA_NormalAttack1()
@@ -31,6 +34,7 @@ UWakGA_NormalAttack1::UWakGA_NormalAttack1()
 	}
 	MaxHitAmount = 1;
 	
+	
 }
 
 void UWakGA_NormalAttack1::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
@@ -39,29 +43,39 @@ void UWakGA_NormalAttack1::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	check(AttackEffect);
+	PlayMontageAndWait = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(
+		this,
+		FName("NormalMontage"),
+		NormalAttackAnim,
+		1,
+		FName("Attack1")
+		);
 	
-	//OnNextAttackCheck.AddUObject(this,&UWakGA_NormalAttack1::NextAttackCheckDelegate);
-	AWAKTestCharacter* Avatar = Cast<AWAKTestCharacter>(ActorInfo->AvatarActor);
+
+	PlayMontageAndWait->OnCompleted.AddUniqueDynamic(this,&UWakGA_NormalAttack1::OnMontageEnded);
+	PlayMontageAndWait->OnBlendOut.AddUniqueDynamic(this,&UWakGA_NormalAttack1::OnMontageEnded);
+	PlayMontageAndWait->OnCancelled.AddUniqueDynamic(this,&UWakGA_NormalAttack1::OnMontageEnded);
+	PlayMontageAndWait->Activate();
+	
+	Avatar = Cast<AWAKTestCharacter>(ActorInfo->AvatarActor);
+	
 	if(!Avatar->OnNextAttackCheck->IsBoundToObject(this))
 		Avatar->OnNextAttackCheck->AddUObject(this,&UWakGA_NormalAttack1::NextAttackCheckDelegate);
-	Avatar->GetCharacterMovement()->MaxWalkSpeed = 0.f;
-	
-	Avatar->GetCharacterMovement()->RotationRate = FRotator::ZeroRotator;
 
-	if(OnNextAttackCheck.IsBound())
-	{
-		UE_LOG(LogTemp,Warning,TEXT("Bound"));
-	}
-	else
-	{
-		UE_LOG(LogTemp,Warning,TEXT("UnBound"));
-	}
-	WaitingHitEvent = WaitingEvent(); 
+	Avatar->WeaponCollision->OnComponentBeginOverlap.AddUniqueDynamic(this,&UWakGA_NormalAttack1::ApplyDamageBeginOverlap);
+	
+	//
+	
+	Avatar->GetCharacterMovement()->MaxWalkSpeed = 0.f;
+	Avatar->GetCharacterMovement()->RotationRate = FRotator::ZeroRotator;
+	WaitingHitEvent = WaitingEvent();
+	
 	AnimInstance = ActorInfo->GetAnimInstance();
 	if(AnimInstance)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("Attack Is Active"));
 		//SetMontageCycle(AnimInstance,NormalAttackAnim);
+		
 		AnimInstance->Montage_Play(NormalAttackAnim);
 		FOnMontageEnded MontageEndDelegate;
 		MontageEndDelegate.BindUObject(this,&UWakGA_AttackBase::OnMontageEnd);
@@ -75,14 +89,22 @@ void UWakGA_NormalAttack1::EndAbility(const FGameplayAbilitySpecHandle Handle,
 	bool bReplicateEndAbility, bool bWasCancelled)
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
-	TObjectPtr<AWAKTestCharacter> Avatar = Cast<AWAKTestCharacter>(ActorInfo->AvatarActor);
+	UE_LOG(LogTemp,Warning,TEXT("Ena Ability"))
+	Avatar = Cast<AWAKTestCharacter>(ActorInfo->AvatarActor);
 	Avatar->GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	Avatar->GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
 	WaitingHitEvent->EndTask();
 	WaitingHitEvent->EventReceived.RemoveAll(this);
+	CurrentHitAmount = 0;
 	HitAmount = 0;
 	TargetResults.Empty();
 
+	PlayMontageAndWait->OnCompleted.RemoveAll(this);
+	PlayMontageAndWait->EndTask();
+
+	Avatar->WeaponCollision->OnComponentBeginOverlap.RemoveDynamic(this,&UWakGA_NormalAttack1::ApplyDamageBeginOverlap);
+	Enemies.Empty();
+	HitEnemies.Empty();
 	
 }
 
@@ -109,9 +131,50 @@ void UWakGA_NormalAttack1::NextAttackCheckDelegate(bool AbleNextAttack)
 	UE_LOG(LogTemp,Warning,TEXT("Called Function"));
 }
 
+void UWakGA_NormalAttack1::OnMontageEnded()
+{
+	EndAbility(CurrentSpecHandle,CurrentActorInfo,CurrentActivationInfo,true,true);
+}
+
 void UWakGA_NormalAttack1::InputPressed(const FGameplayAbilitySpecHandle Handle,
-	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
+                                        const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
 {
 	Super::InputPressed(Handle, ActorInfo, ActivationInfo);
 	NextAttack();
+}
+
+void UWakGA_NormalAttack1::ApplyDamageBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	
+ 	if(CurrentHitAmount < MaxHitAmount)
+	{
+		if(AWakEnemyCharacter* Enemy = Cast<AWakEnemyCharacter>(OtherActor))
+		{
+			if(!HitEnemies.Find(Enemy))
+			{
+				FGameplayEffectContextHandle EffectContext = Avatar->GetAbilitySystemComponent()->MakeEffectContext();
+				FGameplayEffectSpecHandle EffectSpecHandle = Avatar->GetAbilitySystemComponent()->MakeOutgoingSpec(NormalAttackEffect,1,EffectContext);
+				Avatar->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*EffectSpecHandle.Data.Get(),Enemy->GetAbilitySystemComponent());
+
+				FVector Direction = (Enemy->GetActorLocation() - Avatar->GetActorLocation()).GetSafeNormal();
+				FVector LaunchVelocity = Direction * LaunchForce;
+				LaunchVelocity.Z = 80.f;
+				Enemy->LaunchCharacter(LaunchVelocity,false,false);
+
+				HitEnemies.Add(Enemy,1);
+			}
+		}
+	}
+}
+
+void UWakGA_NormalAttack1::KnokBack(AWakEnemyCharacter* Enemy, FVector TargetLocation)
+{
+	FVector CurrentEnemyLocation = Enemy->GetActorLocation();
+	FVector InterpVector = FMath::VInterpTo(CurrentEnemyLocation,TargetLocation,GetWorld()->GetDeltaSeconds(),InterpSpeed);
+	Enemy->SetActorLocation(InterpVector);
+	if(FVector::Dist(Enemy->GetActorLocation(),TargetLocation) < 5.f)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(*KnockBackTimer);
+	}
 }

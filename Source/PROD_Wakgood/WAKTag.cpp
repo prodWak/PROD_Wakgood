@@ -40,6 +40,7 @@ void FWAKGameplayTags::InitializeNativeGameplayTags()
 	WAKGameplayTags.Event_ProjectileHit = GameplayTagsManager.AddNativeGameplayTag(FName("Event.ProjectileHit"),FString("Event ProjectileHit"));
 	//State 
 	WAKGameplayTags.State_Stun = GameplayTagsManager.AddNativeGameplayTag(FName("State.Stun"),FString("State Stun"));
+	WAKGameplayTags.State_Grabbed = GameplayTagsManager.AddNativeGameplayTag(FName("State.Grabbed"),FString("State Grabbed"));
 	WAKGameplayTags.Effects_HitReact = GameplayTagsManager.AddNativeGameplayTag(FName("Effects.HitReact"),FString("Tag Granted When Hit Reacting"));
 
 	WAKGameplayTags.Damage = GameplayTagsManager.AddNativeGameplayTag(FName("Damage"),FString("Damage"));
@@ -57,8 +58,8 @@ void FWAKGameplayTags::InitializeNativeGameplayTags()
 	WAKGameplayTags.Ability_FormChange_Spark= GameplayTagsManager.AddNativeGameplayTag(FName("Ability.FormChange.Spark"),FString("Activate Ability Form Change To Spark"));
 	WAKGameplayTags.Ability_FormChange_Paper= GameplayTagsManager.AddNativeGameplayTag(FName("Ability.FormChange.Paper"),FString("Activate Ability Form Change To Paper"));
 
-	WAKGameplayTags.Ability_Skill_1 = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Skill.1"),FString("Active Skill 1"));
-	WAKGameplayTags.Ability_Skill_2 = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Skill.2"),FString("Active Skill 2"));
+	WAKGameplayTags.Ability_Normal_Attack = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Normal.Attack"),FString("Active Skill 1"));
+	WAKGameplayTags.Ability_Normal_Grab = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Normal.Grab"),FString("Active Skill 2"));
 	WAKGameplayTags.Ability_Skill_3 = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Skill.3"),FString("Active Skill 3"));
 	WAKGameplayTags.Ability_Skill_4 = GameplayTagsManager.AddNativeGameplayTag(FName("Ability.Skill.4"),FString("Active Skill 4"));
 	

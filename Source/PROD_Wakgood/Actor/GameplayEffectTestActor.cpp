@@ -47,7 +47,7 @@ void AGameplayEffectTestActor::ApplyEffectToTarget(AActor* TargetActor, TSubclas
 {
 	//Gameplay Effect Test용 
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
-	UGameplayEffect* Effect = NewObject<UGameplayEffect>(GetTransientPackage(),GameplayEffectClass);
+	//UGameplayEffect* Effect = NewObject<UGameplayEffect>(GetTransientPackage(),GameplayEffectClass);
 	if (TargetASC == nullptr) return;
 	check(GameplayEffectClass);
 	
@@ -55,7 +55,9 @@ void AGameplayEffectTestActor::ApplyEffectToTarget(AActor* TargetActor, TSubclas
 	FGameplayEffectContextHandle EffectHandle = ASC->MakeEffectContext();
 	EffectHandle.AddSourceObject(this);
 	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass,1,EffectHandle);
-	FActiveGameplayEffectHandle ActiveHandle = ASC->ApplyGameplayEffectToTarget(Effect,TargetASC,UGameplayEffect::INVALID_LEVEL,EffectHandle);
+	//ASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),TargetASC);
+	TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	//FActiveGameplayEffectHandle ActiveHandle = ASC->ApplyGameplayEffectToTarget(Effect,TargetASC,UGameplayEffect::INVALID_LEVEL,EffectHandle);
 }
 void AGameplayEffectTestActor::BeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {

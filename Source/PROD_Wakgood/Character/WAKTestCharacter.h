@@ -45,7 +45,7 @@ class AWAKTestCharacter : public ACharacter, public IAbilitySystemInterface, pub
 	UPROPERTY(EditAnywhere,Category= "Animation");
 	UAnimMontage* NormalAttackAnim; // Player로
 	
-	
+	virtual void HitReact(FGameplayTag Tag, int32 NewCount) override;
 public:
 	AWAKTestCharacter();
 
@@ -88,9 +88,9 @@ public:
 	UFUNCTION()
 	void HealthCheck();
 	
-	UFUNCTION()
+	/*UFUNCTION()
 	void HitReactTagChange(const FGameplayTag CallbackTag, int32 NewCount);
-	UPROPERTY(BlueprintReadOnly, Category="Combat")
+	UPROPERTY(BlueprintReadOnly, Category="Combat")*/
 	bool bHitReacting = false;
 	UPROPERTY(BlueprintReadOnly, Category="Combat")
 	float BaseWalkSpeed = 250.f;
@@ -107,10 +107,7 @@ public:
 private:
 	UFUNCTION(CallInEditor)
 	void SetNormalMode();
-	UFUNCTION(CallInEditor)
-	void NormalAttack();
-	UFUNCTION(CallInEditor)
-	void NormalCatch();
+
 	void AsyncLoadWeapon(TSoftObjectPtr<UStaticMesh> WeaponData);
 	UFUNCTION(CallInEditor)
 	void Experinment_HadokenAbility();

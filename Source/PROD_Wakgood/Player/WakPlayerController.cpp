@@ -70,6 +70,10 @@ void AWakPlayerController::SetupInputComponent()
 		WakInputComponent->BindAction(InputS,ETriggerEvent::Triggered,this,&AWakPlayerController::Guard);
 		WakInputComponent->BindAction(InputS,ETriggerEvent::Completed,this,&AWakPlayerController::SetPlayerCollisionIgnoreWhenOverPlatform);
 		WakInputComponent->BindAction(InputS,ETriggerEvent::Completed,this,&AWakPlayerController::EndGuard);
+
+		WakInputComponent->BindAction(InputJ,ETriggerEvent::Completed,this,&AWakPlayerController::NormalAttack);
+		WakInputComponent->BindAction(InputJ,ETriggerEvent::Triggered,this,&AWakPlayerController::InputJBranch);
+		WakInputComponent->BindAction(InputJ,ETriggerEvent::Completed,this,&AWakPlayerController::Grab);
 		//WakInputComponent->BindAbilityActions(InputConfig, this, &AWakPlayerController::AbilityInputTagPressed,&AWakPlayerController::AbilityInputTagReleased);
 	}
 	else
@@ -102,6 +106,15 @@ void AWakPlayerController::Move(const FInputActionValue& InputActionValue)
 			}
 			ControlledPawn->AddMovementInput(RightDirection,InputAxisValue);
 		}
+	}
+}
+
+void AWakPlayerController::NormalAttack()
+{
+	if(GrabTimeElapse < GrabTimeThreshHold)
+	{
+		Cast<AWakPlayerCharacter>(GetPawn())->NormalAttack();
+		GrabTimeElapse = 0.0f;
 	}
 }
 
@@ -233,6 +246,20 @@ void AWakPlayerController::EndGuard()
 		GetASC()->RemoveActiveEffectsWithTags(FWAKGameplayTags::Get().Action_IsBlocking.GetSingleTagContainer());
 		
 	}
+}
+
+void AWakPlayerController::Grab()
+{
+	if(GrabTimeElapse >= GrabTimeThreshHold)
+	{
+		Cast<AWakPlayerCharacter>(GetPawn())->NormalGrab();
+		GrabTimeElapse = 0.f;
+	}
+}
+
+void AWakPlayerController::InputJBranch()
+{
+	GrabTimeElapse += GetWorld()->GetDeltaSeconds();
 }
 
 void AWakPlayerController::GetEnemyCharacterUnderCursor()
