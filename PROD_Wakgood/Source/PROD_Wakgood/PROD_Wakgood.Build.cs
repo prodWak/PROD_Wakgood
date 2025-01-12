@@ -19,7 +19,7 @@ public class PROD_Wakgood : ModuleRules
             "NavigationSystem",
 			"AIModule",
             "GameplayTasks",
-			"UMG" //
+			"UMG"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
