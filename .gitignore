@@ -1,11 +1,18 @@
 # Visual Studio 2015 user specific files
 .vs/
+.vsconfig
+
+# Jetbrains Rider user specific files
+*.DotSettings.user
 
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+
+# Compiled output for Debug
+*.pdb
 
 # Precompiled Headers
 *.gch
@@ -24,6 +31,8 @@
 *.la
 *.a
 *.lib
+*.modules
+*.pyc
 
 # Executables
 *.exe
@@ -40,25 +49,28 @@
 *.sdf
 *.VC.db
 *.VC.opendb
+*.target
 
 # Precompiled Assets
-PROD_Wakgood/SourceArt/**/*.png
-PROD_Wakgood/SourceArt/**/*.tga
+SourceArt/**/*.png
+SourceArt/**/*.tga
+
+# Builds
+**/Build/**
+PROD_Wakgood/Archived/*
+PROD_Wakgood/Binaries/*
+
+# Don't ignore icon files in Build
+!Build/**/*.ico
 
 # Binary Files
 PROD_Wakgood/Binaries/*
 PROD_Wakgood/Plugins/*/Binaries/*
 
-# Builds
-PROD_Wakgood/Build/*
-
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files
 !PROD_Wakgood/Build/*/
 PROD_Wakgood/Build/*/**
 !PROD_Wakgood/Build/*/PakBlacklist*.txt
-
-# Don't ignore icon files in Build
-!PROD_Wakgood/Build/**/*.ico
 
 # Built data for maps
 *_BuiltData.uasset
@@ -67,7 +79,7 @@ PROD_Wakgood/Build/*/**
 PROD_Wakgood/Saved/*
 
 # Compiled source files for the engine to use
-PROD_Wakgood/Intermediate/*
+**/Intermediate/**
 PROD_Wakgood/Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
