@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WakWorldPortal.h"
+
+#include "Character/WakCharacterBase.h"
 #include "Components/WidgetComponent.h"
 
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "PROD_Wakgood/TP_ThirdPerson/WakThirdPersonCharacter.h"
 
 AWorldPortal::AWorldPortal()
 {	
@@ -17,8 +18,6 @@ AWorldPortal::AWorldPortal()
 	WidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	WidgetComponent->SetDrawSize(FVector2D(300, 100));
 }
-
-
 
 void AWorldPortal::Interaction(AActor* target)
 {
@@ -44,7 +43,7 @@ void AWorldPortal::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
-		AWakThirdPersonCharacter* OverlappingCharacter = Cast<AWakThirdPersonCharacter>(OtherActor);
+		AWakCharacterBase* OverlappingCharacter = Cast<AWakCharacterBase>(OtherActor);
 		if(OverlappingCharacter && GetWorld())
 		{
 			WidgetComponent->SetVisibility(true);
