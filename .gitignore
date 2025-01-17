@@ -85,3 +85,6 @@ PROD_Wakgood/Plugins/*/Intermediate/*
 # Cache files for the editor to use
 PROD_Wakgood/DerivedDataCache/*
 .idea/
+
+PROD_Wakgood/Content/__ExternalActors__/*
+PROD_Wakgood/Content/__ExternalObjects__/*
