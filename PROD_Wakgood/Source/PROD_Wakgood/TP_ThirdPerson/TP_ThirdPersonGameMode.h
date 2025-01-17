@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TP_ThirdPersonCharacter.h"
+#include "WakThirdPersonCharacter.h"
 #include "GameFramework/GameModeBase.h"
 #include "TP_ThirdPersonGameMode.generated.h"
 

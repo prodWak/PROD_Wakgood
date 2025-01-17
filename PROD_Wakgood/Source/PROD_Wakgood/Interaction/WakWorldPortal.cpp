@@ -5,7 +5,7 @@
 
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
+#include "PROD_Wakgood/TP_ThirdPerson/WakThirdPersonCharacter.h"
 
 AWorldPortal::AWorldPortal()
 {	
@@ -44,7 +44,7 @@ void AWorldPortal::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
-		ATP_ThirdPersonCharacter* OverlappingCharacter = Cast<ATP_ThirdPersonCharacter>(OtherActor);
+		AWakThirdPersonCharacter* OverlappingCharacter = Cast<AWakThirdPersonCharacter>(OtherActor);
 		if(OverlappingCharacter && GetWorld())
 		{
 			WidgetComponent->SetVisibility(true);

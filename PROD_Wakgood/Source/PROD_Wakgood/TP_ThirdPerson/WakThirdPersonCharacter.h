@@ -8,7 +8,7 @@
 #include "PROD_Wakgood/Interaction/WakInteractionBase.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "TP_ThirdPersonCharacter.generated.h"
+#include "WakThirdPersonCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -21,7 +21,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class ATP_ThirdPersonCharacter : public ACharacter, public IInteractionInterface
+class AWakThirdPersonCharacter : public ACharacter, public IInteractionInterface
 {
 	GENERATED_BODY()
 
@@ -56,7 +56,7 @@ private:
 	IInteractionInterface* Interface = nullptr;
 
 public:
-	ATP_ThirdPersonCharacter();
+	AWakThirdPersonCharacter();
 	
 
 protected:

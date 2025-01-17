@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "TP_ThirdPersonCharacter.h"
+#include "WakThirdPersonCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
@@ -11,9 +11,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Kismet/GameplayStatics.h"
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "PROD_Wakgood/Interaction/WakWorldPortal.h"
-#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -22,7 +22,7 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 
 
-ATP_ThirdPersonCharacter::ATP_ThirdPersonCharacter()
+AWakThirdPersonCharacter::AWakThirdPersonCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -65,8 +65,8 @@ ATP_ThirdPersonCharacter::ATP_ThirdPersonCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
-void ATP_ThirdPersonCharacter::BeginPlay()
-{
+void AWakThirdPersonCharacter::BeginPlay()
+{	
 	// Call the base class  
 	Super::BeginPlay();
 
@@ -79,8 +79,8 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 		}
 	}
 
-	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnBeginOverlap);
-	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnEndOverlap);
+	InteractionBox->OnComponentBeginOverlap.AddDynamic(this, &AWakThirdPersonCharacter::OnBeginOverlap);
+	InteractionBox->OnComponentEndOverlap.AddDynamic(this, &AWakThirdPersonCharacter::OnEndOverlap);
 	UGameInstance* GameInstance = GetGameInstance();
 	Cast<UMainGameInstance>(GameInstance);
 }
@@ -88,7 +88,7 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ATP_ThirdPersonCharacter::switchInteractInput()
+void AWakThirdPersonCharacter::switchInteractInput()
 {
 	if (bIsInteractInput)
 	{
@@ -100,12 +100,12 @@ void ATP_ThirdPersonCharacter::switchInteractInput()
 	}
 }
 
-bool ATP_ThirdPersonCharacter::getIsInteractInput()
+bool AWakThirdPersonCharacter::getIsInteractInput()
 {
 	return bIsInteractInput;
 }
 
-void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AWakThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
@@ -115,10 +115,10 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AWakThirdPersonCharacter::Move);
 
 		// interacting
-		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Started, this, &ATP_ThirdPersonCharacter::OnInteract);
+		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Started, this, &AWakThirdPersonCharacter::OnInteract);
 	}
 	else
 	{
@@ -126,7 +126,7 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 	}
 }
 
-void ATP_ThirdPersonCharacter::Move(const FInputActionValue& Value)
+void AWakThirdPersonCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
@@ -139,7 +139,7 @@ void ATP_ThirdPersonCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AWakThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 									  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnBeginOverlap Called")));
@@ -153,7 +153,7 @@ void ATP_ThirdPersonCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCom
 	}
 }
 
-void ATP_ThirdPersonCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AWakThirdPersonCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnEndOverlap Called")));
@@ -163,7 +163,7 @@ void ATP_ThirdPersonCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp,
 	}
 }
 
-void ATP_ThirdPersonCharacter::OnInteract()
+void AWakThirdPersonCharacter::OnInteract()
 {
 	if (Controller != nullptr)
 	{

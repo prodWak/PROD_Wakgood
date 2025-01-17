@@ -4,7 +4,7 @@
 #include "WakLevelScript.h"
 
 #include "WakMainGameInstance.h"
-#include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
+#include "PROD_Wakgood/TP_ThirdPerson/WakThirdPersonCharacter.h"
 
 // Sets default values
 ALevelScript::ALevelScript()
