@@ -3,9 +3,9 @@
 
 #include "WakWorldMapPortal.h"
 
+#include "Character/WakCharacterBase.h"
 #include "PROD_Wakgood/Game/WakMainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 AWorldMapPortal::AWorldMapPortal()
 {
@@ -16,7 +16,7 @@ void AWorldMapPortal::Interaction(AActor* target)
 {
 	Super::Interaction(target);
 	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
-	ATP_ThirdPersonCharacter* targetCharacter = Cast<ATP_ThirdPersonCharacter>(target);
+	AWakCharacterBase* targetCharacter = Cast<AWakCharacterBase>(target);
 	if (GameInstance)
 	{
 		UGameplayStatics::OpenLevel(this, LocationName, false);

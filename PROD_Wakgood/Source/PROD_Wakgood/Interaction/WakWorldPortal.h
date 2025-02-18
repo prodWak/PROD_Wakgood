@@ -16,8 +16,10 @@ class PROD_WAKGOOD_API AWorldPortal : public AInteractionBase
 	virtual void Interaction(AActor* target) override;
 
 	virtual void BeginPlay() override;
+
 	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
+
 	virtual void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) override;
 
