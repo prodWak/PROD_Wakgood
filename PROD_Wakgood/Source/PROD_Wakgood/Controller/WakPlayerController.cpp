@@ -142,20 +142,6 @@ void AWakPlayerController::SwitchInteractInput()
 	bIsInteractInput = !bIsInteractInput;
 }
 
-// void AWakPlayerController::SetInteractionTarget(AActor* TargetActor)
-// {
-// 	if(!InteractionTarget)
-// 	{
-// 		InteractionTarget = Cast<AInteractionBase>(TargetActor);
-// 		return;
-// 	}
-//
-// 	if (InteractionTarget)
-// 	{
-// 		InteractionTarget = nullptr;
-// 	}
-// }
-
 bool AWakPlayerController::GetIsInteractInput() const
 {
 	return bIsInteractInput;
