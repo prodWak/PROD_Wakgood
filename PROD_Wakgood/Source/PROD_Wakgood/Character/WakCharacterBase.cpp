@@ -2,11 +2,9 @@
 
 // Wak Header
 #include "Character/WakHealthComponent.h"
-#include "Interaction/WakInteractionBase.h"
 
 // Unreal Header
 #include "AbilitySystemComponent.h"
-#include "EnhancedInputSubsystems.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -16,8 +14,6 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	// Configure character movement
-	// GetCharacterMovement()->bOrientRotationToMovement = true;	
-	// GetCharacterMovement()->RotationRate = FRotator(0.0f, 1000.0f, 0.0f);
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
@@ -47,7 +43,7 @@ void AWakCharacterBase::OnDeathFinished(AActor* OwningActor)
 	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
 }
 
-void AWakCharacterBase::DisableMovementAndCollision()
+void AWakCharacterBase::DisableMovementAndCollision() const
 {
 	if (Controller)
 	{

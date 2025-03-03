@@ -8,32 +8,22 @@
 
 class USpringArmComponent;
 class UCameraComponent;
-class UBoxComponent;
 class AWakPlayerController;
 
-/**
- * 
- */
 UCLASS()
 class PROD_WAKGOOD_API AWakWakGoodCharacter : public AWakCharacterBase
 {
 	GENERATED_BODY()
 
+private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Camera", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Camera", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> FollowCameraComponent;
 	
-	/*
-	 * Interaction
-	 */
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wak|Input", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UBoxComponent> InteractionBoxComponent;
-
 	UPROPERTY()
-	AWakPlayerController* WakPlayerController;
+	TObjectPtr<AWakPlayerController> WakPlayerController;
 
 public:
 	AWakWakGoodCharacter();
@@ -50,7 +40,6 @@ protected:
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 public:
-	// Get
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return SpringArmComponent; }
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCameraComponent; }
+	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return SpringArmComponent; }
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCameraComponent; }
 };

@@ -14,9 +14,7 @@
 void AWakPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	WakCharacter = Cast<AWakWakGoodCharacter>(GetCharacter());
-
+	
 	if (UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		SubSystem->AddMappingContext(IMC_Default, 0);
@@ -34,7 +32,7 @@ void AWakPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::Jump);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::StopJumping);
 		EnhancedInputComponent->BindAction(IA_Pause, ETriggerEvent::Started, this ,&ThisClass::GamePause);
-		EnhancedInputComponent->BindAction(IA_Interaction, ETriggerEvent::Started, this, &AWakPlayerController::OnInteract);
+		EnhancedInputComponent->BindAction(IA_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteract);
 
 		// Ability
 	}
@@ -46,15 +44,20 @@ void AWakPlayerController::SetupInputComponent()
 
 void AWakPlayerController::Move(const FInputActionValue& Value)
 {
+	if (GetCharacter() == nullptr)
+	{
+		return;
+	}
+	
 	FVector2D MovementVector = Value.Get<FVector2D>();
 	
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(Rotation.Pitch, 0, 0);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
+	
 	GetCharacter()->AddMovementInput(RightDirection, MovementVector.X);
-
-	// Mesh 회전
+	
+	/** Mesh 회전 */
 	MovementVector.X > 0 ?
 		GetCharacter()->GetMesh()->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
 	: GetCharacter()->GetMesh()->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
@@ -62,11 +65,21 @@ void AWakPlayerController::Move(const FInputActionValue& Value)
 
 void AWakPlayerController::Jump(const FInputActionValue& Value)
 {
+	if (GetCharacter() == nullptr)
+	{
+		return;
+	}
+	
 	GetCharacter()->Jump();
 }
 
 void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 {
+	if (GetCharacter() == nullptr)
+	{
+		return;
+	}
+	
 	GetCharacter()->StopJumping();
 }
 
@@ -77,11 +90,18 @@ void AWakPlayerController::GamePause(const FInputActionValue& Value)
 
 void AWakPlayerController::OnInteract()
 {
-	if(!InteractionTarget){ return ;}
-	
+	if (!InteractionTarget)
+	{
+		return;
+	}
+
+	if (!InteractionTarget->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
+	{
+		return;
+	}
 	SwitchInteractInput();
-		
-	InteractionInterface = Cast<IInteractionInterface>(InteractionTarget);
+	
+	InteractionInterface = TScriptInterface<IInteractionInterface>(InteractionTarget);
 	if (InteractionInterface)
 	{
 		InteractionInterface->Interaction(GetCharacter());

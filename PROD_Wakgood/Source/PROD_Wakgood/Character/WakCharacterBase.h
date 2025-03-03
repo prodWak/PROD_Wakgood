@@ -40,7 +40,7 @@ protected:
 	UFUNCTION()
 	virtual void OnDeathFinished(AActor* OwningActor);
 
-	void DisableMovementAndCollision();
+	void DisableMovementAndCollision() const;
 	void DestroyDueToDeath();
 	void UninitAndDestroy();
 

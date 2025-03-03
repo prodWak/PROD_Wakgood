@@ -58,8 +58,10 @@ protected:
 	// 상호작용 : E
 	UPROPERTY(EditAnywhere, Category = "Wak|Input")
 	TObjectPtr<UInputAction> IA_Interaction;
+
+#pragma region SpecialInput
 	
-	// 이하 DataConfig으로 관리 예정
+	// 이하 DataConfig으로 관리 예정, DataConfig 클래스는 만들지 않았음
 	// 기본 공격 : J, 홀드 시 포획
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
 	TObjectPtr<UInputAction> IA_Attack;
@@ -80,21 +82,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
 	TObjectPtr<UInputAction> IA_TransformCommand;
 
-	// Character
-	TObjectPtr<AWakWakGoodCharacter> WakCharacter;
-	
+#pragma endregion SpecialInput
+
 	// Interaction
 	UPROPERTY()
-	AInteractionBase* InteractionTarget = nullptr;
+	TObjectPtr<AInteractionBase> InteractionTarget = nullptr;
+
+	UPROPERTY()
+	TScriptInterface<IInteractionInterface> InteractionInterface = nullptr;
 	
-	IInteractionInterface* InteractionInterface = nullptr;
-	
+	UPROPERTY()
 	bool bIsInteractInput = false;
 	
-	/*
-	 * Function
-	 */
-
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 		
