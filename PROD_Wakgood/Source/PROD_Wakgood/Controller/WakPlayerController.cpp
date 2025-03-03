@@ -9,6 +9,7 @@
 
 // Wak Header
 #include "Character/WakGood/WakWakGoodCharacter.h"
+#include "Components/CapsuleComponent.h"
 #include "Interaction/WakWorldPortal.h"
 
 void AWakPlayerController::BeginPlay()
@@ -44,68 +45,96 @@ void AWakPlayerController::SetupInputComponent()
 
 void AWakPlayerController::Move(const FInputActionValue& Value)
 {
-	if (GetCharacter() == nullptr)
+	ACharacter* WakCharacter = GetCharacter();
+	if (WakCharacter == nullptr)
+	{
+		return;
+	}
+
+	USkeletalMeshComponent* CharacterMesh = WakCharacter->GetMesh();
+	if (CharacterMesh == nullptr)
 	{
 		return;
 	}
 	
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	const FVector2D MovementVector = Value.Get<FVector2D>();
 	
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(Rotation.Pitch, 0, 0);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	
-	GetCharacter()->AddMovementInput(RightDirection, MovementVector.X);
+	WakCharacter->AddMovementInput(RightDirection, MovementVector.X);
 	
 	/** Mesh 회전 */
 	MovementVector.X > 0 ?
-		GetCharacter()->GetMesh()->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
-	: GetCharacter()->GetMesh()->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
+		CharacterMesh->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
+	: CharacterMesh->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
 }
 
 void AWakPlayerController::Jump(const FInputActionValue& Value)
 {
-	if (GetCharacter() == nullptr)
+	ACharacter* WakCharacter = GetCharacter();
+	if (WakCharacter == nullptr)
 	{
 		return;
 	}
 	
-	GetCharacter()->Jump();
+	WakCharacter->Jump();
 }
 
 void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 {
-	if (GetCharacter() == nullptr)
+	ACharacter* WakCharacter = GetCharacter();
+	if (WakCharacter == nullptr)
 	{
 		return;
 	}
 	
-	GetCharacter()->StopJumping();
+	WakCharacter->StopJumping();
 }
 
 void AWakPlayerController::GamePause(const FInputActionValue& Value)
 {
-	
+	unimplemented();
 }
 
 void AWakPlayerController::OnInteract()
 {
+	AWakWakGoodCharacter* WakCharacter = Cast<AWakWakGoodCharacter>(GetCharacter());
+	if (WakCharacter == nullptr)
+	{
+		return;
+	}
+	
+	if (const UCapsuleComponent* CapsuleComponent = WakCharacter->GetCapsuleComponent())
+	{
+		TArray<AActor*> OverlappingActors;
+		CapsuleComponent->GetOverlappingActors(OverlappingActors);
+
+		for (AActor* OverlappingActor : OverlappingActors)
+		{
+			InteractionTarget = Cast<AInteractionBase>(OverlappingActor);
+		}
+	}
+
 	if (!InteractionTarget)
 	{
 		return;
+	}
+
+	IInteractionInterface* InteractInterface = Cast<IInteractionInterface>(InteractionTarget);
+	if(InteractInterface == nullptr)
+	{
+		return ;
 	}
 
 	if (!InteractionTarget->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
 	{
 		return;
 	}
-	SwitchInteractInput();
 	
-	InteractionInterface = TScriptInterface<IInteractionInterface>(InteractionTarget);
-	if (InteractionInterface)
-	{
-		InteractionInterface->Interaction(GetCharacter());
-	}
+	SwitchInteractInput();
+	InteractInterface->Interaction(WakCharacter);
 }
 
 void AWakPlayerController::SwitchInteractInput()
@@ -113,19 +142,19 @@ void AWakPlayerController::SwitchInteractInput()
 	bIsInteractInput = !bIsInteractInput;
 }
 
-void AWakPlayerController::SetInteractionTarget(AActor* TargetActor)
-{
-	if(!InteractionTarget)
-	{
-		InteractionTarget = Cast<AInteractionBase>(TargetActor);
-		return;
-	}
-
-	if (InteractionTarget)
-	{
-		InteractionTarget = nullptr;
-	}
-}
+// void AWakPlayerController::SetInteractionTarget(AActor* TargetActor)
+// {
+// 	if(!InteractionTarget)
+// 	{
+// 		InteractionTarget = Cast<AInteractionBase>(TargetActor);
+// 		return;
+// 	}
+//
+// 	if (InteractionTarget)
+// 	{
+// 		InteractionTarget = nullptr;
+// 	}
+// }
 
 bool AWakPlayerController::GetIsInteractInput() const
 {

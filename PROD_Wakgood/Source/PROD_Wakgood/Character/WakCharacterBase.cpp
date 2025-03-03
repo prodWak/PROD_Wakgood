@@ -14,9 +14,13 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	// Configure character movement
-	GetCharacterMovement()->JumpZVelocity = 700.f;
-	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if (MovementComponent)
+	{
+		MovementComponent->JumpZVelocity = 700.f;
+		MovementComponent->AirControl = 0.35f;
+		MovementComponent->MaxWalkSpeed = 500.f;
+	}
 	
 	HealthComponent = CreateDefaultSubobject<UWakHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDeathStarted.AddDynamic(this, &ThisClass::OnDeathStarted);
@@ -40,7 +44,10 @@ void AWakCharacterBase::OnDeathStarted(AActor* OwningActor)
 
 void AWakCharacterBase::OnDeathFinished(AActor* OwningActor)
 {
-	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+	if (UWorld* World = GetWorld())
+	{
+		World->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+	}
 }
 
 void AWakCharacterBase::DisableMovementAndCollision() const

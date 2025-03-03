@@ -23,8 +23,12 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 	FollowCameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 	FollowCameraComponent->bUsePawnControlRotation = false;
 
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
-	GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnEndOverlap);
+	// UCapsuleComponent* WakCapsuleComponent = GetCapsuleComponent();
+	// if (WakCapsuleComponent)
+	// {
+	// 	WakCapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
+	// 	WakCapsuleComponent->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnEndOverlap);
+	// }
 }
 
 void AWakWakGoodCharacter::BeginPlay()
@@ -34,29 +38,33 @@ void AWakWakGoodCharacter::BeginPlay()
 	WakPlayerController = GetController<AWakPlayerController>();
 }
 
-void AWakWakGoodCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (OtherActor && (OtherActor != this) && OtherComp)
-	{
-		if (WakPlayerController == nullptr)
-		{
-			return;
-		}
-		
-		GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnBeginOverlap Called")));		
-		WakPlayerController->SetInteractionTarget(OtherActor);
-	}
-}
-
-void AWakWakGoodCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	if (WakPlayerController == nullptr)
-	{
-		return;
-	}
-	
-	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnEndOverlap Called")));
-	WakPlayerController->SetInteractionTarget(nullptr);
-}
+// void AWakWakGoodCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+// 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+// {
+// 	if (OtherActor == nullptr || OtherActor == this || OtherComp == nullptr)
+// 	{
+// 		return;
+// 	}
+//
+// 	WakPlayerController = GetController<AWakPlayerController>();
+// 	if (WakPlayerController == nullptr)
+// 	{
+// 		return;
+// 	}
+// 	
+// 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnBeginOverlap Called")));		
+// 	WakPlayerController->SetInteractionTarget(OtherActor);
+// }
+//
+// void AWakWakGoodCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+// 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+// {
+// 	WakPlayerController = GetController<AWakPlayerController>();
+// 	if (WakPlayerController == nullptr)
+// 	{
+// 		return;
+// 	}
+// 	
+// 	GEngine->AddOnScreenDebugMessage(0, 5, FColor::Red, FString::Printf(TEXT("Character : OnEndOverlap Called")));
+// 	WakPlayerController->SetInteractionTarget(nullptr);
+// }

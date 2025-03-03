@@ -18,17 +18,13 @@ class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySys
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Character", Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UWakHealthComponent> HealthComponent;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Wak|Abilities", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
 public:
 	AWakCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-
-	/*
-	 * AbilitySystem
-	 */
 	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Wak|Abilities")
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 protected:
 	virtual void BeginPlay() override;

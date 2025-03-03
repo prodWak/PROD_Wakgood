@@ -82,18 +82,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
 	TObjectPtr<UInputAction> IA_TransformCommand;
 
+private:
 #pragma endregion SpecialInput
 
 	// Interaction
 	UPROPERTY()
 	TObjectPtr<AInteractionBase> InteractionTarget = nullptr;
-
-	UPROPERTY()
-	TScriptInterface<IInteractionInterface> InteractionInterface = nullptr;
 	
 	UPROPERTY()
 	bool bIsInteractInput = false;
-	
+
+protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 		
