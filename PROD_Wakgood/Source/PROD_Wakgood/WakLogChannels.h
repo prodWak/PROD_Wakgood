@@ -2,9 +2,5 @@
 
 #pragma once
 
-#include "Logging/LogMacros.h"
-
-class UObject;
-
-PROD_WAKGOOD_API DECLARE_LOG_CATEGORY_EXTERN(LogWak, Log, All);
-PROD_WAKGOOD_API DECLARE_LOG_CATEGORY_EXTERN(LogWakAbilitySystem, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogWak, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogWakAbilitySystem, Log, All);
