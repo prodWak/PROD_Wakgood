@@ -28,14 +28,11 @@ void AWakPlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
-		// Default
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ThisClass::Move);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::Jump);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::StopJumping);
 		EnhancedInputComponent->BindAction(IA_Pause, ETriggerEvent::Started, this ,&ThisClass::GamePause);
 		EnhancedInputComponent->BindAction(IA_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteract);
-
-		// Ability
 	}
 	else
 	{
@@ -108,33 +105,22 @@ void AWakPlayerController::OnInteract()
 	
 	if (const UCapsuleComponent* CapsuleComponent = WakCharacter->GetCapsuleComponent())
 	{
-		TArray<AActor*> OverlappingActors;
+		TArray<AActor*> OverlappingActors;		
 		CapsuleComponent->GetOverlappingActors(OverlappingActors);
-
+		
 		for (AActor* OverlappingActor : OverlappingActors)
 		{
-			InteractionTarget = Cast<AInteractionBase>(OverlappingActor);
+			IInteractionInterface* InteractInterface = Cast<IInteractionInterface>(OverlappingActor);
+			if(InteractInterface == nullptr)
+			{
+				continue;
+			}
+			
+			SwitchInteractInput();
+			InteractInterface->Interaction(WakCharacter);
+			return;
 		}
 	}
-
-	if (!InteractionTarget)
-	{
-		return;
-	}
-
-	IInteractionInterface* InteractInterface = Cast<IInteractionInterface>(InteractionTarget);
-	if(InteractInterface == nullptr)
-	{
-		return ;
-	}
-
-	if (!InteractionTarget->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
-	{
-		return;
-	}
-	
-	SwitchInteractInput();
-	InteractInterface->Interaction(WakCharacter);
 }
 
 void AWakPlayerController::SwitchInteractInput()

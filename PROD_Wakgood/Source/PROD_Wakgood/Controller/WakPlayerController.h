@@ -84,10 +84,6 @@ protected:
 
 private:
 #pragma endregion SpecialInput
-
-	// Interaction
-	UPROPERTY()
-	TObjectPtr<AInteractionBase> InteractionTarget = nullptr;
 	
 	UPROPERTY()
 	bool bIsInteractInput = false;
@@ -105,7 +101,6 @@ protected:
 
 public:
 	void SwitchInteractInput();
-	void SetInteractionTarget(AActor* TargetActor);
 	
 	bool GetIsInteractInput() const;
 };

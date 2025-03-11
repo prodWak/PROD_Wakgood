@@ -27,6 +27,4 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 void AWakWakGoodCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	WakPlayerController = GetController<AWakPlayerController>();
 }

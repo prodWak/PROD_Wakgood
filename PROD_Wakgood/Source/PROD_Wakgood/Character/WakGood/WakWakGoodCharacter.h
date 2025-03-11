@@ -21,9 +21,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Camera", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> FollowCameraComponent;
-	
-	UPROPERTY()
-	TObjectPtr<AWakPlayerController> WakPlayerController;
 
 public:
 	AWakWakGoodCharacter();
