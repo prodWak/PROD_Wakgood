@@ -3,8 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-#include "GameplayCueInterface.h"
-#include "GameplayTagAssetInterface.h"
+#include "Interaction/WakInteractionInterface.h"
 
 #include "WakCharacterBase.generated.h"
 
@@ -12,24 +11,24 @@ class UAbilitySystemComponent;
 class UWakHealthComponent;
 
 UCLASS()
-class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySystemInterface
+class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySystemInterface, public IInteractionInterface
 {
 	GENERATED_BODY()
 
-public:
-	AWakCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Character", Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UWakHealthComponent> HealthComponent;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Wak|Abilities", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+public:
+	AWakCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 protected:
+	virtual void BeginPlay() override;
+	
 	UFUNCTION()
 	virtual void OnDeathStarted(AActor* OwningActor);
 
@@ -37,7 +36,7 @@ protected:
 	UFUNCTION()
 	virtual void OnDeathFinished(AActor* OwningActor);
 
-	void DisableMovementAndCollision();
+	void DisableMovementAndCollision() const;
 	void DestroyDueToDeath();
 	void UninitAndDestroy();
 

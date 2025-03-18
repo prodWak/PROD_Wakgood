@@ -2,9 +2,10 @@
 
 
 #include "WakInteractionBase.h"
+
+#include "Character/WakCharacterBase.h"
 #include "Components/BoxComponent.h"
 #include "Components/PointLightComponent.h"
-#include "PROD_Wakgood/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
 
 // Sets default values
 AInteractionBase::AInteractionBase()
@@ -40,7 +41,7 @@ void AInteractionBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
-		ATP_ThirdPersonCharacter* OverlappingCharacter = Cast<ATP_ThirdPersonCharacter>(OtherActor);
+		AWakCharacterBase* OverlappingCharacter = Cast<AWakCharacterBase>(OtherActor);
 		if(OverlappingCharacter && GetWorld())
 		{
 			PointLight->SetIntensity(10000);

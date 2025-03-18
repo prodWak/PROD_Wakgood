@@ -13,16 +13,23 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 	PrimaryActorTick.bCanEverTick = false;
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
+	// Configure character movement
+	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if (MovementComponent)
+	{
+		MovementComponent->JumpZVelocity = 700.f;
+		MovementComponent->AirControl = 0.35f;
+		MovementComponent->MaxWalkSpeed = 500.f;
+	}
+	
 	HealthComponent = CreateDefaultSubobject<UWakHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDeathStarted.AddDynamic(this, &ThisClass::OnDeathStarted);
 	HealthComponent->OnDeathFinished.AddDynamic(this, &ThisClass::OnDeathFinished);
-
 }
 
-void AWakCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AWakCharacterBase::BeginPlay()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	Super::BeginPlay();
 }
 
 UAbilitySystemComponent* AWakCharacterBase::GetAbilitySystemComponent() const
@@ -37,10 +44,13 @@ void AWakCharacterBase::OnDeathStarted(AActor* OwningActor)
 
 void AWakCharacterBase::OnDeathFinished(AActor* OwningActor)
 {
-	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+	if (UWorld* World = GetWorld())
+	{
+		World->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+	}
 }
 
-void AWakCharacterBase::DisableMovementAndCollision()
+void AWakCharacterBase::DisableMovementAndCollision() const
 {
 	if (Controller)
 	{
@@ -82,5 +92,3 @@ void AWakCharacterBase::UninitAndDestroy()
 
 	SetActorHiddenInGame(true);
 }
-
-
