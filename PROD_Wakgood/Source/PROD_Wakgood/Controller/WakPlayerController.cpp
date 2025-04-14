@@ -4,21 +4,25 @@
 #include "Controller/WakPlayerController.h"
 
 // Unreal Header
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Components/CapsuleComponent.h"
 
 // Wak Header
 #include "Character/WakGood/WakWakGoodCharacter.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/Input/WakInputComponent.h"
+#include "DataAsset/Input/WakInputConfig.h"
 #include "Interaction/WakWorldPortal.h"
+#include "WakGameplayTags.h"
 
 void AWakPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	checkf(InputConfigDataAsset, TEXT("You forgot to assign a valid data asset as input config."));
 	
 	if (UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
-		SubSystem->AddMappingContext(IMC_Default, 0);
+		SubSystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
 	}
 }
 
@@ -26,13 +30,18 @@ void AWakPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
+	checkf(InputConfigDataAsset, TEXT("You forgot to assign a valid data asset as input config."));
+
+	if (UWakInputComponent* WakInputComponent = CastChecked<UWakInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ThisClass::Move);
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::Jump);
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::StopJumping);
-		EnhancedInputComponent->BindAction(IA_Pause, ETriggerEvent::Started, this ,&ThisClass::GamePause);
-		EnhancedInputComponent->BindAction(IA_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteract);
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Move,
+			ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Jump,
+			ETriggerEvent::Started, this, &ThisClass::Jump);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Jump,
+			ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 	}
 	else
 	{

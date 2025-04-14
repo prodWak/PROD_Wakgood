@@ -6,10 +6,9 @@
 // Unreal Header
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Components/CapsuleComponent.h"
 
 // Wak Header
-#include "Controller/WakPlayerController.h"
+#include "DataAsset/StartUpData/WakStartUpDataBase.h"
 
 AWakWakGoodCharacter::AWakWakGoodCharacter()
 {
@@ -27,4 +26,18 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 void AWakWakGoodCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AWakWakGoodCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!GetWakStartUpData().IsNull())
+	{
+		UWakStartUpDataBase* LoadedData = GetWakStartUpData().LoadSynchronous();
+		if (LoadedData)
+		{
+			LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
+		}
+	}
 }

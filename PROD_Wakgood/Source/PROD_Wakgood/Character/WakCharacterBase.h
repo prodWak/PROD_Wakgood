@@ -7,8 +7,11 @@
 
 #include "WakCharacterBase.generated.h"
 
+class UWakAbilitySystemComponent;
+class UWakAttributeSet;
 class UAbilitySystemComponent;
 class UWakHealthComponent;
+class UWakStartUpDataBase;
 
 UCLASS()
 class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySystemInterface, public IInteractionInterface
@@ -19,7 +22,13 @@ class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySys
 	TObjectPtr<UWakHealthComponent> HealthComponent;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Wak|Abilities", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UWakAbilitySystemComponent> WakAbilitySystemComponent;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Wak|Abilities", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UWakAttributeSet> WakAttribute;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|CharacterData", meta = (AllowPrivateAccess = "true"))
+	TSoftObjectPtr<UWakStartUpDataBase> CharacterStartUpData;
 
 public:
 	AWakCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
@@ -28,6 +37,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void PossessedBy(AController* NewController) override;
 	
 	UFUNCTION()
 	virtual void OnDeathStarted(AActor* OwningActor);
@@ -38,9 +48,15 @@ protected:
 
 	void DisableMovementAndCollision() const;
 	void DestroyDueToDeath();
-	void UninitAndDestroy();
+	void UnInitAndDestroy();
 
 	// Called when the death sequence for the character has completed
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "OnDeathFinished"))
 	void K2_OnDeathFinished();
+
+	FORCEINLINE TSoftObjectPtr<UWakStartUpDataBase> GetWakStartUpData() const { return CharacterStartUpData; }
+	
+public:
+	FORCEINLINE UWakAbilitySystemComponent* GetWakAbilitySystemComponent() const { return WakAbilitySystemComponent; }
+	FORCEINLINE UWakAttributeSet* GetWakAttribute() const { return WakAttribute; }
 };

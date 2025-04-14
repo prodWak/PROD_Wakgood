@@ -2,6 +2,8 @@
 
 // Wak Header
 #include "Character/WakHealthComponent.h"
+#include "AbilitySystem/WakAbilitySystemComponent.h"
+#include "AbilitySystem/Attributes/WakAttributeSet.h"
 
 // Unreal Header
 #include "AbilitySystemComponent.h"
@@ -25,6 +27,10 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 	HealthComponent = CreateDefaultSubobject<UWakHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDeathStarted.AddDynamic(this, &ThisClass::OnDeathStarted);
 	HealthComponent->OnDeathFinished.AddDynamic(this, &ThisClass::OnDeathFinished);
+
+	WakAbilitySystemComponent = CreateDefaultSubobject<UWakAbilitySystemComponent>(TEXT("WakAbilitySystemComponent"));
+	
+	WakAttribute = CreateDefaultSubobject<UWakAttributeSet>(TEXT("WakAttributeSet"));
 }
 
 void AWakCharacterBase::BeginPlay()
@@ -32,9 +38,21 @@ void AWakCharacterBase::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AWakCharacterBase::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (WakAbilitySystemComponent)
+	{
+		WakAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("Forgot to assign start up data to [ %s ]"), *GetNameSafe(this));
+	}
+}
+
 UAbilitySystemComponent* AWakCharacterBase::GetAbilitySystemComponent() const
 {
-	return AbilitySystemComponent;
+	return GetWakAbilitySystemComponent();
 }
 
 void AWakCharacterBase::OnDeathStarted(AActor* OwningActor)
@@ -70,10 +88,10 @@ void AWakCharacterBase::DestroyDueToDeath()
 {
 	K2_OnDeathFinished();
 
-	UninitAndDestroy();
+	UnInitAndDestroy();
 }
 
-void AWakCharacterBase::UninitAndDestroy()
+void AWakCharacterBase::UnInitAndDestroy()
 {
 	if (GetLocalRole() == ROLE_Authority)
 	{

@@ -6,13 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "WakPlayerController.generated.h"
 
-class AWakWakGoodCharacter;
-
-class UInputMappingContext;
-class UInputAction;
-class AInteractionBase;
-class IInteractionInterface;
-
+class UWakInputConfig;
 struct FInputActionValue;
 
 /**
@@ -22,7 +16,8 @@ UCLASS()
 class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+private:
 	/*
 	 * 일반 커맨드
 	   (빠르게) A + A / D + D: 달리기
@@ -35,56 +30,9 @@ class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
 		## 변신 폼 마다 스킬이 다름 => 스테이트 구분해서 태그 부여
 	 */
 	
-protected:
-	/*
-	 * Input Variable
-	 */
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputMappingContext> IMC_Default;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|Data", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UWakInputConfig> InputConfigDataAsset;
 
-	// 이동 : W, A, S, D
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Move;
-
-	// 점프 : K
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Jump;
-
-	// 일시정지 및 메뉴 열기 : ESC
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Pause;
-
-	// 상호작용 : E
-	UPROPERTY(EditAnywhere, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Interaction;
-
-#pragma region SpecialInput
-	
-	// 이하 DataConfig으로 관리 예정, DataConfig 클래스는 만들지 않았음
-	// 기본 공격 : J, 홀드 시 포획
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Attack;
-
-	// 특수 커맨드 : L, 특정 스킬 사용 시
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_SpecialCommand;
-
-	// 변신 풀기 : M
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Untransformed;
-
-	// 달리기 : Left Shift, 홀드와 트리거 선택 가능
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_Run;
-
-	// 변신 커맨드 : Space Bar
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Input")
-	TObjectPtr<UInputAction> IA_TransformCommand;
-
-private:
-#pragma endregion SpecialInput
-	
 	UPROPERTY()
 	bool bIsInteractInput = false;
 
