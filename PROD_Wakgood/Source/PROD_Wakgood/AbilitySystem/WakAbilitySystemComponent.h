@@ -13,5 +13,8 @@ UCLASS()
 class PROD_WAKGOOD_API UWakAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	void OnAbilityInputPressed(FGameplayTag& InInputTag);
+	void OnAbilityInputReleased(FGameplayTag& InInputTag);
 };

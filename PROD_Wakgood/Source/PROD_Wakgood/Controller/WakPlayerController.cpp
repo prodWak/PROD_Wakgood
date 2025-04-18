@@ -13,6 +13,7 @@
 #include "DataAsset/Input/WakInputConfig.h"
 #include "Interaction/WakWorldPortal.h"
 #include "WakGameplayTags.h"
+#include "AbilitySystem/WakAbilitySystemComponent.h"
 
 void AWakPlayerController::BeginPlay()
 {
@@ -24,6 +25,13 @@ void AWakPlayerController::BeginPlay()
 	{
 		SubSystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
 	}
+
+	if (const AWakWakGoodCharacter* WakCharacter = Cast<AWakWakGoodCharacter>(GetCharacter()))
+	{
+		WakAbilitySystemComponent = WakCharacter->GetWakAbilitySystemComponent();
+	}
+	
+	checkf(WakAbilitySystemComponent, TEXT("Failed to get %s by casting the character"), *GetNameSafe(WakAbilitySystemComponent));
 }
 
 void AWakPlayerController::SetupInputComponent()
@@ -42,6 +50,15 @@ void AWakPlayerController::SetupInputComponent()
 
 		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Jump,
 			ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Interaction,
+			ETriggerEvent::Started, this, &ThisClass::OnInteract);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Pause,
+			ETriggerEvent::Started, this, &ThisClass::GamePause);
+
+		WakInputComponent->BindAbilityInputAction(InputConfigDataAsset, this,
+			&ThisClass::AbilityInputPressed, &AWakPlayerController::AbilityInputReleased);
 	}
 	else
 	{
@@ -102,6 +119,16 @@ void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 void AWakPlayerController::GamePause(const FInputActionValue& Value)
 {
 	unimplemented();
+}
+
+void AWakPlayerController::AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WakAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AWakPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WakAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }
 
 void AWakPlayerController::OnInteract()

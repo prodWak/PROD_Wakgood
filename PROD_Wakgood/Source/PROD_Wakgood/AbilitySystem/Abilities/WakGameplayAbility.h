@@ -6,6 +6,10 @@
 #include "Abilities/GameplayAbility.h"
 #include "WakGameplayAbility.generated.h"
 
+class UWakAbilitySystemComponent;
+class UWakPawnCombatComponent;
+
+/** 시작 시 활성화되는 어빌리티와 입력 시 활성화 되는 어빌리티 구분 */
 UENUM(BlueprintType)
 enum class EWakAbilityActivationPolicy : uint8
 {
@@ -22,11 +26,17 @@ class PROD_WAKGOOD_API UWakGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Wak|Abilities")
-	EWakAbilityActivationPolicy AbilityActivationPolicy = EWakAbilityActivationPolicy::OnTriggered;
-
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Wak|Abilities")
+	EWakAbilityActivationPolicy AbilityActivationPolicy = EWakAbilityActivationPolicy::OnTriggered;
+	
+	UFUNCTION(BlueprintPure, Category = "Wak|Ability")
+	UWakPawnCombatComponent* GetWakPawnCombatComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "Wak|Ability")
+	UWakAbilitySystemComponent* GetWakAbilitySystemComponentFromActorInfo() const;
 };

@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "WakGameplayTags.h"
 #include "WakPlayerController.generated.h"
 
 class UWakInputConfig;
+class UWakAbilitySystemComponent;
 struct FInputActionValue;
 
 /**
@@ -34,6 +36,9 @@ private:
 	TObjectPtr<UWakInputConfig> InputConfigDataAsset;
 
 	UPROPERTY()
+	TObjectPtr<UWakAbilitySystemComponent> WakAbilitySystemComponent;
+
+	UPROPERTY()
 	bool bIsInteractInput = false;
 
 protected:
@@ -44,8 +49,10 @@ protected:
 	void Jump(const FInputActionValue& Value);
 	void StopJumping(const FInputActionValue& Value);
 	void GamePause(const FInputActionValue& Value);
-	
 	void OnInteract();
+
+	void AbilityInputPressed(FGameplayTag InInputTag);
+	void AbilityInputReleased(FGameplayTag InInputTag);
 
 public:
 	void SwitchInteractInput();

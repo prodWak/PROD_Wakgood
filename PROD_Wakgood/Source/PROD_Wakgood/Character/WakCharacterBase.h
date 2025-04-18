@@ -30,6 +30,9 @@ class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySys
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|CharacterData", meta = (AllowPrivateAccess = "true"))
 	TSoftObjectPtr<UWakStartUpDataBase> CharacterStartUpData;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|CharacterWeapon", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMeshComponent> Weapon;
+
 public:
 	AWakCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 	

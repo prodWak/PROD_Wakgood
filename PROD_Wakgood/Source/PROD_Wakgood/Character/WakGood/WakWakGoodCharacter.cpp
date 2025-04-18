@@ -9,6 +9,7 @@
 
 // Wak Header
 #include "DataAsset/StartUpData/WakStartUpDataBase.h"
+#include "Components/Combat/WakPlayerCombatComponent.h"
 
 AWakWakGoodCharacter::AWakWakGoodCharacter()
 {
@@ -21,6 +22,8 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 	FollowCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCameraComponent"));
 	FollowCameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 	FollowCameraComponent->bUsePawnControlRotation = false;
+
+	WakPlayerCombatComponent = CreateDefaultSubobject<UWakPlayerCombatComponent>(TEXT("WakPlayerCombatComponent"));
 }
 
 void AWakWakGoodCharacter::BeginPlay()

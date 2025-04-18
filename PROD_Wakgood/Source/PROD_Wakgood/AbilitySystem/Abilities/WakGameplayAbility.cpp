@@ -4,7 +4,7 @@
 #include "AbilitySystem/Abilities/WakGameplayAbility.h"
 
 #include "AbilitySystem/WakAbilitySystemComponent.h"
-#include "Engine/SpecularProfile.h"
+#include "Components/Combat/WakPawnCombatComponent.h"
 
 void UWakGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -32,4 +32,14 @@ void UWakGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
 	}
+}
+
+UWakPawnCombatComponent* UWakGameplayAbility::GetWakPawnCombatComponentFromActorInfo() const
+{
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UWakPawnCombatComponent>();
+}
+
+UWakAbilitySystemComponent* UWakGameplayAbility::GetWakAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UWakAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

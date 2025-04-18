@@ -31,6 +31,8 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 	WakAbilitySystemComponent = CreateDefaultSubobject<UWakAbilitySystemComponent>(TEXT("WakAbilitySystemComponent"));
 	
 	WakAttribute = CreateDefaultSubobject<UWakAttributeSet>(TEXT("WakAttributeSet"));
+
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
 }
 
 void AWakCharacterBase::BeginPlay()
