@@ -25,7 +25,8 @@ public class PROD_Wakgood : ModuleRules
                 "ModularGameplay",
                 "GameplayAbilities",
 				"GameplayTags",
-				"GameplayTasks"
+				"GameplayTasks",
+				"AIModule"
 				}
 			);
 

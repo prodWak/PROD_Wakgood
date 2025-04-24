@@ -53,10 +53,10 @@ void UWakInputComponent::BindAbilityInputAction(UWakInputConfig* InInputConfig, 
 			continue;
 		}
 
-		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started, ContextObject,
+		BindAction(AbilityInputActionConfig.InputAction, AbilityInputActionConfig.PressedTriggerEvent, ContextObject,
 			InputPressedFunc, AbilityInputActionConfig.InputTag);
 		
-		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject,
+		BindAction(AbilityInputActionConfig.InputAction, AbilityInputActionConfig.ReleasedTriggerEvent, ContextObject,
 			InputReleasedFunc, AbilityInputActionConfig.InputTag);
 	}
 }

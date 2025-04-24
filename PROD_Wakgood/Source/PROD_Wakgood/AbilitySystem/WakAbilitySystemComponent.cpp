@@ -2,6 +2,7 @@
 
 
 #include "AbilitySystem/WakAbilitySystemComponent.h"
+#include "WakGameplayTags.h"
 
 void UWakAbilitySystemComponent::OnAbilityInputPressed(FGameplayTag& InInputTag)
 {
@@ -23,4 +24,5 @@ void UWakAbilitySystemComponent::OnAbilityInputPressed(FGameplayTag& InInputTag)
 
 void UWakAbilitySystemComponent::OnAbilityInputReleased(FGameplayTag& InInputTag)
 {
+
 }

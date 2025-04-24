@@ -11,7 +11,7 @@ UWakAttributeSet::UWakAttributeSet()
 
 UWorld* UWakAttributeSet::GetWorld() const
 {
-	const UObject* Outer = GetOuter();
+	const UObject* const Outer = GetOuter();
 	check(Outer);
 
 	return Outer->GetWorld();
@@ -21,4 +21,3 @@ UAbilitySystemComponent* UWakAttributeSet::GetAbilitySystemComponent() const
 {
 	return GetOwningAbilitySystemComponent();
 }
-

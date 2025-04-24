@@ -4,10 +4,7 @@
 #include "Components/GameFrameworkComponent.h"
 #include "WakHealthComponent.generated.h"
 
-class ULyraHealthComponent;
-
 class UAbilitySystemComponent;
-class UWakHealthSet;
 
 struct FGameplayEffectSpec;
 
@@ -21,6 +18,11 @@ enum class EWakDeathState : uint8
 	DeathStarted,
 	DeathFinished
 };
+
+/*
+ * 기존 샘플에서 따온 사용하지 않는 클래스
+ * 호옥시 모르니까 남겨둠
+ */
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PROD_WAKGOOD_API UWakHealthComponent : public UGameFrameworkComponent
@@ -85,7 +87,7 @@ public:
 protected:
 	virtual void OnUnregister() override;
 
-	void ClearGameplayTags();
+	void ClearGameplayTags() const;
 
 	virtual void HandleHealthChanged(AActor* DamageInstigator, AActor* DamageCauser, const FGameplayEffectSpec* DamageEffectSpec, float DamageMagnitude, float OldValue, float NewValue);
 	virtual void HandleMaxHealthChanged(AActor* DamageInstigator, AActor* DamageCauser, const FGameplayEffectSpec* DamageEffectSpec, float DamageMagnitude, float OldValue, float NewValue);
@@ -98,9 +100,6 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY()
-	TObjectPtr<const UWakHealthSet> HealthSet;
 
 	UPROPERTY()
 	EWakDeathState DeathState;

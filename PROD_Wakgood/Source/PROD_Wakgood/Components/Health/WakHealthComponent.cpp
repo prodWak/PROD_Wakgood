@@ -2,10 +2,8 @@
 
 // Unreal Header
 #include "AbilitySystemComponent.h"
-#include "GameplayEffect.h"
 
 // Wak Header
-#include "AbilitySystem/Attributes/WakHealthSet.h"
 #include "WakGameplayTags.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(WakHealthComponent)
@@ -20,7 +18,7 @@ UWakHealthComponent::UWakHealthComponent(const FObjectInitializer& ObjectInitial
 	SetIsReplicatedByDefault(true);
 
 	AbilitySystemComponent = nullptr;
-	HealthSet = nullptr;
+	// HealthSet = nullptr;
 	DeathState = EWakDeathState::NotDead;
 }
 
@@ -42,61 +40,63 @@ void UWakHealthComponent::InitializeWithAbilitySystem(UAbilitySystemComponent* I
 		return;
 	}
 
-	HealthSet = AbilitySystemComponent->GetSet<UWakHealthSet>();
-	if (!HealthSet)
-	{
+	//HealthSet = AbilitySystemComponent->GetSet<UWakHealthSet>();
+	//if (!HealthSet)
+	//{
 		//UE_LOG(LogWak, Error, TEXT("WakHealthComponent: Cannot initialize health component for owner [%s] with NULL health set on the ability system."), *GetNameSafe(Owner));
-		return;
-	}
+		//return;
+	//}
 
 	// Register to listen for attribute changes.
-	HealthSet->OnHealthChanged.AddUObject(this, &ThisClass::HandleHealthChanged);
-	HealthSet->OnMaxHealthChanged.AddUObject(this, &ThisClass::HandleMaxHealthChanged);
-	HealthSet->OnOutOfHealth.AddUObject(this, &ThisClass::HandleOutOfHealth);
+	// HealthSet->OnHealthChanged.AddUObject(this, &ThisClass::HandleHealthChanged);
+	// HealthSet->OnMaxHealthChanged.AddUObject(this, &ThisClass::HandleMaxHealthChanged);
+	// HealthSet->OnOutOfHealth.AddUObject(this, &ThisClass::HandleOutOfHealth);
 
 	// TEMP: Reset attributes to default values.  Eventually this will be driven by a spread sheet.
-	AbilitySystemComponent->SetNumericAttributeBase(UWakHealthSet::GetHealthAttribute(), HealthSet->GetMaxHealth());
+	// AbilitySystemComponent->SetNumericAttributeBase(UWakHealthSet::GetHealthAttribute(), HealthSet->GetMaxHealth());
 
 	ClearGameplayTags();
 
-	OnHealthChanged.Broadcast(this, HealthSet->GetHealth(), HealthSet->GetHealth(), nullptr);
-	OnMaxHealthChanged.Broadcast(this, HealthSet->GetHealth(), HealthSet->GetHealth(), nullptr);
+	// OnHealthChanged.Broadcast(this, HealthSet->GetHealth(), HealthSet->GetHealth(), nullptr);
+	// OnMaxHealthChanged.Broadcast(this, HealthSet->GetHealth(), HealthSet->GetHealth(), nullptr);
 }
 
 void UWakHealthComponent::UninitializeFromAbilitySystem()
 {
 	ClearGameplayTags();
 
-	if (HealthSet)
-	{
-		HealthSet->OnHealthChanged.RemoveAll(this);
-		HealthSet->OnMaxHealthChanged.RemoveAll(this);
-		HealthSet->OnOutOfHealth.RemoveAll(this);
-	}
+	//if (HealthSet)
+	//{
+		// HealthSet->OnHealthChanged.RemoveAll(this);
+		// HealthSet->OnMaxHealthChanged.RemoveAll(this);
+		// HealthSet->OnOutOfHealth.RemoveAll(this);
+	//}
 
-	HealthSet = nullptr;
-	AbilitySystemComponent = nullptr;
+	//HealthSet = nullptr;
+	//AbilitySystemComponent = nullptr;
 }
 
 float UWakHealthComponent::GetHealth() const
 {
-	return (HealthSet ? HealthSet->GetHealth() : 0.0f);
+	return 0.f;
+	// return HealthSet ? HealthSet->GetHealth() : 0.0f;
 }
 
 float UWakHealthComponent::GetMaxHealth() const
 {
-	return (HealthSet ? HealthSet->GetMaxHealth() : 0.0f);
+	return 0.f;
+	// return HealthSet ? HealthSet->GetMaxHealth() : 0.0f;
 }
 
 float UWakHealthComponent::GetHealthNormalized() const
 {
-	if (HealthSet)
-	{
-		const float Health = HealthSet->GetHealth();
-		const float MaxHealth = HealthSet->GetMaxHealth();
-
-		return ((MaxHealth > 0.0f) ? (Health / MaxHealth) : 0.0f);
-	}
+	// if (HealthSet)
+	// {
+	// 	const float Health = HealthSet->GetHealth();
+	// 	const float MaxHealth = HealthSet->GetMaxHealth();
+// 
+	// 	return MaxHealth > 0.0f ? Health / MaxHealth : 0.0f;
+	// }
 
 	return 0.0f;
 }
@@ -156,7 +156,7 @@ void UWakHealthComponent::OnUnregister()
 	Super::OnUnregister();
 }
 
-void UWakHealthComponent::ClearGameplayTags()
+void UWakHealthComponent::ClearGameplayTags() const
 {
 	if (AbilitySystemComponent)
 	{

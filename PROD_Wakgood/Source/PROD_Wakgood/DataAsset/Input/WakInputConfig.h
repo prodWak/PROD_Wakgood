@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "WakGameplayTags.h"
+#include "InputTriggers.h"
 #include "WakInputConfig.generated.h"
 
 class UInputMappingContext;
@@ -16,10 +17,16 @@ struct FWakInputActionConfig
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag InputTag;
+	FGameplayTag InputTag = FGameplayTag();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UInputAction* InputAction;
+	UInputAction* InputAction = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ETriggerEvent PressedTriggerEvent = ETriggerEvent::Started;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ETriggerEvent ReleasedTriggerEvent = ETriggerEvent::Completed;
 
 	bool IsValid() const
 	{

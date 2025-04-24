@@ -1,7 +1,7 @@
 #include "WakCharacterBase.h"
 
 // Wak Header
-#include "Character/WakHealthComponent.h"
+// #include "Components/Health/WakHealthComponent.h"
 #include "AbilitySystem/WakAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/WakAttributeSet.h"
 
@@ -24,9 +24,9 @@ AWakCharacterBase::AWakCharacterBase(const FObjectInitializer& ObjectInitializer
 		MovementComponent->MaxWalkSpeed = 500.f;
 	}
 	
-	HealthComponent = CreateDefaultSubobject<UWakHealthComponent>(TEXT("HealthComponent"));
-	HealthComponent->OnDeathStarted.AddDynamic(this, &ThisClass::OnDeathStarted);
-	HealthComponent->OnDeathFinished.AddDynamic(this, &ThisClass::OnDeathFinished);
+	// HealthComponent = CreateDefaultSubobject<UWakHealthComponent>(TEXT("HealthComponent"));
+	// HealthComponent->OnDeathStarted.AddDynamic(this, &ThisClass::OnDeathStarted);
+	// HealthComponent->OnDeathFinished.AddDynamic(this, &ThisClass::OnDeathFinished);
 
 	WakAbilitySystemComponent = CreateDefaultSubobject<UWakAbilitySystemComponent>(TEXT("WakAbilitySystemComponent"));
 	
@@ -59,15 +59,17 @@ UAbilitySystemComponent* AWakCharacterBase::GetAbilitySystemComponent() const
 
 void AWakCharacterBase::OnDeathStarted(AActor* OwningActor)
 {
-	DisableMovementAndCollision();
+	unimplemented();
+	// DisableMovementAndCollision();
 }
 
 void AWakCharacterBase::OnDeathFinished(AActor* OwningActor)
 {
-	if (UWorld* World = GetWorld())
-	{
-		World->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
-	}
+	unimplemented();
+	// if (UWorld* World = GetWorld())
+	// {
+	// 	World->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+	// }
 }
 
 void AWakCharacterBase::DisableMovementAndCollision() const

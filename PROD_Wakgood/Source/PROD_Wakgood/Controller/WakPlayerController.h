@@ -9,7 +9,10 @@
 
 class UWakInputConfig;
 class UWakAbilitySystemComponent;
+class UInputAction;
+
 struct FInputActionValue;
+struct FInputActionInstance;
 
 /**
  * 
@@ -54,6 +57,12 @@ protected:
 	void AbilityInputPressed(FGameplayTag InInputTag);
 	void AbilityInputReleased(FGameplayTag InInputTag);
 
+	const FInputActionInstance* GetInputActionInstance(const UInputAction* InInputAction) const;
+	float GetElapsedSeconds(const UInputAction* InInputAction) const;
+
+	UFUNCTION(BlueprintPure, Category = "Wak|Input")
+	bool IsAbsorptionAction(const UInputAction* InInputAction, const float AbsorbHoldTime) const;
+	
 public:
 	void SwitchInteractInput();
 	

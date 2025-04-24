@@ -87,7 +87,8 @@ void AWakPlayerController::Move(const FInputActionValue& Value)
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	
 	WakCharacter->AddMovementInput(RightDirection, MovementVector.X);
-	
+
+	// TODO : 너무 부자연스러움, 부드럽게 회전 하는게 있었는데 뭐였더라
 	/** Mesh 회전 */
 	MovementVector.X > 0 ?
 		CharacterMesh->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
@@ -129,6 +130,42 @@ void AWakPlayerController::AbilityInputPressed(FGameplayTag InInputTag)
 void AWakPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
 {
 	WakAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+}
+
+const FInputActionInstance* AWakPlayerController::GetInputActionInstance(const UInputAction* InInputAction) const
+{
+	UEnhancedInputLocalPlayerSubsystem* EnhancedInput =
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	if (EnhancedInput == nullptr)
+	{
+		return nullptr;
+	}
+
+	const UEnhancedPlayerInput* WakPlayerInput = EnhancedInput->GetPlayerInput();
+	if (WakPlayerInput == nullptr)
+	{
+		return nullptr;
+	}
+
+	return WakPlayerInput->FindActionInstanceData(InInputAction);
+}
+
+float AWakPlayerController::GetElapsedSeconds(const UInputAction* InInputAction) const
+{
+	const FInputActionInstance* ActionData = GetInputActionInstance(InInputAction);
+	if (ActionData == nullptr)
+	{
+		return 0.0f;
+	}
+
+	const FString Time = FString::Printf(TEXT("ElapsedSeconds : %f"), ActionData->GetElapsedTime());
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Time);
+	return ActionData->GetElapsedTime();
+}
+
+bool AWakPlayerController::IsAbsorptionAction(const UInputAction* InInputAction, const float AbsorbHoldTime) const
+{
+	return GetElapsedSeconds(InInputAction) > AbsorbHoldTime;
 }
 
 void AWakPlayerController::OnInteract()
