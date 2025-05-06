@@ -6,17 +6,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 // Generated
-#include "GameModeMenuUI.generated.h"
+#include "WakMenuUIGameMode.generated.h"
 
 UCLASS()
-class PROD_WAKGOOD_API AGameModeMenuUI : public AGameModeBase
+class PROD_WAKGOOD_API AWakMenuUIGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	AGameModeMenuUI();
+	AWakMenuUIGameMode();
 
 public:
-	void SwitchToLoadingScreen();
 	void SwitchToMainMenuUI();
 };

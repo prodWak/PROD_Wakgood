@@ -1,6 +1,6 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "UI/StartMenuUI.h"
+#include "UI/WakStartMenuUI.h"
 // Object or Engine.h
 #include "UObject/ConstructorHelpers.h"
 #include "TimerManager.h"
@@ -10,9 +10,9 @@
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 // Class.h
-#include "GameModeMenuUI.h"
+#include "WakMenuUIGameMode.h"
 
-AStartMenuUI::AStartMenuUI()
+AWakStartMenuUI::AWakStartMenuUI()
 	: StartMenuWidget(nullptr), StartMenuController(nullptr)
 {
 	static ConstructorHelpers::FClassFinder<UUserWidget> StartMenuUI(TEXT("/Game/UI/WBP_StartMenu"));
@@ -20,7 +20,7 @@ AStartMenuUI::AStartMenuUI()
 		StartMenuClass = StartMenuUI.Class;
 }
 
-void AStartMenuUI::BeginPlay()
+void AWakStartMenuUI::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -57,7 +57,7 @@ void AStartMenuUI::BeginPlay()
 	}
 }
 
-void AStartMenuUI::BindAnyKey()
+void AWakStartMenuUI::BindAnyKey()
 {
 	// Setup Input Component
 	if (StartMenuController)
@@ -72,7 +72,7 @@ void AStartMenuUI::BindAnyKey()
 	}
 }
 
-void AStartMenuUI::AnyKeyPressed()
+void AWakStartMenuUI::AnyKeyPressed()
 {
 	UE_LOG(LogTemp, Display, TEXT("Any key pressed"));
 
@@ -88,7 +88,7 @@ void AStartMenuUI::AnyKeyPressed()
 			DelayRemoveStartMenuUI,
 			this,
 			&ThisClass::RemoveStartMenuUI,
-			2.0f,
+			2.0f, // Temporary
 			false
 		);
 	}
@@ -96,7 +96,7 @@ void AStartMenuUI::AnyKeyPressed()
 	// Change HUD
 	if (GetWorld())
 	{
-		auto* ChangeHUD = Cast<AGameModeMenuUI>(GetWorld()->GetAuthGameMode());
+		auto* ChangeHUD = Cast<AWakMenuUIGameMode>(GetWorld()->GetAuthGameMode());
 		if (ChangeHUD)
 		{
 			// Delay time for SwitchToMainMenuUI
@@ -105,56 +105,15 @@ void AStartMenuUI::AnyKeyPressed()
 			(
 				DelaySwitchToMainMenuUI,
 				ChangeHUD,
-				&AGameModeMenuUI::SwitchToMainMenuUI,
-				3.5f,
+				&AWakMenuUIGameMode::SwitchToMainMenuUI,
+				3.5f, // Temporary
 				false
 			);
 		}
 	}
 }
 
-// void AStartMenuUI::AnyKeyPressedToSwitchToLoadingScreen()
-// {
-// 	// LOG
-// 	UE_LOG(LogTemp, Warning, TEXT("Any Key Pressed !"));
-//
-// 	if (StartMenuController != nullptr)
-// 	{
-// 		StartMenuController = nullptr;
-// 		
-// 		// delay time for remove StartMenuUI
-// 		FTimerHandle DelayRemoveStartMenuUI;
-// 		GetWorld()->GetTimerManager().SetTimer
-// 		(
-// 			DelayRemoveStartMenuUI,
-// 			this,
-// 			&ThisClass::RemoveStartMenuUI,
-// 			2.0f,
-// 			false
-// 		);
-// 	}
-//
-// 	// change HUD
-// 	if (GetWorld())
-// 	{
-// 		AGameModeMenuUI* ChangeHUD = Cast<AGameModeMenuUI>(GetWorld()->GetAuthGameMode());
-// 		if (ChangeHUD)
-// 		{
-// 			// delay time for SwitchToLoadingScreen
-// 			FTimerHandle DelaySwitchToLoadingScreen;
-// 			GetWorld()->GetTimerManager().SetTimer
-// 			(
-// 				DelaySwitchToLoadingScreen,
-// 				ChangeHUD,
-// 				&AGameModeMenuUI::SwitchToLoadingScreen,
-// 				2.1f, // Temporary
-// 				false
-// 			);
-// 		}
-// 	}
-// }
-
-void AStartMenuUI::RemoveStartMenuUI()
+void AWakStartMenuUI::RemoveStartMenuUI()
 {
 	if (StartMenuWidget)
 	{

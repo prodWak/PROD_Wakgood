@@ -1,6 +1,6 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "UI/MainMenuUI.h"
+#include "UI/WakMainMenuUI.h"
 // Object or Engine.h
 #include "UObject/ConstructorHelpers.h"
 // Widget
@@ -13,7 +13,7 @@
 #include "Input/Events.h"
 #include "Kismet/GameplayStatics.h"
 
-AMainMenuUI::AMainMenuUI()
+AWakMainMenuUI::AWakMainMenuUI()
 	: MainMenuWidget(nullptr), MainMenuController(nullptr)
 {
 	static ConstructorHelpers::FClassFinder<UUserWidget> MainMenuUI(TEXT("/Game/UI/WBP_MainMenu"));
@@ -21,7 +21,7 @@ AMainMenuUI::AMainMenuUI()
 		MainMenuClass = MainMenuUI.Class;
 }
 
-void AMainMenuUI::BeginPlay()
+void AWakMainMenuUI::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -71,7 +71,7 @@ void AMainMenuUI::BeginPlay()
 }
 
 
-void AMainMenuUI::InitInput()
+void AWakMainMenuUI::InitInput()
 {
 	// Setup Input Component
 	if (MainMenuController && MainMenuController->InputComponent)
@@ -80,16 +80,12 @@ void AMainMenuUI::InitInput()
 			(EKeys::W, IE_Pressed, this, &ThisClass::ProcessW);
 		MainMenuController->InputComponent->BindKey
 			(EKeys::S, IE_Pressed, this, &ThisClass::ProcessS);
-		// MainMenuController->InputComponent->BindKey
-		// (EKeys::A, IE_Pressed, this, &ThisClass::ProcessA);
-		// MainMenuController->InputComponent->BindKey
-		// (EKeys::D, IE_Pressed, this, &ThisClass::ProcessD);
 		MainMenuController->InputComponent->BindKey
 			(EKeys::J, IE_Pressed, this, &ThisClass::ProcessJ);
 	}
 }
 
-void AMainMenuUI::ButtonFocus(int32 buttonIndex)
+void AWakMainMenuUI::ButtonFocus(int32 buttonIndex)
 {
 	// Get Hovered Button Focus
 	if (!MainMenuButtons.IsValidIndex(buttonIndex))
@@ -110,7 +106,7 @@ void AMainMenuUI::ButtonFocus(int32 buttonIndex)
 	}
 }
 
-void AMainMenuUI::ProcessW()
+void AWakMainMenuUI::ProcessW()
 {
 	// 0 - StoryMode
 	// 1 - Settings
@@ -137,7 +133,7 @@ void AMainMenuUI::ProcessW()
 		ButtonFocus(TargetButtonIndex);
 }
 
-void AMainMenuUI::ProcessS()
+void AWakMainMenuUI::ProcessS()
 {
 	TargetButtonIndex = -1;
 
@@ -157,31 +153,7 @@ void AMainMenuUI::ProcessS()
 		ButtonFocus(TargetButtonIndex);
 }
 
-// void AMainMenuUI::ProcessA()
-// {
-// 	TargetButtonIndex = -1;
-//
-// 	// LEFT movement rule
-// 	if (CurrentButtonIndex <= 3 && CurrentButtonIndex != 0)
-// 		TargetButtonIndex = 0;
-//
-// 	if (TargetButtonIndex != -1)
-// 		ButtonFocus(TargetButtonIndex);
-// }
-//
-// void AMainMenuUI::ProcessD()
-// {
-// 	TargetButtonIndex = -1;
-//
-// 	// RIGHT movement rule
-// 	if (CurrentButtonIndex == 0)
-// 		TargetButtonIndex = 1;
-//
-// 	if (TargetButtonIndex != -1)
-// 		ButtonFocus(TargetButtonIndex);
-// }
-
-void AMainMenuUI::ProcessJ()
+void AWakMainMenuUI::ProcessJ()
 {
 	TSharedPtr<SWidget> FocusedWidget = FSlateApplication::Get().GetUserFocusedWidget(0);
 	if (FocusedWidget.IsValid())
@@ -201,7 +173,7 @@ void AMainMenuUI::ProcessJ()
 	}
 }
 
-void AMainMenuUI::OnStoryButtonClicked()
+void AWakMainMenuUI::OnStoryButtonClicked()
 {
 	// Need load assets and change GameModeBase, HUD, etc...blah blah
 		// I'm waiting :)
@@ -211,7 +183,7 @@ void AMainMenuUI::OnStoryButtonClicked()
 	MainMenuController = nullptr;
 }
 
-void AMainMenuUI::SetHoveredButton(UButton* hoveredButton, bool bIsHovered)
+void AWakMainMenuUI::SetHoveredButton(UButton* hoveredButton, bool bIsHovered)
 {
 	if (!hoveredButton)
 		return;

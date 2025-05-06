@@ -6,18 +6,18 @@
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 // Generated
-#include "MainMenuUI.generated.h"
+#include "WakMainMenuUI.generated.h"
 
 // Forward Declaration
 class UButton;
 
 UCLASS()
-class PROD_WAKGOOD_API AMainMenuUI : public AHUD
+class PROD_WAKGOOD_API AWakMainMenuUI : public AHUD
 {
 	GENERATED_BODY()
 	
 public:
-	AMainMenuUI();
+	AWakMainMenuUI();
 
 protected:
 	virtual void BeginPlay() override;
@@ -27,8 +27,6 @@ public:
 	void ButtonFocus(int32 buttonIndex);
 	void ProcessW();
 	void ProcessS();
-	// void ProcessA();
-	// void ProcessD();
 	void ProcessJ();
 
 	UFUNCTION()

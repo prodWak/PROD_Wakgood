@@ -6,15 +6,15 @@
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 // Generated
-#include "StartMenuUI.generated.h"
+#include "WakStartMenuUI.generated.h"
 
 UCLASS()
-class PROD_WAKGOOD_API AStartMenuUI : public AHUD
+class PROD_WAKGOOD_API AWakStartMenuUI : public AHUD
 {
 	GENERATED_BODY()
 	
 public:
-	AStartMenuUI();
+	AWakStartMenuUI();
 	
 protected:
 	virtual void BeginPlay() override;
@@ -22,7 +22,6 @@ protected:
 public:
 	void BindAnyKey();
 	void AnyKeyPressed();
-	//void AnyKeyPressedToSwitchToLoadingScreen();
 	void RemoveStartMenuUI();
 
 protected:
