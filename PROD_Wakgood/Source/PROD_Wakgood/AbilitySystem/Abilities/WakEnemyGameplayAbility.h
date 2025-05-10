@@ -25,5 +25,6 @@ public:
 	UWakEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
 
 private:
+	UPROPERTY()
 	TWeakObjectPtr<AWakEnemyCharacter> CachedWakEnemyCharacter;
 };

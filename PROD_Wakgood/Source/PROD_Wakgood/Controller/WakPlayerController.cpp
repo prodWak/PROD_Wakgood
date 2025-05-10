@@ -122,6 +122,7 @@ void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 
 void AWakPlayerController::GamePause(const FInputActionValue& Value)
 {
+	// 이거 찾아서 해제
 	unimplemented();
 }
 

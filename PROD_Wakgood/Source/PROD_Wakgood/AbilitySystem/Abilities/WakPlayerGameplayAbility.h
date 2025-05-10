@@ -32,6 +32,9 @@ public:
 	FGameplayEffectSpecHandle MakePlayerDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage);
 	
 private:
+	UPROPERTY()
 	TWeakObjectPtr<AWakWakGoodCharacter> CachedWakPlayerCharacter;
+
+	UPROPERTY()
 	TWeakObjectPtr<AWakPlayerController> CachedWakPlayerController;
 };
