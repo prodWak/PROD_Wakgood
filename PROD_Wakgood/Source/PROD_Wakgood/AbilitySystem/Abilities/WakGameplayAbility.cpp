@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Abilities/WakGameplayAbility.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/WakAbilitySystemComponent.h"
 #include "Components/Combat/WakPawnCombatComponent.h"
 
@@ -42,4 +43,25 @@ UWakPawnCombatComponent* UWakGameplayAbility::GetWakPawnCombatComponentFromActor
 UWakAbilitySystemComponent* UWakGameplayAbility::GetWakAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<UWakAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
+}
+
+FActiveGameplayEffectHandle UWakGameplayAbility::ApplyEffectSpecHandleToTarget(AActor* TargetActor,
+	const FGameplayEffectSpecHandle& InSpecHandle) const
+{
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	check(TargetASC && InSpecHandle.IsValid());
+
+	return GetWakAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
+		*InSpecHandle.Data,
+		TargetASC
+		);
+}
+
+FActiveGameplayEffectHandle UWakGameplayAbility::BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor,
+	const FGameplayEffectSpecHandle& InSpecHandle, EWarriorSuccessType& OutSuccessType)
+{
+	const FActiveGameplayEffectHandle ActiveGameplayEffectHandle = ApplyEffectSpecHandleToTarget(TargetActor, InSpecHandle);
+
+	OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied() ? EWarriorSuccessType::Successful : EWarriorSuccessType::Failed;
+	return ActiveGameplayEffectHandle;
 }

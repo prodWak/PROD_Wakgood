@@ -28,6 +28,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Wak|Ability")
 	UWakPlayerCombatComponent* GetWakPlayerCombatComponentFromActorInfo();
 	
+	UFUNCTION(BlueprintPure, Category = "Wak|Ability")
+	FGameplayEffectSpecHandle MakePlayerDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage);
+	
 private:
 	TWeakObjectPtr<AWakWakGoodCharacter> CachedWakPlayerCharacter;
 	TWeakObjectPtr<AWakPlayerController> CachedWakPlayerController;

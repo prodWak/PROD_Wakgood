@@ -36,6 +36,7 @@ private:
 
 public:
 	AWakWakGoodCharacter();
+	virtual UWakPawnCombatComponent* GetWakPawnCombatComponent() override;
 
 protected:
 	virtual void BeginPlay() override;

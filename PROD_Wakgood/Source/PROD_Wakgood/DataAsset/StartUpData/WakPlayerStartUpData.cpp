@@ -15,6 +15,11 @@ void UWakPlayerStartUpData::GiveToAbilitySystemComponent(UWakAbilitySystemCompon
 {
 	Super::GiveToAbilitySystemComponent(InASCToGive, ApplyLevel);
 
+	if (WakPlayerStartUpAbilitySets.IsEmpty())
+	{
+		return;
+	}
+
 	for (const FWakPlayerAbilitySet& AbilitySet : WakPlayerStartUpAbilitySets)
 	{
 		if (!AbilitySet.IsValid())

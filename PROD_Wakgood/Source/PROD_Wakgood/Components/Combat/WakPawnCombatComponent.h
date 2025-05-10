@@ -9,6 +9,12 @@
 
 class AWakWeaponBase;
 
+UENUM(BlueprintType)
+enum class EToggleDamageType : uint8
+{
+	CurrentEquippedWeapon
+};
+
 USTRUCT(BlueprintType)
 struct FWakWeaponInfo
 {
@@ -21,7 +27,7 @@ struct FWakWeaponInfo
 	 *  무기를 해제할 때 수동으로 지워햐 함
 	 */
 	UPROPERTY(BlueprintReadWrite, Category = "Wak|Combat")
-	FGameplayTag CurrentEquippedWeaponTag;
+	FGameplayTag CurrentWeaponTag;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Wak|Combat")
 	TObjectPtr<AWakWeaponBase> WakWeapon;
@@ -36,17 +42,13 @@ class PROD_WAKGOOD_API UWakPawnCombatComponent : public UWakPawnExtensionCompone
 	GENERATED_BODY()
 	
 public:
-
-	/*
-	 * 지금은 스폰하자마자 무기를 부여하지만,
-	 * 먼가 튜토리얼 후에 무기를 부여하는식으로 갈 것 같으니까 나중에 수정해야댐
-	 */
+	UPROPERTY(BlueprintReadWrite, Category = "Wak|Combat")
+	FGameplayTag CurrentEquippedWeaponTag;
 	
 	// 무기 스폰 후 등록
 	UFUNCTION(BlueprintCallable, Category = "Wak|Combat")
 	void RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWakWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon = false);
 
-	// 변신할 때 사용
 	UFUNCTION(BlueprintCallable, Category = "Wak|Combat")
 	void SetWeaponInfo(FGameplayTag InWeaponTagToChange, AWakWeaponBase* InWeaponToChange);
 	
@@ -55,9 +57,18 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Wak|Combat")
 	AWakWeaponBase* GetCharacterCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Wak|Combat")
+	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
+
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
+protected:
+	UPROPERTY()
+	TArray<AActor*> OverlappedActors;
 	
 private:
 	UPROPERTY(BlueprintReadOnly, Category = "Wak|Combat", meta = (AllowPrivateAccess = "true"))
 	FWakWeaponInfo WakWeaponInfo;
-	
 };

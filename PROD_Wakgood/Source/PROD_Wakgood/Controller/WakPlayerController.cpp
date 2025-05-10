@@ -12,8 +12,12 @@
 #include "Components/Input/WakInputComponent.h"
 #include "DataAsset/Input/WakInputConfig.h"
 #include "Interaction/WakWorldPortal.h"
-#include "WakGameplayTags.h"
 #include "AbilitySystem/WakAbilitySystemComponent.h"
+
+AWakPlayerController::AWakPlayerController()
+{
+	PlayerTeamId = FGenericTeamId(0);
+}
 
 void AWakPlayerController::BeginPlay()
 {
@@ -134,7 +138,7 @@ void AWakPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
 
 const FInputActionInstance* AWakPlayerController::GetInputActionInstance(const UInputAction* InInputAction) const
 {
-	UEnhancedInputLocalPlayerSubsystem* EnhancedInput =
+	const UEnhancedInputLocalPlayerSubsystem* EnhancedInput =
 			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	if (EnhancedInput == nullptr)
 	{
@@ -158,14 +162,22 @@ float AWakPlayerController::GetElapsedSeconds(const UInputAction* InInputAction)
 		return 0.0f;
 	}
 
-	const FString Time = FString::Printf(TEXT("ElapsedSeconds : %f"), ActionData->GetElapsedTime());
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Time);
+	if (GEngine)
+	{
+		const FString Time = FString::Printf(TEXT("ElapsedSeconds : %f"), ActionData->GetElapsedTime());
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Time);
+	}
 	return ActionData->GetElapsedTime();
 }
 
 bool AWakPlayerController::IsAbsorptionAction(const UInputAction* InInputAction, const float AbsorbHoldTime) const
 {
 	return GetElapsedSeconds(InInputAction) > AbsorbHoldTime;
+}
+
+FGenericTeamId AWakPlayerController::GetGenericTeamId() const
+{
+	return PlayerTeamId;
 }
 
 void AWakPlayerController::OnInteract()

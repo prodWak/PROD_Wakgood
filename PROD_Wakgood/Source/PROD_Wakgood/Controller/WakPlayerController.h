@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "WakGameplayTags.h"
+#include "GenericTeamAgentInterface.h"
 #include "WakPlayerController.generated.h"
 
 class UWakInputConfig;
@@ -18,7 +19,7 @@ struct FInputActionInstance;
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API AWakPlayerController : public APlayerController
+class PROD_WAKGOOD_API AWakPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -44,6 +45,9 @@ private:
 	UPROPERTY()
 	bool bIsInteractInput = false;
 
+	UPROPERTY()
+	FGenericTeamId PlayerTeamId;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -64,7 +68,10 @@ protected:
 	bool IsAbsorptionAction(const UInputAction* InInputAction, const float AbsorbHoldTime) const;
 	
 public:
-	void SwitchInteractInput();
+	AWakPlayerController();
 	
+	virtual FGenericTeamId GetGenericTeamId() const override;
+	
+	void SwitchInteractInput();
 	bool GetIsInteractInput() const;
 };

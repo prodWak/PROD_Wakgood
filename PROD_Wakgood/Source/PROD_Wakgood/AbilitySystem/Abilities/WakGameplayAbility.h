@@ -17,6 +17,13 @@ enum class EWakAbilityActivationPolicy : uint8
 	OnGiven		UMETA(DisplayName = "Given")
 };
 
+UENUM(BlueprintType)
+enum class EWarriorSuccessType : uint8
+{
+	Successful,
+	Failed
+};
+
 /**
  * 
  */
@@ -39,4 +46,9 @@ protected:
 
 	UFUNCTION(BlueprintPure, Category = "Wak|Ability")
 	UWakAbilitySystemComponent* GetWakAbilitySystemComponentFromActorInfo() const;
+
+	FActiveGameplayEffectHandle ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle) const;
+
+	UFUNCTION(BlueprintCallable, Category = "Wak|Ability", meta = (DisplayName = "Apply Gameplay Effect Spec Handle To Target", ExpandEnumAsExecs = "OutSuccessType"))
+	FActiveGameplayEffectHandle BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, EWarriorSuccessType& OutSuccessType);
 };

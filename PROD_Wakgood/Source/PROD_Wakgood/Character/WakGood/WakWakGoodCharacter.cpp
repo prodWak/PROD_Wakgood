@@ -26,6 +26,11 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 	WakPlayerCombatComponent = CreateDefaultSubobject<UWakPlayerCombatComponent>(TEXT("WakPlayerCombatComponent"));
 }
 
+UWakPawnCombatComponent* AWakWakGoodCharacter::GetWakPawnCombatComponent()
+{
+	return WakPlayerCombatComponent;
+}
+
 void AWakWakGoodCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -35,12 +40,13 @@ void AWakWakGoodCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (!GetWakStartUpData().IsNull())
+	if (GetWakStartUpData().IsNull())
 	{
-		UWakStartUpDataBase* LoadedData = GetWakStartUpData().LoadSynchronous();
-		if (LoadedData)
-		{
-			LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
-		}
+		return;
+	}
+
+	if (UWakStartUpDataBase* LoadedData = GetWakStartUpData().LoadSynchronous())
+	{
+		LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
 	}
 }

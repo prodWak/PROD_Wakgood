@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Abilities/WakPlayerGameplayAbility.h"
 
+#include "AbilitySystem/WakAbilitySystemComponent.h"
 #include "Character/WakGood/WakWakGoodCharacter.h"
 #include "Controller/WakPlayerController.h"
 
@@ -29,4 +30,27 @@ AWakPlayerController* UWakPlayerGameplayAbility::GetWakPlayerControllerFromActor
 UWakPlayerCombatComponent* UWakPlayerGameplayAbility::GetWakPlayerCombatComponentFromActorInfo()
 {
 	return GetWakPlayerCharacterFromActorInfo()->GetWakPlayerCombatComponent();
+}
+
+FGameplayEffectSpecHandle UWakPlayerGameplayAbility::MakePlayerDamageEffectSpecHandle( TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage)
+{
+	check(EffectClass);
+
+	const UWakAbilitySystemComponent* WakAbilitySystemComponent = GetWakAbilitySystemComponentFromActorInfo();
+	check(WakAbilitySystemComponent);
+
+	FGameplayEffectContextHandle ContextHandle = WakAbilitySystemComponent->MakeEffectContext();
+	ContextHandle.SetAbility(this);
+	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
+
+	FGameplayEffectSpecHandle EffectSpecHandle = WakAbilitySystemComponent->MakeOutgoingSpec(
+		EffectClass,
+		GetAbilityLevel(),
+		ContextHandle
+		);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(WakGameplayTags::SetByCaller_BaseDamage, InWeaponBaseDamage);
+
+	return EffectSpecHandle;
 }

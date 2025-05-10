@@ -8,6 +8,7 @@
 
 class UWakAbilitySystemComponent;
 class UWakGameplayAbility;
+class UGameplayEffect;
 
 /**
  * 
@@ -28,6 +29,9 @@ protected:
 	// 특정 조건에서 발동되는 어빌리티 ( Hit, Death ... )
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|StartUpData")
 	TArray<TSubclassOf<UWakGameplayAbility>> ReactiveAbilities;;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Wak|StartUpData")
+	TArray<TSubclassOf<UGameplayEffect>> StartUpGameplayEffects;
 
 	void GrantAbilities(const TArray<TSubclassOf<UWakGameplayAbility>>& InAbilitiesToGive, UWakAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
 };

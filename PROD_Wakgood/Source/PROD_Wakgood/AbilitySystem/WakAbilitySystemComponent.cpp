@@ -24,5 +24,5 @@ void UWakAbilitySystemComponent::OnAbilityInputPressed(FGameplayTag& InInputTag)
 
 void UWakAbilitySystemComponent::OnAbilityInputReleased(FGameplayTag& InInputTag)
 {
-
+	
 }

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "AttributeSet.h"
+#include "AbilitySystem/WakAbilitySystemComponent.h"
 #include "WakAttributeSet.generated.h"
 
-class UAbilitySystemComponent;
 class UWorld;
+struct FGameplayEffectModCallbackData;
 
 /**
  * This macro defines a set of helper functions for accessing and initializing attributes.
@@ -29,10 +30,23 @@ class PROD_WAKGOOD_API UWakAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 
 public:
-
 	UWakAttributeSet();
 
-	virtual UWorld* GetWorld() const override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-	UAbilitySystemComponent* GetAbilitySystemComponent() const;
+	UPROPERTY(BlueprintReadOnly, Category = "Wak|AttributeSet")
+	FGameplayAttributeData CurrentHealth;
+	ATTRIBUTE_ACCESSORS(UWakAttributeSet, CurrentHealth);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Wak|AttributeSet")
+	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UWakAttributeSet, MaxHealth);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Wak|AttributeSet")
+	FGameplayAttributeData AttackPower;
+	ATTRIBUTE_ACCESSORS(UWakAttributeSet, AttackPower);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Wak|AttributeSet")
+	FGameplayAttributeData DamageTaken;
+	ATTRIBUTE_ACCESSORS(UWakAttributeSet, DamageTaken);
 };

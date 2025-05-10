@@ -12,6 +12,20 @@ void UWakStartUpDataBase::GiveToAbilitySystemComponent(UWakAbilitySystemComponen
 
 	GrantAbilities(ActivateOnGivenAbilities, InASCToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InASCToGive, ApplyLevel);
+
+	if (!StartUpGameplayEffects.IsEmpty())
+	{
+		for (const TSubclassOf<UGameplayEffect>& EffectClass : StartUpGameplayEffects)
+		{
+			if (!EffectClass)
+			{
+				continue;
+			}
+			
+			const UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
+			InASCToGive->ApplyGameplayEffectToSelf(EffectCDO, 1.f, InASCToGive->MakeEffectContext());
+		}
+	}
 }
 
 void UWakStartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWakGameplayAbility>>& InAbilitiesToGive,
