@@ -15,11 +15,14 @@ AWorldMapPortal::AWorldMapPortal()
 void AWorldMapPortal::Interaction(AActor* target)
 {
 	Super::Interaction(target);
-	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
-	AWakCharacterBase* targetCharacter = Cast<AWakCharacterBase>(target);
-	if (GameInstance)
+	const UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	AWakCharacterBase* TargetCharacter = Cast<AWakCharacterBase>(target);
+	
+	if (!GameInstance)
 	{
-		UGameplayStatics::OpenLevel(this, LocationName, false);
-		targetCharacter->SetActorLocation(GameInstance->GetPlayerLastLocationVector());
+		return;
 	}
+
+	UGameplayStatics::OpenLevel(this, LocationName, false);
+	TargetCharacter->SetActorLocation(GameInstance->GetPlayerLastLocationVector());
 }

@@ -46,4 +46,5 @@ void UWakPlayerCombatComponent::OnHitTargetActor(AActor* HitActor)
 
 void UWakPlayerCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
 {
+	unimplemented();
 }

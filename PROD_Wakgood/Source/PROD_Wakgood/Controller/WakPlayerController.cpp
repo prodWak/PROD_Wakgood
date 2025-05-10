@@ -92,8 +92,7 @@ void AWakPlayerController::Move(const FInputActionValue& Value)
 	
 	WakCharacter->AddMovementInput(RightDirection, MovementVector.X);
 
-	// TODO : 너무 부자연스러움, 부드럽게 회전 하는게 있었는데 뭐였더라
-	/** Mesh 회전 */
+	// TODO : 메시 회전이 너무 부자연스러움, 부드럽게 회전 하는게 있었는데 뭐였더라
 	MovementVector.X > 0 ?
 		CharacterMesh->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
 	: CharacterMesh->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));

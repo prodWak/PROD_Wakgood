@@ -28,6 +28,8 @@ struct FWakInputActionConfig
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ETriggerEvent ReleasedTriggerEvent = ETriggerEvent::Completed;
 
+	// TODO : 호버링을 위해 OnGoing TriggerEvent도 추가해야 할 지.. Triggered로 해야하나...........
+
 	bool IsValid() const
 	{
 		return InputTag.IsValid() && InputAction;

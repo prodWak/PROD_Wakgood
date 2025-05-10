@@ -31,8 +31,6 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|AI")
 	TObjectPtr<UAISenseConfig_Sight> WakAISenseConfig_Sight;
-	
-	/* UAISenseConfig_Hearing 추가 예정 */
 
 	UFUNCTION()
 	virtual void OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);

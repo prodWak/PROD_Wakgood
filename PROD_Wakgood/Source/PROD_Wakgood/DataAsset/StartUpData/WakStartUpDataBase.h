@@ -26,7 +26,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|StartUpData")
 	TArray<TSubclassOf<UWakGameplayAbility>> ActivateOnGivenAbilities;
 
-	// 특정 조건에서 발동되는 어빌리티 ( Hit, Death ... )
+	// 특정 조건에서 발동되는 어빌리티
 	UPROPERTY(EditDefaultsOnly, Category = "Wak|StartUpData")
 	TArray<TSubclassOf<UWakGameplayAbility>> ReactiveAbilities;;
 
