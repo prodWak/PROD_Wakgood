@@ -13,7 +13,7 @@ void UWakAbilitySystemComponent::OnAbilityInputPressed(FGameplayTag& InInputTag)
 
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag))
+		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag))
 		{
 			continue;
 		}

@@ -8,7 +8,7 @@
 #include "GenericTeamAgentInterface.h"
 #include "WakPlayerController.generated.h"
 
-class UWakInputConfig;
+class UWakInputConfigDataAsset;
 class UWakAbilitySystemComponent;
 class UInputAction;
 
@@ -37,7 +37,7 @@ private:
 	 */
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|Data", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UWakInputConfig> InputConfigDataAsset;
+	TObjectPtr<UWakInputConfigDataAsset> InputConfigDataAsset;
 
 	UPROPERTY()
 	TObjectPtr<UWakAbilitySystemComponent> WakAbilitySystemComponent;

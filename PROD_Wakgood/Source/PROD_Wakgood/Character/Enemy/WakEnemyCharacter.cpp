@@ -9,7 +9,7 @@
 
 // Wak Header
 #include "Components/Combat/WakEnemyCombatComponent.h"
-#include "DataAsset/StartUpData/WakStartUpDataBase.h"
+#include "DataAsset/StartUpData/WakStartUpDataAssetBase.h"
 
 AWakEnemyCharacter::AWakEnemyCharacter()
 {
@@ -49,7 +49,7 @@ void AWakEnemyCharacter::InitEnemyStartUpData() const
 		GetWakStartUpData().ToSoftObjectPath(),
 		FStreamableDelegate::CreateLambda([this]()->void
 		{
-			if (UWakStartUpDataBase* LoadedData = GetWakStartUpData().Get())
+			if (UWakStartUpDataAssetBase* LoadedData = GetWakStartUpData().Get())
 			{
 				LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
 			}

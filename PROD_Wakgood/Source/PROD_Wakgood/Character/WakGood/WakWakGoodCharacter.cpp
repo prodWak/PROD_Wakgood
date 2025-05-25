@@ -8,7 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 
 // Wak Header
-#include "DataAsset/StartUpData/WakStartUpDataBase.h"
+#include "DataAsset/StartUpData/WakStartUpDataAssetBase.h"
 #include "Components/Combat/WakPlayerCombatComponent.h"
 
 AWakWakGoodCharacter::AWakWakGoodCharacter()
@@ -45,7 +45,7 @@ void AWakWakGoodCharacter::PossessedBy(AController* NewController)
 		return;
 	}
 
-	if (UWakStartUpDataBase* LoadedData = GetWakStartUpData().LoadSynchronous())
+	if (UWakStartUpDataAssetBase* LoadedData = GetWakStartUpData().LoadSynchronous())
 	{
 		LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
 	}

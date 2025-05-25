@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "DataAsset/Input/WakInputConfig.h"
+#include "DataAsset/Input/WakInputConfigDataAsset.h"
 #include "WakInputComponent.generated.h"
 
-class UWakInputConfig;
+class UWakInputConfigDataAsset;
 class UInputAction;
 
 /**
@@ -20,16 +20,16 @@ class PROD_WAKGOOD_API UWakInputComponent : public UEnhancedInputComponent
 
 public:
 	template<class UserObject, typename CallbackFunc>
-	void BindNativeInputAction(UWakInputConfig* InInputConfig, const FGameplayTag& InInputTag,
+	void BindNativeInputAction(UWakInputConfigDataAsset* InInputConfig, const FGameplayTag& InInputTag,
 		ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func);
 	
 	template<class UserObject, typename CallbackFunc>
-	void BindAbilityInputAction(UWakInputConfig* InInputConfig, UserObject* ContextObject,
+	void BindAbilityInputAction(UWakInputConfigDataAsset* InInputConfig, UserObject* ContextObject,
 		CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc);
 };
 
 template <class UserObject, typename CallbackFunc>
-void UWakInputComponent::BindNativeInputAction(UWakInputConfig* InInputConfig, const FGameplayTag& InInputTag,
+void UWakInputComponent::BindNativeInputAction(UWakInputConfigDataAsset* InInputConfig, const FGameplayTag& InInputTag,
 	ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
 {
 	checkf(InInputConfig, TEXT("Input config data asset is null. can not proceed with binding"));
@@ -41,7 +41,7 @@ void UWakInputComponent::BindNativeInputAction(UWakInputConfig* InInputConfig, c
 }
 
 template <class UserObject, typename CallbackFunc>
-void UWakInputComponent::BindAbilityInputAction(UWakInputConfig* InInputConfig, UserObject* ContextObject,
+void UWakInputComponent::BindAbilityInputAction(UWakInputConfigDataAsset* InInputConfig, UserObject* ContextObject,
 	CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
 {
 	checkf(InInputConfig, TEXT("Input config data asset is null. can not proceed with binding"));

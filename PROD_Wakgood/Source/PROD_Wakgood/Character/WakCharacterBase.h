@@ -11,7 +11,7 @@
 class UWakAbilitySystemComponent;
 class UWakAttributeSet;
 class UAbilitySystemComponent;
-class UWakStartUpDataBase;
+class UWakStartUpDataAssetBase;
 
 UCLASS()
 class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySystemInterface, public IInteractionInterface, public IWakPawnCombatInterface
@@ -25,7 +25,7 @@ class PROD_WAKGOOD_API AWakCharacterBase : public ACharacter, public IAbilitySys
 	TObjectPtr<UWakAttributeSet> WakAttribute;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|CharacterData", meta = (AllowPrivateAccess = "true"))
-	TSoftObjectPtr<UWakStartUpDataBase> CharacterStartUpData;
+	TSoftObjectPtr<UWakStartUpDataAssetBase> CharacterStartUpData;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wak|CharacterWeapon", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USkeletalMeshComponent> Weapon;
@@ -40,7 +40,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
 
-	FORCEINLINE TSoftObjectPtr<UWakStartUpDataBase> GetWakStartUpData() const { return CharacterStartUpData; }
+	FORCEINLINE TSoftObjectPtr<UWakStartUpDataAssetBase> GetWakStartUpData() const { return CharacterStartUpData; }
 	
 public:
 	FORCEINLINE UWakAbilitySystemComponent* GetWakAbilitySystemComponent() const { return WakAbilitySystemComponent; }

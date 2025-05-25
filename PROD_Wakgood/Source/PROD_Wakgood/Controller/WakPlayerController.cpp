@@ -10,7 +10,7 @@
 // Wak Header
 #include "Character/WakGood/WakWakGoodCharacter.h"
 #include "Components/Input/WakInputComponent.h"
-#include "DataAsset/Input/WakInputConfig.h"
+#include "DataAsset/Input/WakInputConfigDataAsset.h"
 #include "Interaction/WakWorldPortal.h"
 #include "AbilitySystem/WakAbilitySystemComponent.h"
 
@@ -122,7 +122,6 @@ void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 
 void AWakPlayerController::GamePause(const FInputActionValue& Value)
 {
-	// 이거 찾아서 해제
 	unimplemented();
 }
 

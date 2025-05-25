@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AnimInstances/WakBaseAnimInstance.h"
+#include "AnimInstances/WakAnimInstanceBase.h"
 #include "WakCharacterAnimInstance.generated.h"
 
 class AWakCharacterBase;
@@ -13,7 +13,7 @@ class UCharacterMovementComponent;
  * 
  */
 UCLASS()
-class PROD_WAKGOOD_API UWakCharacterAnimInstance : public UWakBaseAnimInstance
+class PROD_WAKGOOD_API UWakCharacterAnimInstance : public UWakAnimInstanceBase
 {
 	GENERATED_BODY()
 
