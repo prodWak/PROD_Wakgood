@@ -18,6 +18,8 @@ public class PROD_Wakgood : ModuleRules
 			new string[] { 
 				"Core",
 				"CoreUObject",
+				"Slate",
+				"SlateCore",
 				"Engine",
 				"InputCore",
 				"EnhancedInput",
