@@ -18,6 +18,8 @@ void UWakGameplayAbilityBase::OnGiveAbility(const FGameplayAbilityActorInfo* Act
 			ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle);
 		}
 	}
+
+	//
 }
 
 void UWakGameplayAbilityBase::EndAbility(const FGameplayAbilitySpecHandle Handle,

@@ -18,18 +18,17 @@ class PROD_WAKGOOD_API AWakEnemyCharacter : public AWakCharacterBase
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Combat", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UWakEnemyCombatComponent> EnemyCombatComponent;
+	
+	void InitEnemyStartUpData() const;
+	
 public:
 	AWakEnemyCharacter();
 	virtual UWakPawnCombatComponent* GetWakPawnCombatComponent() override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wak|Combat")
-	TObjectPtr<UWakEnemyCombatComponent> EnemyCombatComponent;
-
-private:
-	void InitEnemyStartUpData() const;
 
 public:
 	FORCEINLINE UWakEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent; }
