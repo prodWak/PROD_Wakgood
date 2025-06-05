@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WakInteractionInterface.h"
+#include "Interfaces/WakInteractionInterface.h"
 #include "WakInteractionBase.generated.h"
 
 

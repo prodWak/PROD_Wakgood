@@ -22,13 +22,16 @@ AWorldPortal::AWorldPortal()
 void AWorldPortal::Interaction(AActor* target)
 {
 	Super::Interaction(target);
+	
 	UMainGameInstance* GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());   
-	if (GameInstance)
+	if (!GameInstance)
 	{
-		UGameplayStatics::OpenLevel(this, LocationName, false);		
-		GameInstance->SetPlayerLastLocation(PlayerLastLocationIndex);
-		UE_LOG(LogTemp, Warning, TEXT("Set Player Last Location : %d"), PlayerLastLocationIndex);
+		return;
 	}
+
+	UGameplayStatics::OpenLevel(this, LocationName, false);		
+	GameInstance->SetPlayerLastLocation(PlayerLastLocationIndex);
+	UE_LOG(LogTemp, Warning, TEXT("Set Player Last Location : %d"), PlayerLastLocationIndex);
 }
 
 void AWorldPortal::BeginPlay()

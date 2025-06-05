@@ -5,6 +5,7 @@
 
 void UMainGameInstance::SetPlayerLastLocation(int32 LocationIndex)
 {
+	// TODO : LastLocationVector 에디터에서 설정 가능하게 할 것
 	switch (LocationIndex)
 	{
 		case 1:

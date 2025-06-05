@@ -6,10 +6,10 @@
 // Unreal Header
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Components/CapsuleComponent.h"
 
 // Wak Header
-#include "Controller/WakPlayerController.h"
+#include "DataAsset/StartUpData/WakStartUpDataAssetBase.h"
+#include "Components/Combat/WakPlayerCombatComponent.h"
 
 AWakWakGoodCharacter::AWakWakGoodCharacter()
 {
@@ -22,9 +22,31 @@ AWakWakGoodCharacter::AWakWakGoodCharacter()
 	FollowCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCameraComponent"));
 	FollowCameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 	FollowCameraComponent->bUsePawnControlRotation = false;
+
+	WakPlayerCombatComponent = CreateDefaultSubobject<UWakPlayerCombatComponent>(TEXT("WakPlayerCombatComponent"));
+}
+
+UWakPawnCombatComponent* AWakWakGoodCharacter::GetWakPawnCombatComponent()
+{
+	return WakPlayerCombatComponent;
 }
 
 void AWakWakGoodCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AWakWakGoodCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (GetWakStartUpData().IsNull())
+	{
+		return;
+	}
+
+	if (UWakStartUpDataAssetBase* LoadedData = GetWakStartUpData().LoadSynchronous())
+	{
+		LoadedData->GiveToAbilitySystemComponent(GetWakAbilitySystemComponent());
+	}
 }

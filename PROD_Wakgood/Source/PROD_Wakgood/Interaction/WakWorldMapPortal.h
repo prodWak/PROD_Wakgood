@@ -20,7 +20,7 @@ class PROD_WAKGOOD_API AWorldMapPortal : public AInteractionBase
 
 private:
 	UPROPERTY(EditAnywhere, Category="Game Instance")
-	int32 PlayerLastLocationIndex;
+	int32 PlayerLastLocationIndex = 0;
 
 	UPROPERTY(EditAnywhere, Category="Game Instance")
 	FName LocationName;

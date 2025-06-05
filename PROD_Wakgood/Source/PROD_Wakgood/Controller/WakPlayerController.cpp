@@ -4,35 +4,65 @@
 #include "Controller/WakPlayerController.h"
 
 // Unreal Header
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Components/CapsuleComponent.h"
 
 // Wak Header
 #include "Character/WakGood/WakWakGoodCharacter.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/Input/WakInputComponent.h"
+#include "DataAsset/Input/WakInputConfigDataAsset.h"
 #include "Interaction/WakWorldPortal.h"
+#include "AbilitySystem/WakAbilitySystemComponent.h"
+
+AWakPlayerController::AWakPlayerController()
+{
+	PlayerTeamId = FGenericTeamId(0);
+}
 
 void AWakPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	checkf(InputConfigDataAsset, TEXT("You forgot to assign a valid data asset as input config."));
 	
 	if (UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
-		SubSystem->AddMappingContext(IMC_Default, 0);
+		SubSystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
 	}
+
+	if (const AWakWakGoodCharacter* WakCharacter = Cast<AWakWakGoodCharacter>(GetCharacter()))
+	{
+		WakAbilitySystemComponent = WakCharacter->GetWakAbilitySystemComponent();
+	}
+	
+	checkf(WakAbilitySystemComponent, TEXT("Failed to get %s by casting the character"), *GetNameSafe(WakAbilitySystemComponent));
 }
 
 void AWakPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
+	checkf(InputConfigDataAsset, TEXT("You forgot to assign a valid data asset as input config."));
+
+	if (UWakInputComponent* WakInputComponent = CastChecked<UWakInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ThisClass::Move);
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::Jump);
-		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Started, this, &ThisClass::StopJumping);
-		EnhancedInputComponent->BindAction(IA_Pause, ETriggerEvent::Started, this ,&ThisClass::GamePause);
-		EnhancedInputComponent->BindAction(IA_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteract);
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Move,
+			ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Jump,
+			ETriggerEvent::Started, this, &ThisClass::Jump);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Jump,
+			ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Interaction,
+			ETriggerEvent::Started, this, &ThisClass::OnInteract);
+
+		WakInputComponent->BindNativeInputAction(InputConfigDataAsset, WakGameplayTags::InputTag_Pause,
+			ETriggerEvent::Started, this, &ThisClass::GamePause);
+
+		WakInputComponent->BindAbilityInputAction(InputConfigDataAsset, this,
+			&ThisClass::AbilityInputPressed, &AWakPlayerController::AbilityInputReleased);
 	}
 	else
 	{
@@ -61,8 +91,8 @@ void AWakPlayerController::Move(const FInputActionValue& Value)
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	
 	WakCharacter->AddMovementInput(RightDirection, MovementVector.X);
-	
-	/** Mesh 회전 */
+
+	// TODO : 메시 회전이 너무 부자연스러움, 부드럽게 회전 하는게 있었는데 뭐였더라
 	MovementVector.X > 0 ?
 		CharacterMesh->SetRelativeRotation(FRotator(0.f, 0.f, 0.f))
 	: CharacterMesh->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
@@ -93,6 +123,60 @@ void AWakPlayerController::StopJumping(const FInputActionValue& Value)
 void AWakPlayerController::GamePause(const FInputActionValue& Value)
 {
 	unimplemented();
+}
+
+void AWakPlayerController::AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WakAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AWakPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WakAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+}
+
+const FInputActionInstance* AWakPlayerController::GetInputActionInstance(const UInputAction* InInputAction) const
+{
+	const UEnhancedInputLocalPlayerSubsystem* EnhancedInput =
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	if (EnhancedInput == nullptr)
+	{
+		return nullptr;
+	}
+
+	const UEnhancedPlayerInput* WakPlayerInput = EnhancedInput->GetPlayerInput();
+	if (WakPlayerInput == nullptr)
+	{
+		return nullptr;
+	}
+
+	return WakPlayerInput->FindActionInstanceData(InInputAction);
+}
+
+float AWakPlayerController::GetElapsedSeconds(const UInputAction* InInputAction) const
+{
+	const FInputActionInstance* ActionData = GetInputActionInstance(InInputAction);
+	if (ActionData == nullptr)
+	{
+		return 0.0f;
+	}
+
+	if (GEngine)
+	{
+		const FString Time = FString::Printf(TEXT("ElapsedSeconds : %f"), ActionData->GetElapsedTime());
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Time);
+	}
+	return ActionData->GetElapsedTime();
+}
+
+bool AWakPlayerController::IsAbsorptionAction(const UInputAction* InInputAction, const float AbsorbHoldTime) const
+{
+	return GetElapsedSeconds(InInputAction) > AbsorbHoldTime;
+}
+
+FGenericTeamId AWakPlayerController::GetGenericTeamId() const
+{
+	return PlayerTeamId;
 }
 
 void AWakPlayerController::OnInteract()
